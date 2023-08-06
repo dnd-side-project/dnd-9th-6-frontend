@@ -1,0 +1,53 @@
+{
+  "name": "classcope",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dnd-side-project/dnd-9th-6-frontend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dnd-side-project/dnd-9th-6-frontend/issues"
+  },
+  "homepage": "https://github.com/dnd-side-project/dnd-9th-6-frontend#readme",
+  "dependencies": {
+    "@types/react": "^18.0.35",
+    "@types/react-dom": "^18.0.11",
+    "@types/react-router": "^5.1.20",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/styled-components": "^5.1.11",
+    "formik": "2.2.6",
+    "lodash": "^4.17.20",
+    "next": "^13.4.12",
+    "querystring": "^0.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router": "5.3.4",
+    "react-router-dom": "5.3.4",
+    "recoil": "^0.7.7",
+    "styled-components": "5.3.9"
+  },
+  "devDependencies": {
+    "@types/node": "18.16.0",
+    "@typescript-eslint/eslint-plugin": "^6.2.1",
+    "@typescript-eslint/parser": "^6.2.1",
+    "eslint": "^8.43.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-import-resolver-typescript": "^3.5.5",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-react": "^7.33.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "ts-node": "^10.9.1",
+    "typescript": "4.5.2"
+  }
+}
