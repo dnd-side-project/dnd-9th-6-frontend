@@ -5,6 +5,7 @@
         "es2021": true
     },
     "extends": [
+        "prettier",
         "eslint:recommended",
         "airbnb-typescript",
         "plugin:@typescript-eslint/recommended",
