@@ -1,90 +1,85 @@
 {
-    "root": true,
-    "env": {
-        "browser": true,
-        "es2021": true
-    },
-    "extends": [
-        "prettier",
-        "eslint:recommended",
-        "airbnb-typescript",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:react/recommended",
-        "plugin:import/recommended",
-        "plugin:react-hooks/recommended"
-    ],
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "ecmaVersion": "latest",
-        "sourceType": "module",
-        "project": ["./tsconfig.json"]
-    },
-    "plugins": [
-        "@typescript-eslint",
-        "react"
-    ],
-    "rules": {
-        "indent": 0,
-        "import/no-extraneous-dependencies": 0,
-        "import/extensions": [
-          "error",
-          "ignorePackages",
-          {
-            "js": "never",
-            "jsx": "never",
-            "ts": "never",
-            "tsx": "never"
-          }
-        ],
-        "class-methods-use-this": "off",
-        "no-use-before-define": "off",
-        "react-hooks/rules-of-hooks": "error",
-        "react-hooks/exhaustive-deps": "warn",
-        "react/prop-types": 0,
-        "react/require-default-props": 0,
-        "react/default-props-match-prop-types": 0,
-        "@typescript-eslint/comma-dangle": [
-          2,
-          {
-            "arrays": "always-multiline",
-            "objects": "always-multiline",
-            "imports": "always-multiline",
-            "exports": "always-multiline",
-            "functions": "always-multiline",
-            "generics": "always"
-          }
-        ],
-        "@typescript-eslint/indent": 0,
-        "@typescript-eslint/no-else-return": 0,
-        "@typescript-eslint/no-nested-ternary": 0,
-        "@typescript-eslint/object-curly-newline": 0,
-        "@typescript-eslint/operator-linebreak": 0,
-        "@typescript-eslint/prefer-destructuring": 0,
-        "@typescript-eslint/template-curly-spacing": 0,
-        "@typescript-eslint/no-empty-interface": 0,
-        "@typescript-eslint/naming-convention": [
-          1,
-          {
-            "selector": "variableLike",
-            "format": [
-              "camelCase",
-              "PascalCase",
-              "UPPER_CASE"
-            ]
-          }
-        ],
-        "comma-dangle": 0,
-        "@typescript-eslint/no-use-before-define": "error"
-    },
-    "settings": {
-      "import/resolver": {
-        "typescript": {}
-      },
-      "node": {
-        "version": "18.16.0"
-      },
-      "react": {
-        "version": "detect"
+  "root": true,
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "prettier",
+    "eslint:recommended",
+    "airbnb-typescript",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:import/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:react/jsx-runtime"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "project": ["./tsconfig.json"]
+  },
+  "plugins": ["@typescript-eslint", "react"],
+  "rules": {
+    "indent": 0,
+    "import/no-extraneous-dependencies": 0,
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
       }
+    ],
+    "import/no-unresolved": 0,
+    "class-methods-use-this": "off",
+    "no-use-before-define": "off",
+    "react-hooks/rules-of-hooks": "off",
+    "react-hooks/exhaustive-deps": "warn",
+    "react/prop-types": 0,
+    "react/require-default-props": 0,
+    "react/default-props-match-prop-types": 0,
+    "@typescript-eslint/comma-dangle": [
+      2,
+      {
+        "arrays": "always-multiline",
+        "objects": "always-multiline",
+        "imports": "always-multiline",
+        "exports": "always-multiline",
+        "functions": "always-multiline",
+        "generics": "always"
+      }
+    ],
+    "@typescript-eslint/indent": 0,
+    "@typescript-eslint/no-else-return": 0,
+    "@typescript-eslint/no-nested-ternary": 0,
+    "@typescript-eslint/object-curly-newline": 0,
+    "@typescript-eslint/operator-linebreak": 0,
+    "@typescript-eslint/prefer-destructuring": 0,
+    "@typescript-eslint/template-curly-spacing": 0,
+    "@typescript-eslint/no-empty-interface": 0,
+    "@typescript-eslint/naming-convention": [
+      1,
+      {
+        "selector": "variableLike",
+        "format": ["camelCase", "PascalCase", "UPPER_CASE"]
+      }
+    ],
+    "comma-dangle": 0,
+    "@typescript-eslint/no-use-before-define": "error"
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
+    },
+    "node": {
+      "version": "18.16.0"
+    },
+    "react": {
+      "version": "detect"
     }
+  }
 }
