@@ -1,6 +1,5 @@
+import StyledThemeProvider from '@/components/providers/StyledThemeProvider';
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
-import theme from '../styles/theme';
 
 interface RootLayoutProps {
   children: React.ReactNode;
@@ -8,10 +7,10 @@ interface RootLayoutProps {
 
 const rootLayout = ({ children }: RootLayoutProps) => {
   return (
-    <html lang="en">
-      <ThemeProvider theme={theme}>
-        <body>{children}</body>
-      </ThemeProvider>
+    <html lang="ko">
+      <body>
+        <StyledThemeProvider>{children}</StyledThemeProvider>
+      </body>
     </html>
   );
 };
