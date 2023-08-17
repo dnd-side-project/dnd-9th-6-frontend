@@ -45,7 +45,7 @@ export const buttonTheme = defineStyleConfig({
         bg: 'grayscale.gray-600',
       },
     },
-    'primary-outline': {
+    'primary-outlined': {
       border: '1px solid',
       borderColor: 'primary.classcope-blue-4',
       bg: 'grayscale.white',
@@ -69,7 +69,7 @@ export const buttonTheme = defineStyleConfig({
         color: 'grayscale.white',
       },
     },
-    'red-outline': {
+    'red-outlined': {
       border: '1px solid',
       borderColor: 'grayscale.gray-100',
       bg: 'grayscale.white',
