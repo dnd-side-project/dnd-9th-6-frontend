@@ -2,9 +2,21 @@
 import { ButtonProps, Button as ChakraButton } from '@chakra-ui/react';
 import { PropsWithChildren } from 'react';
 
+type ChakraButtonProps = MergeComponentProps<
+  ButtonProps,
+  {
+    /** @description 버튼 종류 (primary-filled, primary-outlined, secondary-filled, red-outlined, purple-filled) */
+    variant: ButtonVariant;
+    /** @description 버튼 사이즈 (sm, md, lg) */
+    size: ButtonSize;
+    /** @description 버튼 텍스트 */
+    children?: string;
+  }
+>;
+
 export const Button = ({
   children,
   ...props
-}: PropsWithChildren & ButtonProps) => (
+}: PropsWithChildren & ChakraButtonProps) => (
   <ChakraButton {...props}>{children}</ChakraButton>
 );
