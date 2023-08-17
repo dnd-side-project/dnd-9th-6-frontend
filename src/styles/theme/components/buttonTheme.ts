@@ -17,16 +17,19 @@ export const buttonTheme = defineStyleConfig({
     sm: {
       w: '68px',
       p: '8px',
+      ...typo.body3.bold,
     },
     md: {
       w: '108px',
       px: '16px',
       py: '8px',
+      ...typo.body3.bold,
     },
     lg: {
       w: '312px',
       px: '16px',
       py: '12px',
+      ...typo.body3.bold,
     },
     category: {
       w: '104px',
