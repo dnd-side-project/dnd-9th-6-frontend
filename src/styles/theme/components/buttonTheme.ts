@@ -42,7 +42,7 @@ export const buttonTheme = defineStyleConfig({
         bg: 'primary.classcope-blue-5',
       },
       _active: {
-        bg: 'grayscale.gray-600',
+        bg: 'primary.classcope-blue-4',
       },
     },
     'primary-outlined': {
@@ -51,7 +51,7 @@ export const buttonTheme = defineStyleConfig({
       bg: 'grayscale.white',
       color: 'primary.classcope-blue-4',
       _hover: {
-        bg: 'grayscale.gray-50',
+        bg: 'grayscale.gray-100',
       },
       _active: {
         bg: 'primary.classcope-blue-4',
@@ -59,13 +59,13 @@ export const buttonTheme = defineStyleConfig({
       },
     },
     'secondary-filled': {
-      bg: 'grayscale.gray-50',
+      bg: 'grayscale.gray-100',
       color: 'grayscale.gray-700',
       _hover: {
-        bg: 'secondgrayscale.gray-100',
+        bg: 'grayscale.gray-200',
       },
       _active: {
-        bg: 'primary.classcope-blue-4',
+        bg: 'grayscale.gray-400',
         color: 'grayscale.white',
       },
     },
@@ -76,12 +76,11 @@ export const buttonTheme = defineStyleConfig({
       color: 'grayscale.gray-300',
       _hover: {
         borderColor: 'red',
-        bg: '#FDE7E7',
         color: 'red',
       },
       _active: {
-        borderColor: 'grayscale.gray-100',
-        bg: 'grayscale.white',
+        borderColor: 'red',
+        bg: '#FDE7E7',
         color: 'red',
       },
     },
@@ -92,7 +91,7 @@ export const buttonTheme = defineStyleConfig({
         bg: 'secondary.classcope-purple-5',
       },
       _active: {
-        bg: 'grayscale.gray-600',
+        bg: 'secondary.classcope-purple-4',
       },
     },
     'lecture-category': {
