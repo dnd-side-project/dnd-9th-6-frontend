@@ -1,16 +1,12 @@
-import StyledThemeProvider from '@/components/providers/StyledThemeProvider';
-import React from 'react';
+import ChakraUIProvider from '@/components/providers/ChakraUIProvider';
+import { PropsWithChildren } from 'react';
 import localFont from 'next/font/local';
 
-interface RootLayoutProps {
-  children: React.ReactNode;
-}
-
-const rootLayout = ({ children }: RootLayoutProps) => {
+const rootLayout = ({ children }: PropsWithChildren) => {
   return (
     <html lang="ko">
       <body>
-        <StyledThemeProvider>{children}</StyledThemeProvider>
+        <ChakraUIProvider>{children}</ChakraUIProvider>
       </body>
     </html>
   );
