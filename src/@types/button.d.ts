@@ -21,5 +21,6 @@ type ButtonVariant =
   | 'primary-outlined'
   | 'secondary-filled'
   | 'red-outlined'
-  | 'purple-filled';
-type ButtonSize = 'sm' | 'md' | 'lg';
+  | 'purple-filled'
+  | 'lecture-category';
+type ButtonSize = 'sm' | 'md' | 'lg' | 'category';
