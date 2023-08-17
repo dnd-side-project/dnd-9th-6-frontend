@@ -5,7 +5,7 @@ import { PropsWithChildren } from 'react';
 type ChakraButtonProps = MergeComponentProps<
   ButtonProps,
   {
-    /** @description 버튼 종류 (primary-filled, primary-outlined, secondary-filled, red-outlined, purple-filled, lecture-category) */
+    /** @description 버튼 종류 (primary-filled, primary-outlined, secondary-filled, red-outlined, purple-filled, lecture-category, disabled) */
     variant: ButtonVariant;
     /** @description 버튼 사이즈 (sm, md, lg, lecture) */
     size: ButtonSize;
