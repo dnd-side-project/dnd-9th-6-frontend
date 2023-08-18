@@ -3,20 +3,6 @@ export const typo = {
     pretendard: 'Pretendard',
     poppins: 'Poppins',
   },
-  lineHeights: {
-    '0': '48',
-    '1': '43',
-    '2': '36',
-    '3': '46',
-    '4': '30',
-    '5': '24',
-    '6': '23',
-    '7': '23%',
-    '8': '18',
-    '9': '14',
-    '10': '12',
-    '11': '10',
-  },
   fontWeights: {
     'pretendard-0': '700',
     'pretendard-1': '600',
@@ -53,7 +39,7 @@ export const typo = {
     bold: {
       fontFamily: 'Pretendard',
       fontWeight: '700',
-      lineHeight: '48',
+      lineHeight: '48px',
       fontSize: '40px',
       letterSpacing: '-2%',
       paragraphSpacing: '0px',
@@ -64,7 +50,7 @@ export const typo = {
     semibold: {
       fontFamily: 'Pretendard',
       fontWeight: '600',
-      lineHeight: '48',
+      lineHeight: '48px',
       fontSize: '40px',
       letterSpacing: '-2%',
       paragraphSpacing: '0px',
@@ -77,7 +63,7 @@ export const typo = {
     bold: {
       fontFamily: 'Pretendard',
       fontWeight: '700',
-      lineHeight: '43',
+      lineHeight: '43px',
       fontSize: '36px',
       letterSpacing: '-2%',
       paragraphSpacing: '0px',
@@ -88,7 +74,7 @@ export const typo = {
     semibold: {
       fontFamily: 'Pretendard',
       fontWeight: '600',
-      lineHeight: '43',
+      lineHeight: '43px',
       fontSize: '36px',
       letterSpacing: '-2%',
       paragraphSpacing: '0px',
@@ -101,7 +87,7 @@ export const typo = {
     bold: {
       fontFamily: 'Pretendard',
       fontWeight: '700',
-      lineHeight: '36',
+      lineHeight: '36px',
       fontSize: '30px',
       letterSpacing: '-2%',
       paragraphSpacing: '0px',
@@ -112,7 +98,7 @@ export const typo = {
     semibold: {
       fontFamily: 'Pretendard',
       fontWeight: '600',
-      lineHeight: '36',
+      lineHeight: '36px',
       fontSize: '30px',
       letterSpacing: '-2%',
       paragraphSpacing: '0px',
@@ -123,7 +109,7 @@ export const typo = {
     medium: {
       fontFamily: 'Pretendard',
       fontWeight: '500',
-      lineHeight: '36',
+      lineHeight: '36px',
       fontSize: '30px',
       letterSpacing: '-2%',
       paragraphSpacing: '0px',
@@ -136,7 +122,7 @@ export const typo = {
     bold: {
       fontFamily: 'Pretendard',
       fontWeight: '700',
-      lineHeight: '30',
+      lineHeight: '30px',
       fontSize: '24px',
       letterSpacing: '-2%',
       paragraphSpacing: '0px',
@@ -147,7 +133,7 @@ export const typo = {
     semibold: {
       fontFamily: 'Pretendard',
       fontWeight: '600',
-      lineHeight: '30',
+      lineHeight: '30px',
       fontSize: '24px',
       letterSpacing: '-2%',
       paragraphSpacing: '0px',
@@ -158,7 +144,7 @@ export const typo = {
     medium: {
       fontFamily: 'Pretendard',
       fontWeight: '500',
-      lineHeight: '30',
+      lineHeight: '30px',
       fontSize: '24px',
       letterSpacing: '-2%',
       paragraphSpacing: '0px',
@@ -171,7 +157,7 @@ export const typo = {
     bold: {
       fontFamily: 'Pretendard',
       fontWeight: '700',
-      lineHeight: '24',
+      lineHeight: '24px',
       fontSize: '20px',
       letterSpacing: '-2%',
       paragraphSpacing: '0px',
@@ -182,7 +168,7 @@ export const typo = {
     semibold: {
       fontFamily: 'Pretendard',
       fontWeight: '600',
-      lineHeight: '24',
+      lineHeight: '24px',
       fontSize: '20px',
       letterSpacing: '-2%',
       paragraphSpacing: '0px',
@@ -193,7 +179,7 @@ export const typo = {
     medium: {
       fontFamily: 'Pretendard',
       fontWeight: '500',
-      lineHeight: '24',
+      lineHeight: '24px',
       fontSize: '20px',
       letterSpacing: '-2%',
       paragraphSpacing: '0px',
@@ -206,7 +192,7 @@ export const typo = {
     extrabold: {
       fontFamily: 'Pretendard',
       fontWeight: '800',
-      lineHeight: '23',
+      lineHeight: '23px',
       fontSize: '18px',
       letterSpacing: '-2%',
       paragraphSpacing: '0px',
@@ -217,7 +203,7 @@ export const typo = {
     bold: {
       fontFamily: 'Pretendard',
       fontWeight: '700',
-      lineHeight: '23',
+      lineHeight: '23px',
       fontSize: '18px',
       letterSpacing: '-2%',
       paragraphSpacing: '0px',
@@ -228,7 +214,7 @@ export const typo = {
     semibold: {
       fontFamily: 'Pretendard',
       fontWeight: '600',
-      lineHeight: '23%',
+      lineHeight: '23px',
       fontSize: '18px',
       letterSpacing: '-2%',
       paragraphSpacing: '0px',
@@ -239,7 +225,7 @@ export const typo = {
     medium: {
       fontFamily: 'Pretendard',
       fontWeight: '500',
-      lineHeight: '18',
+      lineHeight: '23px',
       fontSize: '18px',
       letterSpacing: '-0.6px',
       paragraphSpacing: '0px',
@@ -252,7 +238,7 @@ export const typo = {
     extrabold: {
       fontFamily: 'Pretendard',
       fontWeight: '800',
-      lineHeight: '18',
+      lineHeight: '24px',
       fontSize: '16px',
       letterSpacing: '3%',
       paragraphSpacing: '0px',
@@ -263,7 +249,7 @@ export const typo = {
     bold: {
       fontFamily: 'Pretendard',
       fontWeight: '700',
-      lineHeight: '18',
+      lineHeight: '24px',
       fontSize: '16px',
       letterSpacing: '3%',
       paragraphSpacing: '0px',
@@ -274,7 +260,7 @@ export const typo = {
     semibold: {
       fontFamily: 'Pretendard',
       fontWeight: '600',
-      lineHeight: '18',
+      lineHeight: '24px',
       fontSize: '16px',
       letterSpacing: '3%',
       paragraphSpacing: '0px',
@@ -285,7 +271,7 @@ export const typo = {
     medium: {
       fontFamily: 'Pretendard',
       fontWeight: '500',
-      lineHeight: '18',
+      lineHeight: '24px',
       fontSize: '16px',
       letterSpacing: '3%',
       paragraphSpacing: '0px',
@@ -298,7 +284,7 @@ export const typo = {
     extrabold: {
       fontFamily: 'Pretendard',
       fontWeight: '800',
-      lineHeight: '14',
+      lineHeight: '18px',
       fontSize: '14px',
       letterSpacing: '3%',
       paragraphSpacing: '0px',
@@ -309,7 +295,7 @@ export const typo = {
     semibold: {
       fontFamily: 'Pretendard',
       fontWeight: '600',
-      lineHeight: '14',
+      lineHeight: '18px',
       fontSize: '14px',
       letterSpacing: '3%',
       paragraphSpacing: '0px',
@@ -320,7 +306,7 @@ export const typo = {
     bold: {
       fontFamily: 'Pretendard',
       fontWeight: '700',
-      lineHeight: '14',
+      lineHeight: '18px',
       fontSize: '14px',
       letterSpacing: '3%',
       paragraphSpacing: '0px',
@@ -331,7 +317,7 @@ export const typo = {
     medium: {
       fontFamily: 'Pretendard',
       fontWeight: '500',
-      lineHeight: '14',
+      lineHeight: '18px',
       fontSize: '14px',
       letterSpacing: '3%',
       paragraphSpacing: '0px',
@@ -344,7 +330,7 @@ export const typo = {
     bold: {
       fontFamily: 'Pretendard',
       fontWeight: '700',
-      lineHeight: '10',
+      lineHeight: '16px',
       fontSize: '12px',
       letterSpacing: '3%',
       paragraphSpacing: '0px',
@@ -355,7 +341,7 @@ export const typo = {
     semibold: {
       fontFamily: 'Pretendard',
       fontWeight: '600',
-      lineHeight: '10',
+      lineHeight: '16px',
       fontSize: '12px',
       letterSpacing: '3%',
       paragraphSpacing: '0px',
@@ -366,7 +352,7 @@ export const typo = {
     medium: {
       fontFamily: 'Pretendard',
       fontWeight: '500',
-      lineHeight: '10',
+      lineHeight: '16px',
       fontSize: '12px',
       letterSpacing: '3%',
       paragraphSpacing: '1px',
@@ -379,7 +365,7 @@ export const typo = {
     semibold: {
       fontFamily: 'Pretendard',
       fontWeight: '600',
-      lineHeight: '7',
+      lineHeight: '12px',
       fontSize: '10px',
       letterSpacing: '3%',
       paragraphSpacing: '0px',
@@ -390,7 +376,7 @@ export const typo = {
     bold: {
       fontFamily: 'Pretendard',
       fontWeight: '700',
-      lineHeight: '7',
+      lineHeight: '12px',
       fontSize: '10px',
       letterSpacing: '1px',
       paragraphSpacing: '0px',
@@ -403,7 +389,7 @@ export const typo = {
     bold: {
       fontFamily: 'Pretendard',
       fontWeight: '700',
-      lineHeight: '6',
+      lineHeight: '10px',
       fontSize: '8px',
       letterSpacing: '3%',
       paragraphSpacing: '0px',
@@ -414,7 +400,7 @@ export const typo = {
     semibold: {
       fontFamily: 'Pretendard',
       fontWeight: '600',
-      lineHeight: '6',
+      lineHeight: '10px',
       fontSize: '8px',
       letterSpacing: '3%',
       paragraphSpacing: '0px',
@@ -425,7 +411,7 @@ export const typo = {
     medium: {
       fontFamily: 'Pretendard',
       fontWeight: '500',
-      lineHeight: '6',
+      lineHeight: '10px',
       fontSize: '8px',
       letterSpacing: '3%',
       paragraphSpacing: '0px',
@@ -438,7 +424,7 @@ export const typo = {
     semibold: {
       fontFamily: 'Poppins',
       fontWeight: '600',
-      lineHeight: '36',
+      lineHeight: '36px',
       fontSize: '24px',
       letterSpacing: '3%',
       paragraphSpacing: '0px',
@@ -449,7 +435,7 @@ export const typo = {
     Medium: {
       fontFamily: 'Poppins',
       fontWeight: '500',
-      lineHeight: '36',
+      lineHeight: '36px',
       fontSize: '24px',
       letterSpacing: '3%',
       paragraphSpacing: '0px',
@@ -462,7 +448,7 @@ export const typo = {
     bold: {
       fontFamily: 'Poppins',
       fontWeight: '700',
-      lineHeight: '24',
+      lineHeight: '24px',
       fontSize: '16px',
       letterSpacing: '3%',
       paragraphSpacing: '0px',
@@ -473,7 +459,7 @@ export const typo = {
     smeiblod: {
       fontFamily: 'Poppins',
       fontWeight: '600',
-      lineHeight: '24',
+      lineHeight: '24px',
       fontSize: '16px',
       letterSpacing: '3%',
       paragraphSpacing: '0px',
@@ -484,7 +470,7 @@ export const typo = {
     medium: {
       fontFamily: 'Poppins',
       fontWeight: '500',
-      lineHeight: '24',
+      lineHeight: '24px',
       fontSize: '16px',
       letterSpacing: '3%',
       paragraphSpacing: '0px',
