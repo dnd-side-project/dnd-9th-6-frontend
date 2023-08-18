@@ -7,6 +7,7 @@ import { foundations } from './foundations';
 // Global styles (overrides)
 import styles from './styles';
 import { tabsTheme } from './components/tabsTheme';
+import { badgeTheme } from './components/badgeTheme';
 
 const config: ThemeConfig = {
   initialColorMode: 'light',
@@ -17,7 +18,11 @@ const theme = extendTheme({
   styles,
   config,
   ...foundations,
-  components: { Button: buttonTheme, Tabs: tabsTheme },
+  components: {
+    Button: buttonTheme,
+    Tabs: tabsTheme,
+    Badge: badgeTheme,
+  },
 }) as Theme;
 
 type Theme = ChakraTheme & typeof foundations;
