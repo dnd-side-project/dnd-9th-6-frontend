@@ -1,8 +1,12 @@
 import ChakraUIProvider from '@/components/providers/ChakraUIProvider';
-import { PropsWithChildren } from 'react';
 import localFont from 'next/font/local';
+import { Poppins } from 'next/font/google';
 
-const rootLayout = ({ children }: PropsWithChildren) => {
+interface RootLayoutProps {
+  children: React.ReactNode;
+}
+
+const rootLayout = ({ children }: RootLayoutProps) => {
   return (
     <html lang="ko">
       <body>
@@ -31,6 +35,12 @@ export const pretendard = localFont({
     'Segoe UI Symbol',
     'sans-serif',
   ],
+});
+
+export const poppins = Poppins({
+  display: 'swap',
+  subsets: ['latin'],
+  weight: ['500', '600', '700'],
 });
 
 export default rootLayout;
