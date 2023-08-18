@@ -8,6 +8,7 @@ import { foundations } from './foundations';
 import styles from './styles';
 import { tabsTheme } from './components/tabsTheme';
 import { badgeTheme } from './components/badgeTheme';
+import { tagTheme } from './components/tagTheme';
 
 const config: ThemeConfig = {
   initialColorMode: 'light',
@@ -22,6 +23,7 @@ const theme = extendTheme({
     Button: buttonTheme,
     Tabs: tabsTheme,
     Badge: badgeTheme,
+    Tag: tagTheme,
   },
 }) as Theme;
 
