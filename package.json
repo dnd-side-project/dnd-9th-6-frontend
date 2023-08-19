@@ -20,14 +20,18 @@
   },
   "homepage": "https://github.com/dnd-side-project/dnd-9th-6-frontend#readme",
   "dependencies": {
+    "@chakra-ui/next-js": "^2.1.5",
+    "@chakra-ui/react": "^2.8.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@types/react": "^18.0.35",
     "@types/react-dom": "^18.0.11",
     "@types/react-router": "^5.1.20",
     "@types/react-router-dom": "^5.3.3",
-    "@types/styled-components": "^5.1.11",
     "axios": "^1.4.0",
     "cookies-next": "^2.1.2",
     "formik": "2.2.6",
+    "framer-motion": "^10.16.0",
     "lodash": "^4.17.20",
     "next": "^13.4.12",
     "querystring": "^0.2.0",
@@ -35,8 +39,7 @@
     "react-dom": "^18.2.0",
     "react-router": "5.3.4",
     "react-router-dom": "5.3.4",
-    "recoil": "^0.7.7",
-    "styled-components": "5.3.9"
+    "recoil": "^0.7.7"
   },
   "devDependencies": {
     "@types/node": "18.16.0",
