@@ -1,25 +1,54 @@
+import axios, { AxiosResponse } from 'axios';
 import { HTTP_BASE_URL } from '@/constants/http';
-import returnFetchJson from '@/utils/returnFetchJson';
-import { returnFetchThrowingErrorByStatusCode } from '@/utils/returnFetchThrowingErrorByStatusCode';
+import { getCookie } from 'cookies-next';
 
-export const fetchExtended = returnFetchJson({
-  fetch: returnFetchThrowingErrorByStatusCode({
-    baseUrl: HTTP_BASE_URL,
-    headers: { Accept: 'application/json' },
-    // interceptors: {
-    //   request: async args => {
-    //     console.log('********* before sending request *********');
-    //     console.log('url:', args[0].toString());
-    //     console.log('requestInit:', args[1], '\n\n');
-    //     return args;
-    //   },
-
-    //   response: async (response, requestArgs) => {
-    //     console.log('********* after receiving response *********');
-    //     console.log('url:', requestArgs[0].toString());
-    //     console.log('requestInit:', requestArgs[1], '\n\n');
-    //     return response;
-    //   },
-    // },
-  }),
+const instance = axios.create({
+  baseURL: HTTP_BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  withCredentials: true,
 });
+
+export const logOnDev = (message: string) => {
+  if (process.env.NODE_ENV === 'development') {
+    console.log(message);
+  }
+};
+
+instance.interceptors.request.use(
+  config => {
+    const accessToken = getCookie('access_token');
+    config.headers.Authorization = `Bearer ${accessToken || ''}`;
+
+    return config;
+  },
+  error => {
+    return Promise.reject(error);
+  },
+);
+
+instance.interceptors.response.use(
+  (response: AxiosResponse) => {
+    const { method, url } = response.config;
+    const { status } = response;
+
+    logOnDev(`🚀 [API] ${method?.toUpperCase()} ${url} | Response ${status}}`);
+
+    return response.data.data;
+  },
+
+  error => {
+    const { message } = error;
+    const { method, url } = error.config;
+    const { status, statusText } = error.response;
+
+    logOnDev(
+      `🚀 [API] ${method?.toUpperCase()} ${url} | Error ${status} ${statusText} | ${message}}`,
+    );
+
+    return Promise.reject(error);
+  },
+);
+
+export default instance;

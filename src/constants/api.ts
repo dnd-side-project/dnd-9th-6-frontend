@@ -1,4 +1,3 @@
 export const AUTH_API = {
-  GOOGLE_LOGIN: '/login/google',
-  KAKAO_LOGIN: '/login/kakao',
+  SIGN_IN: '/auth/signin',
 } as const;
