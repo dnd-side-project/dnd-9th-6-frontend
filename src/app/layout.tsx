@@ -1,6 +1,7 @@
-import ChakraUIProvider from '@/components/providers/ChakraUIProvider';
 import localFont from 'next/font/local';
 import { Poppins } from 'next/font/google';
+
+import AppProvider from 'components/AppProvider';
 
 interface RootLayoutProps {
   children: React.ReactNode;
@@ -10,7 +11,9 @@ const rootLayout = ({ children }: RootLayoutProps) => {
   return (
     <html lang="ko">
       <body>
-        <ChakraUIProvider>{children}</ChakraUIProvider>
+        <AppProvider>
+          {children}
+        </AppProvider>
       </body>
     </html>
   );
