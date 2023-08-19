@@ -2,7 +2,7 @@ import { defineStyle, defineStyleConfig } from '@chakra-ui/react';
 import { typo } from '../foundations/typo';
 
 const tabsVariant = defineStyle(props => {
-  const { colorScheme: c } = props;
+  const { colorScheme } = props;
   return {
     tab: {
       color: 'grayscale.white',
@@ -18,7 +18,7 @@ const tabsVariant = defineStyle(props => {
     },
     tablist: {
       display: 'inline-flex',
-      bg: `${c}`,
+      bg: `${colorScheme}`,
       gap: '16px',
     },
   };
