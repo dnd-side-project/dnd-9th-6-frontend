@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
-import { HTTP_BASE_URL } from '@/constants/http';
 import { getCookie } from 'cookies-next';
+
+import { HTTP_BASE_URL } from 'constants/http';
 
 const instance = axios.create({
   baseURL: HTTP_BASE_URL,
