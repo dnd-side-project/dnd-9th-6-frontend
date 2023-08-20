@@ -1,6 +1,6 @@
 import instance from '..';
-import { UserInfo } from '@/recoil/types/user';
-import { AUTH_API } from '@/constants/api';
+import { UserInfo } from 'recoil/types/user';
+import { AUTH_API } from 'constants/api';
 
 /**
  * Access Token & Refresh Token

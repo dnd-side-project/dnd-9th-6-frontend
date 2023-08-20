@@ -1,10 +1,11 @@
 'use client';
 
-import authApi from '@/apis/auth';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ROUTES } from '@/constants/routes';
 import { setCookie } from 'cookies-next';
+
+import authApi from 'apis/auth';
+import { ROUTES } from 'constants/routes';
 
 type SocialLoginProps = {
   platform: string;

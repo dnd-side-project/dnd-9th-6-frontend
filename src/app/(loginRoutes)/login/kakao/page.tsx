@@ -1,7 +1,8 @@
 'use client';
-import useSocialLogin from '@/hooks/useSocialLogin';
 import { useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
+
+import useSocialLogin from 'hooks/useSocialLogin';
 
 const page = () => {
   const searchParams = useSearchParams();

@@ -8,9 +8,6 @@ const nextConfig = {
     return config;
   },
   /* config options here */
-  compiler: {
-    transpilePackages: ['lodash'],
-  },
 };
 
 // eslint-disable-next-line no-undef
