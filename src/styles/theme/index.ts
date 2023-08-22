@@ -10,6 +10,7 @@ import { tabsTheme } from './components/tabsTheme';
 import { badgeTheme } from './components/badgeTheme';
 import { tagTheme } from './components/tagTheme';
 import { menuTheme } from './components/menuTheme';
+import { checkboxTheme } from './components/checkboxTheme';
 
 const config: ThemeConfig = {
   initialColorMode: 'light',
@@ -26,6 +27,7 @@ const theme = extendTheme({
     Badge: badgeTheme,
     Tag: tagTheme,
     Menu: menuTheme,
+    Checkbox: checkboxTheme,
   },
 }) as Theme;
 
