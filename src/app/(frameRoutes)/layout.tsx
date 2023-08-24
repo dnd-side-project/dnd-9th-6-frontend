@@ -3,6 +3,7 @@
 import styled from '@emotion/styled';
 
 import TopBar from './components/TopBar';
+import theme from 'styles/theme';
 // import Footer from './components/Footer';
 
 interface RootLayoutProps {
@@ -14,8 +15,8 @@ const FrameBody = styled.div`
   flex-direction: column;
   flex: 1;
   margin: auto;
-  height: 100%;
   background-color: inherit;
+  background: ${theme.colors.bg};
   width: 100%;
 `;
 
@@ -31,9 +32,7 @@ const rootLayout = ({ children }: RootLayoutProps) => {
   return (
     <Root>
       <TopBar />
-      <FrameBody>
-        {children}
-      </FrameBody>
+      <FrameBody>{children}</FrameBody>
     </Root>
   );
 };

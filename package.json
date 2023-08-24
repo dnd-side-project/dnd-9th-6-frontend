@@ -39,7 +39,8 @@
     "react-dom": "^18.2.0",
     "react-router": "5.3.4",
     "react-router-dom": "5.3.4",
-    "recoil": "^0.7.7"
+    "recoil": "^0.7.7",
+    "swiper": "^10.2.0"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",
