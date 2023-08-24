@@ -1,16 +1,12 @@
 export const typo = {
   fontFamilies: {
     pretendard: 'Pretendard',
-    poppins: 'Poppins',
   },
   fontWeights: {
     'pretendard-0': '700',
     'pretendard-1': '600',
     'pretendard-2': '500',
     'pretendard-3': '800',
-    'poppins-4': '600',
-    'poppins-5': '500',
-    'poppins-6': '700',
   },
   fontSize: {
     '0': '8px',
@@ -422,7 +418,7 @@ export const typo = {
   },
   'en-H1': {
     semibold: {
-      fontFamily: 'Poppins',
+      fontFamily: 'Pretendard',
       fontWeight: '600',
       lineHeight: '36px',
       fontSize: '24px',
@@ -433,7 +429,7 @@ export const typo = {
       textDecoration: 'none',
     },
     Medium: {
-      fontFamily: 'Poppins',
+      fontFamily: 'Pretend',
       fontWeight: '500',
       lineHeight: '36px',
       fontSize: '24px',
@@ -446,7 +442,7 @@ export const typo = {
   },
   'en-H2': {
     bold: {
-      fontFamily: 'Poppins',
+      fontFamily: 'Pretend',
       fontWeight: '700',
       lineHeight: '24px',
       fontSize: '16px',
@@ -457,7 +453,7 @@ export const typo = {
       textDecoration: 'none',
     },
     smeiblod: {
-      fontFamily: 'Poppins',
+      fontFamily: 'Pretend',
       fontWeight: '600',
       lineHeight: '24px',
       fontSize: '16px',
@@ -468,7 +464,7 @@ export const typo = {
       textDecoration: 'none',
     },
     medium: {
-      fontFamily: 'Poppins',
+      fontFamily: 'Pretend',
       fontWeight: '500',
       lineHeight: '24px',
       fontSize: '16px',
