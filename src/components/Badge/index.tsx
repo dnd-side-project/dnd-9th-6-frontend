@@ -7,8 +7,8 @@ import {
 import { ReactNode } from 'react';
 
 type Color =
-  | 'primary.classcope-blue-3'
-  | 'primary.classcope-blue-3 '
+  | 'grayscale.gray-50'
+  | 'primary.classcope-blue-4'
   | 'grayscale.gray-600';
 
 interface BadgeProps extends Omit<BaseBadgeProps, 'colorScheme'> {
@@ -17,11 +17,15 @@ interface BadgeProps extends Omit<BaseBadgeProps, 'colorScheme'> {
 }
 
 const Badge = ({
-  colorScheme = 'primary.classcope-blue-3',
+  colorScheme = 'grayscale.gray-50',
   children,
   ...props
 }: BadgeProps) => (
-  <BaseBadge colorScheme={colorScheme} {...props}>
+  <BaseBadge
+    colorScheme={colorScheme}
+    color={colorScheme === 'grayscale.gray-50' ? '#90A9FE' : 'white'}
+    {...props}
+  >
     {children}
   </BaseBadge>
 );

@@ -1,5 +1,4 @@
 import localFont from 'next/font/local';
-import { Poppins } from 'next/font/google';
 
 import AppProvider from 'components/AppProvider';
 
@@ -11,9 +10,7 @@ const rootLayout = ({ children }: RootLayoutProps) => {
   return (
     <html lang="ko">
       <body>
-        <AppProvider>
-          {children}
-        </AppProvider>
+        <AppProvider>{children}</AppProvider>
       </body>
     </html>
   );
@@ -38,12 +35,6 @@ export const pretendard = localFont({
     'Segoe UI Symbol',
     'sans-serif',
   ],
-});
-
-export const poppins = Poppins({
-  display: 'swap',
-  subsets: ['latin'],
-  weight: ['500', '600', '700'],
 });
 
 export default rootLayout;
