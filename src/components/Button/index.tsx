@@ -3,6 +3,7 @@
 import {
   ButtonProps as BaseButtonProps,
   Button as BaseButton,
+  forwardRef,
 } from '@chakra-ui/react';
 import { ReactNode } from 'react';
 
@@ -28,19 +29,12 @@ interface ButtonProps extends Omit<BaseButtonProps, 'variant' | 'size'> {
   /** @description 버튼 사이즈 (sm, md, lg, category) */
   size?: Size;
   /** @description 버튼 텍스트 */
-  children: ReactNode;
+  children?: ReactNode;
 }
 
-const Button = ({
-  variant = 'primary-filled',
-  size = 'md',
-  children,
-  ...props
-}: ButtonProps) => (
-  <BaseButton variant={variant} size={size} {...props}>
-    {children}
-  </BaseButton>
-);
+const Button = forwardRef<ButtonProps, 'button'>((props, ref) => (
+  <BaseButton ref={ref} {...props} />
+));
 
 export type { ButtonProps };
 export default Button;
