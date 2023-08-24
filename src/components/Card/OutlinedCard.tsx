@@ -39,6 +39,7 @@ const OutlinedCard = ({
 }: OutlinedCardProps) => {
   return (
     <Root {...props}>
+      {/* 이미지 */}
       <Box
         style={{
           width: '103px',
@@ -48,6 +49,7 @@ const OutlinedCard = ({
         }}
       />
       <Box display="flex" flexDirection="column" gap="8px" width="262px">
+        {/* 플랫폼 아이콘, 강사 Text */}
         <Box display="flex">
           {(() => {
             switch (플랫폼) {
@@ -72,6 +74,7 @@ const OutlinedCard = ({
             {강사}
           </Text>
         </Box>
+        {/* 타이틀 Text */}
         <Text
           style={{
             ...typo.body2.bold,

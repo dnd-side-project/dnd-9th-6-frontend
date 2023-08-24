@@ -63,7 +63,9 @@ const CoverCard = ({
 }: CoverCardProps) => {
   return (
     <Root {...props}>
+      {/* 배경 이미지 */}
       <Background src={이미지} />
+      {/* 강사명, 타이틀명 Text */}
       <Box
         style={{
           display: 'flex',
@@ -89,6 +91,7 @@ const CoverCard = ({
           {타이틀}
         </Text>
       </Box>
+      {/* 가격 Text */}
       <Text
         style={{
           color: theme.colors.grayscale.white,
@@ -97,6 +100,7 @@ const CoverCard = ({
       >
         {가격}
       </Text>
+      {/* 플랫폼 Icon */}
       <Box
         style={{
           position: 'absolute',
@@ -121,6 +125,7 @@ const CoverCard = ({
           }
         })()}
       </Box>
+      {/* 강의 찜 버튼 */}
       <Box
         style={{
           position: 'absolute',
@@ -133,6 +138,7 @@ const CoverCard = ({
           {<Bookmark />}
         </Button>
       </Box>
+      {/* 왼쪽 밑 엣지 배경 */}
       <Box
         style={{
           position: 'absolute',

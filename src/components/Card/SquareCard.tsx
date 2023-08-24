@@ -89,7 +89,9 @@ const SquareCard = ({
 }: SquareCardProps) => {
   return (
     <Root {...props}>
+      {/* 배경 이미지 */}
       <BackgroundImage src={이미지} />
+      {/* 플랫폼 아이콘 */}
       <Box
         style={{
           position: 'absolute',
@@ -113,10 +115,13 @@ const SquareCard = ({
           }
         })()}
       </Box>
+      {/* CardBody Shape */}
       <CardShapeWrap>
         <CardShape />
       </CardShapeWrap>
+      {/* CardBody */}
       <CardBody>
+        {/* 작성자, 별점, 작성일 Text */}
         <Box
           style={{
             display: 'flex',
@@ -152,6 +157,7 @@ const SquareCard = ({
             {작성일}
           </Text>
         </Box>
+        {/* 내용 Text */}
         <Box
           mt="8px"
           mb="24px"
@@ -169,6 +175,7 @@ const SquareCard = ({
             {내용}
           </Text>
         </Box>
+        {/* 태그 아이템 */}
         <TagWrap>
           {태그.split(',').map((item, index) => {
             return (
@@ -178,6 +185,7 @@ const SquareCard = ({
             );
           })}
         </TagWrap>
+        {/* 찜수 Text */}
         <Box
           mt="16px"
           height="35px"
@@ -198,6 +206,7 @@ const SquareCard = ({
           </Text>
         </Box>
       </CardBody>
+      {/* 좋아요 버튼 (임시) */}
       <Box
         style={{
           position: 'absolute',
