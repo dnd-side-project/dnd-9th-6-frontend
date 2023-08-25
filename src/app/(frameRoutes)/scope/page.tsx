@@ -1,5 +1,12 @@
 'use client';
-import { Box, Center, Text } from '@chakra-ui/react';
+import {
+  Box,
+  Center,
+  CheckboxGroup,
+  StackDivider,
+  Text,
+  VStack,
+} from '@chakra-ui/react';
 import Container from 'components/Container';
 import { typo } from 'styles/theme/foundations/typo';
 import Fire from 'assets/icons/glass/fire/purple.svg';
@@ -18,6 +25,14 @@ import 'swiper/css/pagination';
 // import required modules
 import { Autoplay, Pagination } from 'swiper/modules';
 import styled from '@emotion/styled';
+import {
+  useGetScopeKeyword,
+  useGetScopeLectures,
+  useGetScopeRecent,
+  useGetScopeReviews,
+} from 'hooks/reactQuery/scope/query';
+import { HorizontalCard, OutlinedCard, SquareCard } from 'components/Card';
+import Checkbox from 'components/Checkbox';
 
 const SwiperStyledRoot = styled.div`
   --swiper-pagination-color: ${colors.primary['classcope-blue-5']};
@@ -38,18 +53,24 @@ const TopBackground = styled.div`
 `;
 
 const frame = () => {
+  const { data: scopeReviews } = useGetScopeReviews({ staleTime: Infinity });
+  const { data: scopeLectures } = useGetScopeLectures({ staleTime: Infinity });
+  const { data: scopeRecent } = useGetScopeRecent({ staleTime: Infinity });
+  // const { data: scopeKeyword } = useGetScopeKeyword({
+  //   keyword: '빠른 답변',
+  // });
+
   return (
     <Container>
       <TopBackground />
       {/* Scope 메인 배너 */}
       <Box
-        position="relative"
         display="flex"
+        position="relative"
         height="236px"
         backgroundImage={`url(${process.env.NEXT_PUBLIC_IMAGE_URL}/bgpurple.png)`}
         justifyContent="center"
         alignItems="center"
-        zIndex="100"
       >
         <Center flexDirection="column" color="white">
           <Text
@@ -173,7 +194,7 @@ const frame = () => {
             </Button>
           </Box>
         </Box>
-        <Box display="flex">
+        <Box display="flex" justifyContent="space-between">
           {/* 별점 높은 수강 후기들 섹션 */}
           <Box
             display="inline-flex"
@@ -197,7 +218,46 @@ const frame = () => {
                 별점 높은 수강 후기들
               </Text>
             </Box>
-            <img src="/images/demo.png" alt="" width="547px" height="683px" />
+            {/* <img src="/images/demo.png" alt="" width="547px" height="683px" /> */}
+            <Swiper
+              style={{
+                height: '678px',
+              }}
+              direction="vertical"
+              slidesPerView={3}
+              spaceBetween={16}
+              autoplay={{
+                delay: 3000,
+                disableOnInteraction: false,
+              }}
+              modules={[Autoplay]}
+            >
+              <Box
+                style={{
+                  position: 'absolute',
+                  width: '547px',
+                  height: '678px',
+                  display: 'flex',
+                  top: '0',
+                  background:
+                    'linear-gradient(0deg, #EFF1F8 7.81%, rgba(248, 249, 252, 0.00) 100%)',
+                  zIndex: '10',
+                }}
+              />
+              {scopeReviews?.map(item => (
+                <SwiperSlide key={item.id}>
+                  <HorizontalCard
+                    타이틀={item.lectureTitle}
+                    작성자={item.userName}
+                    별점={item.score.toFixed(1)}
+                    작성일={item.createdDate.slice(0, 10)}
+                    내용={item.content}
+                    태그={item.tags}
+                    플랫폼={item.source}
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </Box>
           {/* 강의력 좋은 섹션 */}
           <Box
@@ -206,7 +266,7 @@ const frame = () => {
             mt="40px"
             color={colors.grayscale['gray-800']}
           >
-            <Box display="inline-flex" mb="24px">
+            <Box display="inline-flex" mb="16px">
               <Like
                 style={{
                   width: '24px',
@@ -222,13 +282,28 @@ const frame = () => {
                 강의력 좋은
               </Text>
             </Box>
-            <img src="/images/demo2.png" alt="" width="389px" />
+            {/* <img src="/images/demo2.png" alt="" width="389px" /> */}
+            <VStack
+              divider={
+                <StackDivider borderColor={colors.grayscale['gray-100']} />
+              }
+            >
+              {scopeLectures?.map(item => (
+                <OutlinedCard
+                  key={item.id}
+                  강사={item.name === '' ? item.source : item.name}
+                  타이틀={item.title}
+                  플랫폼={item.source}
+                  이미지={item.imageUrl}
+                />
+              ))}
+            </VStack>
           </Box>
         </Box>
         {/* Class Review 섹션 */}
         <Box
           display="inline-flex"
-          mt="12px"
+          mt="8px"
           color={colors.secondary['classcope-purple-5']}
         >
           <Meteor
@@ -275,13 +350,21 @@ const frame = () => {
             modules={[Pagination, Autoplay]}
             className="mySwiper"
           >
-            {Array(10)
-              .fill(0)
-              .map((item, index) => (
-                <SwiperSlide key={index}>
-                  <img src="/images/Squarecard.png" alt="" width="305px" />
-                </SwiperSlide>
-              ))}
+            {scopeRecent?.map(item => (
+              <SwiperSlide key={item.lecture.lectureId}>
+                <SquareCard
+                  작성자={item.user.nickName}
+                  별점={item.review.score.toFixed(1)}
+                  작성일={item.review.createdDate.slice(0, 10)}
+                  내용={item.review.content}
+                  태그={item.review.tags}
+                  이미지={item.lecture.imageUrl}
+                  플랫폼={item.lecture.source}
+                  찜수={item.review.likes}
+                  좋아요={item.isAddLike}
+                />
+              </SwiperSlide>
+            ))}
           </Swiper>
         </SwiperStyledRoot>
         {/* Review Keyword 섹션 */}
@@ -317,28 +400,14 @@ const frame = () => {
           찾아볼수 없었던 생생한 후기들을 만나보세요
         </Text>
         {/* CheckButtonGroup 섹션 */}
-        <Center gap={3}>
-          <Button size="md" variant="primary-outlined">
-            빠른 답변 ⚡️
-          </Button>
-          <Button size="md" variant="primary-outlined">
-            커리큘럼과 똑같아요 ⚡️
-          </Button>
-          <Button size="md" variant="primary-outlined">
-            듣기 좋은 목소리 👄
-          </Button>
-          <Button size="md" variant="primary-outlined">
-            도움이 많이 됐어요 👏🏻
-          </Button>
-          <Button size="md" variant="primary-outlined">
-            빠른 답변 ⚡️
-          </Button>
-          <Button size="md" variant="primary-outlined">
-            뛰어난 강의력
-          </Button>
-          <Button size="md" variant="primary-outlined">
-            구성이 알차요
-          </Button>
+        <Center gap={3} mb="8px">
+          <CheckboxGroup isNative={true}>
+            <Checkbox variant="review">빠른 답변 ⚡️</Checkbox>
+            <Checkbox variant="review">커리큘럼과 똑같아요 ⚡️</Checkbox>
+            <Checkbox variant="review">듣기 좋은 목소리 👄</Checkbox>
+            <Checkbox variant="review">도움이 많이 됐어요 👏🏻</Checkbox>
+            <Checkbox variant="review">뛰어난 강의력 👨‍🏫</Checkbox>
+          </CheckboxGroup>
         </Center>
         {/* Review Keword 캐러셀 */}
         <SwiperStyledRoot>
@@ -358,9 +427,22 @@ const frame = () => {
             modules={[Pagination, Autoplay]}
             className="mySwiper"
           >
+            {/* {scopeKeyword?.map(item => (
+              <SwiperSlide key={item.id}>
+                <HorizontalCard
+                  타이틀={item.lectureTitle}
+                  작성자={item.userName}
+                  별점={item.score.toFixed(1)}
+                  작성일={item.createdDate.slice(0, 10)}
+                  내용={item.content}
+                  태그={item.tags}
+                  플랫폼={item.source}
+                />
+              </SwiperSlide>
+            ))} */}
             {Array(10)
               .fill(0)
-              .map((item, index) => (
+              .map(index => (
                 <SwiperSlide key={index}>
                   <img src="/images/HorizontalCard.png" alt="" width="306px" />
                 </SwiperSlide>
