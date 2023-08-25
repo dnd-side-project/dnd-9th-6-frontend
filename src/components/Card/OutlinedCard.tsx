@@ -18,9 +18,13 @@ const Root = styled(BaseCard)`
   align-items: flex-start;
   gap: 8px;
   border-radius: 0px;
-  background-color: ${theme.colors.grayscale.white};
-  box-shadow: 4px 3px 16px 0px rgba(108, 108, 128, 0.05);
+  background-color: transparent;
+  &:hover {
+    background-color: ${theme.colors.grayscale.white};
+  }
+  box-shadow: none;
   background-size: cover;
+  cursor: pointer;
 `;
 
 interface OutlinedCardProps extends CardProps {
