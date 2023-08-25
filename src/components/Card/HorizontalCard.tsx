@@ -13,8 +13,8 @@ import { Tag } from 'components/Tag';
 const Root = styled(BaseCard)`
   display: flex;
   width: 547px;
-  height: 178px;
-  padding: 16px 8px 16px 8px;
+  height: 220px;
+  padding: 16px;
   align-items: flex-start;
   border-radius: 0px;
   background-color: ${theme.colors.grayscale.white};
@@ -35,7 +35,7 @@ const TagWrap = styled.div`
 interface HorizontalCardProps extends CardProps {
   타이틀: string;
   작성자: string;
-  별점: number;
+  별점: string;
   작성일: string;
   내용: string;
   태그: string;
@@ -45,7 +45,7 @@ interface HorizontalCardProps extends CardProps {
 const HorizontalCard = ({
   타이틀 = '',
   작성자 = '',
-  별점 = 0,
+  별점 = '',
   작성일 = '',
   내용 = '',
   태그 = '',
@@ -59,7 +59,7 @@ const HorizontalCard = ({
         style={{
           position: 'absolute',
           top: '21px',
-          right: '8px',
+          right: '16px',
         }}
       >
         {(() => {
@@ -114,7 +114,7 @@ const HorizontalCard = ({
           </Text>
         </Box>
         <Tag
-          mr="8px"
+          mr="16px"
           variant="star"
           style={{
             ...typo.body3.bold,
@@ -128,7 +128,7 @@ const HorizontalCard = ({
       <Box
         mt="8px"
         mb="22px"
-        height="52px"
+        height="88px"
         style={{
           display: 'flex',
           flexDirection: 'row',
@@ -143,7 +143,7 @@ const HorizontalCard = ({
         </Text>
       </Box>
       {/* 태그, 타이틀 Text */}
-      <Box display="flex">
+      <Box display="flex" width="100%" justifyContent="space-between">
         <TagWrap>
           {태그.split(',').map((item, index) => {
             return (
@@ -153,14 +153,21 @@ const HorizontalCard = ({
             );
           })}
         </TagWrap>
-        <Text
-          style={{
-            color: theme.colors.primary['classcope-blue-3'],
-            ...typo.detail2.semibold,
-          }}
+        <Box
+          display="flex"
+          width="255px"
+          alignItems="center"
+          justifyContent="flex-end"
         >
-          {타이틀}
-        </Text>
+          <Text
+            style={{
+              color: theme.colors.primary['classcope-blue-3'],
+              ...typo.detail2.semibold,
+            }}
+          >
+            {타이틀}
+          </Text>
+        </Box>
       </Box>
     </Root>
   );

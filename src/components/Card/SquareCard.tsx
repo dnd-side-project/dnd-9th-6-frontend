@@ -65,7 +65,7 @@ const TagWrap = styled.div`
 
 interface SquareCardProps extends CardProps {
   작성자: string;
-  별점: number;
+  별점: string;
   작성일: string;
   내용: string;
   태그: string;
@@ -77,7 +77,7 @@ interface SquareCardProps extends CardProps {
 
 const SquareCard = ({
   작성자 = '',
-  별점 = 0,
+  별점 = '',
   작성일 = '',
   내용 = '',
   태그 = '',
