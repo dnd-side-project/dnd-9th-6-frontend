@@ -27,16 +27,29 @@ const SwiperStyledRoot = styled.div`
   --swiper-pagination-top: auto;
 `;
 
+const TopBackground = styled.div`
+  position: absolute;
+  display: flex;
+  background-color: ${colors.secondary['classcope-purple-3']};
+  width: 100%;
+  height: 236px;
+  left: 0;
+  top: 52px;
+`;
+
 const frame = () => {
   return (
     <Container>
+      <TopBackground />
       {/* Scope 메인 배너 */}
       <Box
+        position="relative"
         display="flex"
         height="236px"
         backgroundImage={`url(${process.env.NEXT_PUBLIC_IMAGE_URL}/bgpurple.png)`}
         justifyContent="center"
         alignItems="center"
+        zIndex="100"
       >
         <Center flexDirection="column" color="white">
           <Text
