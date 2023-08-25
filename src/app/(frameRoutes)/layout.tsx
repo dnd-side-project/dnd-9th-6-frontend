@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 
 import TopBar from './components/TopBar';
 import theme from 'styles/theme';
-// import Footer from './components/Footer';
+import Footer from './components/Footer';
 
 interface RootLayoutProps {
   children: React.ReactNode;
@@ -33,6 +33,7 @@ const rootLayout = ({ children }: RootLayoutProps) => {
     <Root>
       <TopBar />
       <FrameBody>{children}</FrameBody>
+      <Footer />
     </Root>
   );
 };
