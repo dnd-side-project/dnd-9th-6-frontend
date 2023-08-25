@@ -8,6 +8,7 @@ import Button from 'components/Button';
 import Container from 'components/Container';
 import { Tab, Tabs, TabList } from 'components/Tabs';
 import theme from 'styles/theme';
+import Link from 'next/link';
 
 const Root = styled.div<{ bgColor: string }>`
   background-color: ${props => props.bgColor};
@@ -78,10 +79,14 @@ const TopBar = () => {
     >
       <Container>
         <ContentWrapper>
-          <Logo width="19px" height="19px" viewBox="0 0 48 48" />
-          <LogoTextWhiteWrapper>
-            <LogoTextWhite />
-          </LogoTextWhiteWrapper>
+          <Link href="/">
+            <Logo width="19px" height="19px" viewBox="0 0 48 48" />
+          </Link>
+          <Link href="/">
+            <LogoTextWhiteWrapper>
+              <LogoTextWhite />
+            </LogoTextWhiteWrapper>
+          </Link>
           <StyledTabs
             id={currentTabId}
             onChange={i => router.push(tabItems[i].to)}
