@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 
 interface ContainerProps {
   type?: 'default' | 'wide';
+  className?: string;
   children: ReactNode;
 }
 
@@ -16,9 +17,11 @@ const Root = styled.div<ContainerProps>`
 const Container = ({
   type = 'default',
   children,
+  className,
 }: ContainerProps) => (
   <Root
     type={type}
+    className={className}
   >
     {children}
   </Root>
