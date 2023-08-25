@@ -7,10 +7,10 @@ import LogoTextWhite from 'assets/icons/logo-text-white.svg';
 import Button from 'components/Button';
 import Container from 'components/Container';
 import { Tab, Tabs, TabList } from 'components/Tabs';
+import theme from 'styles/theme';
 
-
-const Root = styled.div`
-  background-color: #7795FE;
+const Root = styled.div<{ bgColor: string }>`
+  background-color: ${props => props.bgColor};
   height: 52px;
   width: 100%;
   position: sticky;
@@ -46,9 +46,9 @@ const tabItems = [
     to: '/lectures',
   },
   {
-    id: 'scopes',
+    id: 'scope',
     content: '스코프',
-    to: '/scopes',
+    to: '/scope',
   },
   {
     id: 'my-lectures',
@@ -57,12 +57,25 @@ const tabItems = [
   },
 ];
 
+// currentTabId: 현재 선택된 탭의 id로 현재 선택된 탭을 표시하는 index를 찾는 함수
+// currentTabId가 없으면 0을 반환한다.
+const getCurrentTabIndex = (currentTabId: string) => {
+  const index = tabItems.findIndex(({ id }) => id === currentTabId);
+  return index === -1 ? 0 : index;
+};
+
 const TopBar = () => {
   const router = useRouter();
   const pathname = usePathname();
   const currentTabId = pathname.split('/')[1];
   return (
-    <Root>
+    <Root
+      bgColor={
+        currentTabId !== 'scope'
+          ? theme.colors.primary['classcope-blue-4']
+          : theme.colors.secondary['classcope-purple-4']
+      }
+    >
       <Container>
         <ContentWrapper>
           <Logo width="19px" height="19px" viewBox="0 0 48 48" />
@@ -71,19 +84,23 @@ const TopBar = () => {
           </LogoTextWhiteWrapper>
           <StyledTabs
             id={currentTabId}
-            onChange={(i) => router.push(tabItems[i].to)}
+            onChange={i => router.push(tabItems[i].to)}
+            index={getCurrentTabIndex(currentTabId)}
           >
             <TabList>
-              {
-                tabItems.map(({ id, content }) => (
-                  <Tab id={id} key={`tab-${id}`}>
-                    {content}
-                  </Tab>
-                ))
-              }
+              {tabItems.map(({ id, content }) => (
+                <Tab id={id} key={`tab-${id}`}>
+                  {content}
+                </Tab>
+              ))}
             </TabList>
           </StyledTabs>
-          <LoginButton size="sm">
+          <LoginButton
+            variant={
+              currentTabId !== 'scope' ? 'primary-filled' : 'purple-filled'
+            }
+            size="sm"
+          >
             로그인
           </LoginButton>
         </ContentWrapper>
