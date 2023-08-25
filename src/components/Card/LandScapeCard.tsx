@@ -120,14 +120,19 @@ const LandScapeCard = ({
 }: LandScapeCardProps) => {
   return (
     <Root {...props}>
+      {/* 배경 이미지 */}
       <BackgroundImage src={이미지} />
+      {/* 북마크 버튼 */}
       <BookmarkButton>
         <Bookmark className="bookmark" />
       </BookmarkButton>
+      {/* CardBody Shape */}
       <CardShapeWrap>
         <CardShape />
       </CardShapeWrap>
+      {/* CardBody */}
       <CardBody>
+        {/* 강사, 타이틀, 가격 Text */}
         <Box
           style={{
             display: 'flex',
@@ -158,6 +163,7 @@ const LandScapeCard = ({
             {가격}
           </Text>
         </Box>
+        {/* 플랫폼 아이콘 */}
         <Box
           style={{
             position: 'absolute',
@@ -180,6 +186,7 @@ const LandScapeCard = ({
             }
           })()}
         </Box>
+        {/* 후기수 Badge */}
         <Box
           style={{
             position: 'absolute',

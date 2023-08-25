@@ -54,6 +54,7 @@ const HorizontalCard = ({
 }: HorizontalCardProps) => {
   return (
     <Root {...props}>
+      {/* 플랫폼 아이콘 */}
       <Box
         style={{
           position: 'absolute',
@@ -76,6 +77,7 @@ const HorizontalCard = ({
           }
         })()}
       </Box>
+      {/* 작성자, 작성일, 별점 Text */}
       <Box
         style={{
           display: 'flex',
@@ -122,7 +124,7 @@ const HorizontalCard = ({
           {별점}
         </Tag>
       </Box>
-
+      {/* 내용 Text */}
       <Box
         mt="8px"
         mb="22px"
@@ -140,6 +142,7 @@ const HorizontalCard = ({
           {내용}
         </Text>
       </Box>
+      {/* 태그, 타이틀 Text */}
       <Box display="flex">
         <TagWrap>
           {태그.split(',').map((item, index) => {
