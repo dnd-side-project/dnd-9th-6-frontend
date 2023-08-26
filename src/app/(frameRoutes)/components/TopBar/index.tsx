@@ -90,7 +90,7 @@ const TopBar = () => {
           <StyledTabs
             id={currentTabId}
             onChange={i => router.push(tabItems[i].to)}
-            index={getCurrentTabIndex(currentTabId)}
+            index={getCurrentTabIndex(currentTabId || '')}
           >
             <TabList>
               {tabItems.map(({ id, content }) => (
