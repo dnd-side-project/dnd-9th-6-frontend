@@ -68,7 +68,7 @@ const getCurrentTabIndex = (currentTabId: string) => {
 const TopBar = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const currentTabId = pathname.split('/')[1];
+  const currentTabId = pathname.split('/')[1] ?? '';
   return (
     <Root
       bgColor={
