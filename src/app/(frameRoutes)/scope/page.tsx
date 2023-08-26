@@ -26,7 +26,6 @@ import 'swiper/css/pagination';
 import { Autoplay, Pagination } from 'swiper/modules';
 import styled from '@emotion/styled';
 import {
-  useGetScopeKeyword,
   useGetScopeLectures,
   useGetScopeRecent,
   useGetScopeReviews,
