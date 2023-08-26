@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import styled from '@emotion/styled';
 import {
   Box,
@@ -59,75 +59,90 @@ const categoryItems = [
     id: 'category',
     img: CategoryIcon,
     text: '카테고리',
+    to: '/lectures/search',
   },
   {
     id: 'programming',
     img: ProgrammingIcon,
     text: '프로그래밍',
+    to: '/lectures/search?mainCategoryId=11',
   },
   {
     id: 'ds',
     img: DSIcon,
     text: '데이터사이언스',
+    to: '/lectures/search?mainCategoryId=3',
   },
   {
     id: 'hardware',
     img: HardwareIcon,
     text: '하드웨어',
+    to: '/lectures/search?mainCategoryId=12',
   },
   {
     id: 'drawing',
     img: DrawingIcon,
     text: '드로잉',
+    to: '/lectures/search?mainCategoryId=4',
   },
   {
     id: 'design',
     img: DesignIcon,
     text: '디자인',
+    to: '/lectures/search?mainCategoryId=5',
   },
   {
     id: 'movie',
     img: MovieIcon,
     text: '영상 3D 애니메이션',
+    to: '/lectures/search?mainCategoryId=7',
   },
   {
     id: 'game',
     img: GameIcon,
     text: '게임',
+    to: '/lectures/search?mainCategoryId=1',
   },
   {
     id: 'cooking',
     img: CookingIcon,
     text: '요리',
+    to: '/lectures/search?mainCategoryId=8',
   },
   {
     id: 'creative',
     img: CreativeIcon,
     text: '크리에이티브',
+    to: '/lectures/search?mainCategoryId=10',
   },
   {
     id: 'money',
     img: MoneyIcon,
     text: '금융 투자',
+    to: '/lectures/search?mainCategoryId=2',
   },
   {
     id: 'language',
     img: LanguageIcon,
     text: '학문 외국어',
+    to: '/lectures/search?mainCategoryId=13',
   },
   {
     id: 'career',
     img: CareerIcon,
     text: '커리어',
+    to: '/lectures/search?mainCategoryId=9',
   },
   {
     id: 'lifestyle',
     img: LifestyleIcon,
     text: '라이프 스타일',
+    to: '/lectures/search?mainCategoryId=6',
   },
 ];
 
 const lectures = () => {
+  const router = useRouter();
   const [value, setValue] = useState('');
   const { data: lectureInterest } = useGetLecturesParameter({ mainCategoryId: 11 });
   const { lectures: interestLectures } = lectureInterest || {};
@@ -148,7 +163,11 @@ const lectures = () => {
       </Box>
       <SearchBarInputGroup borderRadius="2px" size="lg" width={695} mx="auto" backgroundColor="white" borderColor="white">
         <Input value={value} onChange={(e) => { setValue(e.target.value); }} placeholder='검색해보세요' py="12px" px="16px" borderRadius="2px" />
-        <InputRightElement borderLeft="1px" borderColor="grayscale.gray-200" onClick={() => { console.log(value); }}>
+        <InputRightElement
+          borderLeft="1px"
+          borderColor="grayscale.gray-200"
+          onClick={() => { router.push(`/lectures/search?searchKeyword=${value}`); }}
+        >
           <Search />
         </InputRightElement>
       </SearchBarInputGroup>
@@ -156,8 +175,19 @@ const lectures = () => {
         <Container>
           <Grid templateColumns='repeat(7, 1fr)' gap={4} maxWidth="824px" mx="auto">
             {
-              categoryItems.map(({ id, img: Icon, text }) => (
-                <Box key={id} px="8px" py="18px" background="white" borderRadius="4px" height="88px" width="104px" textAlign="center">
+              categoryItems.map(({ id, img: Icon, text, to }) => (
+                <Box
+                  key={id}
+                  px="8px"
+                  py="18px"
+                  background="white"
+                  borderRadius="4px"
+                  height="88px"
+                  width="104px"
+                  textAlign="center"
+                  boxShadow="md"
+                  onClick={() => { router.push(to); }}
+                >
                   <Icon style={{ margin: 'auto' }}/>
                   <Text mt="4px" fontSize="12px" fontWeight="600" color="gray.500">
                     {text}
