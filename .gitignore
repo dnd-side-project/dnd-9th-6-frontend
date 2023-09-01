@@ -37,9 +37,9 @@ next-env.d.ts
 # yarn berry
 # unused Zero-Install
 .yarn/*
+!.yarn/cache
 !.yarn/patches
-!.yarn/releases
 !.yarn/plugins
+!.yarn/releases
 !.yarn/sdks
 !.yarn/versions
-.pnp.*
