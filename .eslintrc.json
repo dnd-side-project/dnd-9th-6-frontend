@@ -4,7 +4,8 @@
     "airbnb/hooks",
     "airbnb-typescript",
     "next/core-web-vitals",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:storybook/recommended"
   ],
   "parserOptions": {
     "project": "tsconfig.json"
@@ -18,14 +19,24 @@
     "jsx-a11y/anchor-is-valid": [
       "error",
       {
-        "components": ["Link"],
-        "specialLink": ["hrefLeft", "hrefRight"],
-        "aspects": ["invalidHref", "preferButton"]
+        "components": [
+          "Link"
+        ],
+        "specialLink": [
+          "hrefLeft",
+          "hrefRight"
+        ],
+        "aspects": [
+          "invalidHref",
+          "preferButton"
+        ]
       }
     ],
     "no-empty-pattern": "warn",
     "import/prefer-default-export": "off",
     "@typescript-eslint/no-unused-vars": "warn"
   },
-  "ignorePatterns": ["*.config.js"]
+  "ignorePatterns": [
+    "*.config.js"
+  ]
 }
