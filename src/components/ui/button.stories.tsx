@@ -55,5 +55,10 @@ export const Category: StoryObj<typeof Button> = {
     size: 'icon',
     variant: 'category',
   },
-  render: args => <Button {...args}><CategoryIcon/>Button</Button>,
+  render: args => (
+    <Button {...args}>
+      <CategoryIcon />
+      Button
+    </Button>
+  ),
 };

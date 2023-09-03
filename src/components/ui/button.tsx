@@ -4,22 +4,26 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from 'utils/twUtils';
 
 const buttonVariants = cva(
-  'body3-bold inline-flex items-center justify-center rounded-md text-white disabled:pointer-events-none disabled:opacity-50',
+  'inline-flex items-center justify-center rounded-md text-white body3-bold disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {
-        primary: 'text-white bg-blue-300 hover:bg-blue-500 active:bg-blue-400',
-        outlined: 'bg-white border-[1px] border-blue-400 text-blue-300 hover:bg-blue-50 active:bg-blue-400 active:text-white',
-        secondary: 'bg-grayscale-100 text-grayscale-700 hover:bg-grayscale-200 active:bg-grayscale-400 active:text-white',
-        red: 'bg-white border-[1px] border-grayscale-100 text-grayscale-300 hover:border-red hover:text-red active:border-red active:bg-[#FDE7E7] active:text-red',
-        purple: 'bg-purple-300 text-white hover:bg-purple-500 active:bg-purple-400',
-        category: 'detail1-semibold bg-white text-grayscale-500 rounded-[4px] shadow-main hover:text-blue-500 hover:border-[1px] hover:border-blue-500 hover:shadow-blue active:text-blue-500 active:bg-blue-500/40 active:border-[1px] active:border-blue-500'
+        primary: 'bg-blue-300 text-white hover:bg-blue-500 active:bg-blue-400',
+        outlined:
+          'border-[1px] border-blue-400 bg-white text-blue-300 hover:bg-blue-50 active:bg-blue-400 active:text-white',
+        secondary:
+          'bg-grayscale-100 text-grayscale-700 hover:bg-grayscale-200 active:bg-grayscale-400 active:text-white',
+        red: 'border-[1px] border-grayscale-100 bg-white text-grayscale-300 hover:border-red hover:text-red active:border-red active:bg-[#FDE7E7] active:text-red',
+        purple:
+          'bg-purple-300 text-white hover:bg-purple-500 active:bg-purple-400',
+        category:
+          'rounded-[4px] bg-white text-grayscale-500 shadow-main detail1-semibold hover:border-[1px] hover:border-blue-500 hover:text-blue-500 hover:shadow-blue active:border-[1px] active:border-blue-500 active:bg-blue-500/40 active:text-blue-500',
       },
       size: {
         sm: 'p-8',
         md: 'px-16 py-8',
         lg: 'w-[312px] px-16 py-12',
-        icon: 'w-[104px] h-[88px] p-8 flex-col justify-center items-center gap-[4px]',
+        icon: 'h-[88px] w-[104px] flex-col items-center justify-center gap-[4px] p-8',
       },
     },
     defaultVariants: {
