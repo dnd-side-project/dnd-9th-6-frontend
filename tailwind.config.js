@@ -21,10 +21,10 @@ module.exports = {
     },
     colors: {
       transparent: 'transparent',
+      white: '#ffffff',
       red: '#ff6b6b',
       bg: 'linear-gradient(180deg, #ffffff 0%, #dee2f1 100%)',
       grayscale: {
-        white: '#ffffff',
         black: '#000000',
         50: '#f8f9fc',
         100: '#e8ebf5',
@@ -87,6 +87,13 @@ module.exports = {
       9: '900', //
       10: '1000', // Toast
     },
+    boxShadow:{
+      card: '4px 3px 16px 0px rgba(108, 108, 128, 0.05)',
+      header: '0px 1px 7px 0px rgba(0, 0, 0, 0.10)',
+      main: '0px 3px 12px 0px rgba(184, 184, 204, 0.20)',
+      blue: '0px 4px 12px 0px rgba(144, 169, 254, 0.40)',
+      dropdown: '0px 16px 30px 4px rgba(0, 0, 0, 0.10)'
+    },
     extend: {
       keyframes: {
         'accordion-down': {
@@ -107,250 +114,211 @@ module.exports = {
   plugins: [
     plugin(function ({ addUtilities }) {
       addUtilities({
-        '.font-default': {
-          padding: '0',
-          margin: '0',
-        },
         '.H1-bold': {
-          '@apply font-default': {},
           fontFamily: 'Pretendard',
           fontWeight: '700',
           lineHeight: '48px',
           fontSize: '40px',
         },
         '.H1-semibold': {
-          '@apply font-default': {},
           fontFamily: 'Pretendard',
           fontWeight: '600',
           lineHeight: '48px',
           fontSize: '40px',
         },
         '.H2-bold': {
-          '@apply font-default': {},
           fontFamily: 'Pretendard',
           fontWeight: '700',
           lineHeight: '43px',
           fontSize: '36px',
         },
         '.H2-semibold': {
-          '@apply font-default': {},
           fontFamily: 'Pretendard',
           fontWeight: '600',
           lineHeight: '43px',
           fontSize: '36px',
         },
         '.H3-bold': {
-          '@apply font-default': {},
           fontFamily: 'Pretendard',
           fontWeight: '700',
           lineHeight: '36px',
           fontSize: '30px',
         },
         '.H3-semibold': {
-          '@apply font-default': {},
           fontFamily: 'Pretendard',
           fontWeight: '600',
           lineHeight: '36px',
           fontSize: '30px',
         },
         '.H4-bold': {
-          '@apply font-default': {},
           fontFamily: 'Pretendard',
           fontWeight: '700',
           lineHeight: '30px',
           fontSize: '24px',
         },
         '.H4-semibold': {
-          '@apply font-default': {},
           fontFamily: 'Pretendard',
           fontWeight: '600',
           lineHeight: '30px',
           fontSize: '24px',
         },
         '.H5-bold': {
-          '@apply font-default': {},
           fontFamily: 'Pretendard',
           fontWeight: '700',
           lineHeight: '24px',
           fontSize: '20px',
         },
         '.H5-semibold': {
-          '@apply font-default': {},
           fontFamily: 'Pretendard',
           fontWeight: '600',
           lineHeight: '24px',
           fontSize: '20px',
         },
-        'body1-extrabold': {
-          '@apply font-default': {},
+        '.body1-extrabold': {
           fontFamily: 'Pretendard',
           fontWeight: '800',
           lineHeight: '23px',
           fontSize: '18px',
         },
-        'body1-bold': {
-          '@apply font-default': {},
+        '.body1-bold': {
           fontFamily: 'Pretendard',
           fontWeight: '700',
           lineHeight: '23px',
           fontSize: '18px',
         },
-        'body1-semibold': {
-          '@apply font-default': {},
+        '.body1-semibold': {
           fontFamily: 'Pretendard',
           fontWeight: '600',
           lineHeight: '23px',
           fontSize: '18px',
         },
-        'body1-medium': {
-          '@apply font-default': {},
+        '.body1-medium': {
           fontFamily: 'Pretendard',
           fontWeight: '500',
           lineHeight: '23px',
           fontSize: '18px',
         },
-        'body2-extrabold': {
-          '@apply font-default': {},
+        '.body2-extrabold': {
           fontFamily: 'Pretendard',
           fontWeight: '800',
           lineHeight: '24px',
           fontSize: '16px',
         },
-        'body2-bold': {
-          '@apply font-default': {},
+        '.body2-bold': {
           fontFamily: 'Pretendard',
           fontWeight: '700',
           lineHeight: '24px',
           fontSize: '16px',
         },
-        'body2-semibold': {
-          '@apply font-default': {},
+        '.body2-semibold': {
           fontFamily: 'Pretendard',
           fontWeight: '600',
           lineHeight: '24px',
           fontSize: '16px',
         },
-        'body2-medium': {
-          '@apply font-default': {},
+        '.body2-medium': {
           fontFamily: 'Pretendard',
           fontWeight: '500',
           lineHeight: '24px',
           fontSize: '16px',
         },
-        'body3-extrabold': {
-          '@apply font-default': {},
+        '.body3-extrabold': {
           fontFamily: 'Pretendard',
           fontWeight: '800',
           lineHeight: '18px',
           fontSize: '14px',
         },
-        'body3-semibold': {
-          '@apply font-default': {},
+        '.body3-semibold': {
           fontFamily: 'Pretendard',
           fontWeight: '600',
           lineHeight: '18px',
           fontSize: '14px',
         },
-        'body3-bold': {
-          '@apply font-default': {},
+        '.body3-bold': {
           fontFamily: 'Pretendard',
           fontWeight: '700',
           lineHeight: '18px',
           fontSize: '14px',
         },
-        'body3-medium': {
-          '@apply font-default': {},
+        '.body3-medium': {
           fontFamily: 'Pretendard',
           fontWeight: '500',
           lineHeight: '18px',
           fontSize: '14px',
         },
-        'detail1-bold': {
-          '@apply font-default': {},
+        '.detail1-bold': {
           fontFamily: 'Pretendard',
           fontWeight: '700',
           lineHeight: '16px',
           fontSize: '12px',
         },
-        'detail1-semibold': {
-          '@apply font-default': {},
+        '.detail1-semibold': {
           fontFamily: 'Pretendard',
           fontWeight: '600',
           lineHeight: '16px',
           fontSize: '12px',
         },
-        'detail1-medium': {
-          '@apply font-default': {},
+        '.detail1-medium': {
           fontFamily: 'Pretendard',
           fontWeight: '500',
           lineHeight: '16px',
           fontSize: '12px',
         },
-        'detail2-semibold': {
-          '@apply font-default': {},
+        '.detail2-semibold': {
           fontFamily: 'Pretendard',
           fontWeight: '600',
           lineHeight: '12px',
           fontSize: '10px',
         },
-        'detail2-bold': {
-          '@apply font-default': {},
+        '.detail2-bold': {
           fontFamily: 'Pretendard',
           fontWeight: '700',
           lineHeight: '12px',
           fontSize: '10px',
         },
-        'detail3-bold': {
-          '@apply font-default': {},
+        '.detail3-bold': {
           fontFamily: 'Pretendard',
           fontWeight: '700',
           lineHeight: '10px',
           fontSize: '8px',
         },
-        'detail3-semibold': {
-          '@apply font-default': {},
+        '.detail3-semibold': {
           fontFamily: 'Pretendard',
           fontWeight: '600',
           lineHeight: '10px',
           fontSize: '8px',
         },
-        'detail3-medium': {
-          '@apply font-default': {},
+        '.detail3-medium': {
           fontFamily: 'Pretendard',
           fontWeight: '500',
           lineHeight: '10px',
           fontSize: '8px',
         },
-        'en-H1-semibold': {
-          '@apply font-default': {},
+        '.en-H1-semibold': {
           fontFamily: 'Pretendard',
           fontWeight: '600',
           lineHeight: '36px',
           fontSize: '24px',
         },
-        'en-H1-medium': {
-          '@apply font-default': {},
+        '.en-H1-medium': {
           fontFamily: 'Pretend',
           fontWeight: '500',
           lineHeight: '36px',
           fontSize: '24px',
         },
-        'en-H2-bold': {
-          '@apply font-default': {},
+        '.en-H2-bold': {
           fontFamily: 'Pretend',
           fontWeight: '700',
           lineHeight: '24px',
           fontSize: '16px',
         },
-        'en-H2-semiblod': {
-          '@apply font-default': {},
+        '.en-H2-semiblod': {
           fontFamily: 'Pretend',
           fontWeight: '600',
           lineHeight: '24px',
           fontSize: '16px',
         },
-        'en-H2-medium': {
-          '@apply font-default': {},
+        '.en-H2-medium': {
           fontFamily: 'Pretend',
           fontWeight: '500',
           lineHeight: '24px',
