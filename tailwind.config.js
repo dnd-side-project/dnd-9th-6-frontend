@@ -23,9 +23,9 @@ module.exports = {
       transparent: 'transparent',
       white: '#ffffff',
       red: '#ff6b6b',
+      black: '#000000',
       bg: 'linear-gradient(180deg, #ffffff 0%, #dee2f1 100%)',
       grayscale: {
-        black: '#000000',
         50: '#f8f9fc',
         100: '#e8ebf5',
         200: '#dcdcea',
@@ -87,12 +87,12 @@ module.exports = {
       9: '900', //
       10: '1000', // Toast
     },
-    boxShadow:{
+    boxShadow: {
       card: '4px 3px 16px 0px rgba(108, 108, 128, 0.05)',
       header: '0px 1px 7px 0px rgba(0, 0, 0, 0.10)',
       main: '0px 3px 12px 0px rgba(184, 184, 204, 0.20)',
       blue: '0px 4px 12px 0px rgba(144, 169, 254, 0.40)',
-      dropdown: '0px 16px 30px 4px rgba(0, 0, 0, 0.10)'
+      dropdown: '0px 16px 30px 4px rgba(0, 0, 0, 0.10)',
     },
     extend: {
       keyframes: {
