@@ -9,7 +9,6 @@ import {
   StackDivider,
   Flex,
   Text,
-  Input,
   VStack,
   InputGroup,
   InputRightElement,
@@ -36,6 +35,7 @@ import Container from 'components/Container';
 import { useGetLecturesParameter } from 'hooks/reactQuery/lectures/query';
 import { CoverCard, OutlinedCard } from 'components/Card';
 import { colors } from 'styles/theme/foundations/colors';
+import { Input } from 'components/ui/input';
 
 const Root = styled.div`
   width: 100%;
@@ -179,34 +179,29 @@ const Home = () => {
           </TitleSectionContentWrapper>
         </Container>
       </Box>
-      <SearchBarInputGroup
-        borderRadius="2px"
-        size="lg"
-        width={695}
-        mx="auto"
-        backgroundColor="white"
-        borderColor="white"
-      >
-        <Input
-          value={value}
-          onChange={e => {
-            setValue(e.target.value);
-          }}
-          placeholder="검색해보세요"
-          py="12px"
-          px="16px"
-          borderRadius="2px"
-        />
-        <InputRightElement
-          borderLeft="1px"
-          borderColor="grayscale.gray-200"
-          onClick={() => {
-            router.push(`/lectures?searchKeyword=${value}`);
-          }}
-        >
-          <Search />
-        </InputRightElement>
-      </SearchBarInputGroup>
+      <div className="flex items-center justify-center">
+        <div className="relative w-[695px] translate-y-[-24px]">
+          <Input
+            variant="search"
+            size="lg"
+            value={value}
+            onChange={e => {
+              setValue(e.target.value);
+            }}
+            placeholder="검색해보세요"
+          />
+          <button
+            className="absolute right-0 top-0 flex h-full w-[56px] border-l border-grayscale-200 p-16"
+            onClick={() => {
+              router.push(`/lectures?searchKeyword=${value}`);
+            }}
+          >
+            <div className="translate-y-[-2px]">
+              <Search />
+            </div>
+          </button>
+        </div>
+      </div>
       <Box pt="34px" pb="76px">
         <Container>
           <Grid
