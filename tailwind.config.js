@@ -24,7 +24,6 @@ module.exports = {
       white: '#ffffff',
       red: '#ff6b6b',
       black: '#000000',
-      bg: 'linear-gradient(180deg, #ffffff 0%, #dee2f1 100%)',
       grayscale: {
         50: '#f8f9fc',
         100: '#e8ebf5',
@@ -108,6 +107,10 @@ module.exports = {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+      },
+      backgroundImage: {
+        'gradient-main':
+          'linear-gradient(180deg, rgba(248, 249, 252, 0.00) 0%, #E8EBF5 100%)',
       },
     },
   },
