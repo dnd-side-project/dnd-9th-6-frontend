@@ -255,6 +255,7 @@ const Home = () => {
                       타이틀={item.title}
                       플랫폼={item.source}
                       이미지={item.imageUrl}
+                      fixed
                     />
                     <Separator className="w-[458px]" />
                   </SwiperSlide>
