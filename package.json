@@ -48,6 +48,7 @@
     "react-dom": "^18.2.0",
     "react-router": "6.15.0",
     "react-router-dom": "6.15.0",
+    "react-simple-star-rating": "^5.1.7",
     "recoil": "^0.7.7",
     "swiper": "^10.2.0",
     "tailwind-merge": "^1.14.0",
