@@ -1,31 +1,9 @@
-'use client';
-import { Card as BaseCard, CardProps, Text, Box } from '@chakra-ui/react';
-
-import styled from '@emotion/styled';
 import FastCampus from 'assets/icons/platform/fastcampus-16.svg';
 import Inflearn from 'assets/icons/platform/inflearn-16.svg';
 import Coloso from 'assets/icons/platform/coloso-16.svg';
 import Class101 from 'assets/icons/platform/class101-16.svg';
-import theme from 'styles/theme';
-import { typo } from 'styles/theme/foundations/typo';
 
-const Root = styled(BaseCard)`
-  display: flex;
-  flex-direction: row;
-  width: 389px;
-  height: 88px;
-  padding: 8px;
-  align-items: flex-start;
-  gap: 8px;
-  border-radius: 0px;
-  background-color: transparent;
-  &:hover {
-    background-color: ${theme.colors.grayscale.white};
-  }
-  box-shadow: none;
-  background-size: cover;
-  cursor: pointer;
-`;
+import { CardProps } from 'components/ui/card';
 
 interface OutlinedCardProps extends CardProps {
   강사: string;
@@ -42,19 +20,19 @@ const OutlinedCard = ({
   ...props
 }: OutlinedCardProps) => {
   return (
-    <Root {...props}>
+    <div
+      className="flex h-[88px] w-[458px] cursor-pointer items-start gap-8 bg-transparent p-8 hover:bg-white"
+      {...props}
+    >
       {/* 이미지 */}
-      <Box
-        style={{
-          width: '103px',
-          height: '72px',
-          backgroundImage: `url(${이미지})`,
-          backgroundSize: 'cover',
-        }}
+      <div
+        className="h-[72px] w-[103px] bg-cover bg-no-repeat"
+        style={{ backgroundImage: `url(${이미지})` }}
       />
-      <Box display="flex" flexDirection="column" gap="8px" width="262px">
+
+      <div className="flex w-[262px] flex-col gap-8">
         {/* 플랫폼 아이콘, 강사 Text */}
-        <Box display="flex">
+        <div className="flex">
           {(() => {
             switch (플랫폼) {
               case 'fastcampus':
@@ -69,25 +47,12 @@ const OutlinedCard = ({
                 return null;
             }
           })()}
-          <Text
-            ml="8px"
-            style={{
-              ...typo.detail1.semibold,
-            }}
-          >
-            {강사}
-          </Text>
-        </Box>
+          <div className="ml-8 text-grayscale-300 detail1-semibold">{강사}</div>
+        </div>
         {/* 타이틀 Text */}
-        <Text
-          style={{
-            ...typo.body2.bold,
-          }}
-        >
-          {타이틀}
-        </Text>
-      </Box>
-    </Root>
+        <div className="line-clamp-2 h-[48px] w-full body2-bold">{타이틀}</div>
+      </div>
+    </div>
   );
 };
 
