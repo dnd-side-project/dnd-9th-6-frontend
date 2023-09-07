@@ -4,7 +4,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from 'utils/twUtils';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center text-white body3-bold disabled:pointer-events-none disabled:opacity-50',
+  'inline-flex items-center justify-center rounded-[2px] text-white body3-bold disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {
