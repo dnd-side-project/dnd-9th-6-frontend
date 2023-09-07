@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-pascal-case */
+
 'use client';
 
 import {

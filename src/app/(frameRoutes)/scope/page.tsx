@@ -1,4 +1,5 @@
 'use client';
+
 import {
   Box,
   Center,
@@ -51,7 +52,7 @@ const TopBackground = styled.div`
   top: 52px;
 `;
 
-const frame = () => {
+const Scope = () => {
   const { data: scopeReviews } = useGetScopeReviews({ staleTime: Infinity });
   const { data: scopeLectures } = useGetScopeLectures({ staleTime: Infinity });
   const { data: scopeRecent } = useGetScopeRecent({ staleTime: Infinity });
@@ -400,7 +401,7 @@ const frame = () => {
         </Text>
         {/* CheckButtonGroup 섹션 */}
         <Center gap={3} mb="8px">
-          <CheckboxGroup isNative={true}>
+          <CheckboxGroup isNative>
             <Checkbox variant="review">빠른 답변 ⚡️</Checkbox>
             <Checkbox variant="review">커리큘럼과 똑같아요 ⚡️</Checkbox>
             <Checkbox variant="review">듣기 좋은 목소리 👄</Checkbox>
@@ -453,4 +454,4 @@ const frame = () => {
   );
 };
 
-export default frame;
+export default Scope;

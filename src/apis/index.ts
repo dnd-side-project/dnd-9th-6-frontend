@@ -26,7 +26,7 @@ instance.interceptors.request.use(
   },
   error => {
     return Promise.reject(error);
-  },
+  }
 );
 
 instance.interceptors.response.use(
@@ -45,11 +45,11 @@ instance.interceptors.response.use(
     const { status, statusText } = error.response;
 
     logOnDev(
-      `🚀 [API] ${method?.toUpperCase()} ${url} | Error ${status} ${statusText} | ${message}}`,
+      `🚀 [API] ${method?.toUpperCase()} ${url} | Error ${status} ${statusText} | ${message}}`
     );
 
     return Promise.reject(error);
-  },
+  }
 );
 
 export default instance;

@@ -1,4 +1,5 @@
 'use client';
+
 import { Card as BaseCard, CardProps, Text, Box } from '@chakra-ui/react';
 
 import styled from '@emotion/styled';
@@ -145,9 +146,9 @@ const HorizontalCard = ({
       {/* 태그, 타이틀 Text */}
       <Box display="flex" width="100%" justifyContent="space-between">
         <TagWrap>
-          {태그.split(',').map((item, index) => {
+          {태그.split(',').map(item => {
             return (
-              <Tag key={index} variant="review">
+              <Tag key={item} variant="review">
                 {item}
               </Tag>
             );

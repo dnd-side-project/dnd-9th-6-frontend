@@ -38,7 +38,7 @@ function Radio(props: RadioCardProps) {
             ...typo.body3.medium,
           }}
         >
-          {props.children}
+          {props?.children}
         </Text>
       </Box>
     </Box>

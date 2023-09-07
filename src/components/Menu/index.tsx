@@ -28,7 +28,7 @@ const Menu = ({ children, ...props }: MenuProps) => (
 interface MenuButtonProps extends BaseMenuButtonProps, ButtonProps {}
 
 const MenuButton = forwardRef<MenuButtonProps, 'button'>(
-  ({ ...props }, ref) => <BaseMenuButton ref={ref} {...props} />,
+  ({ ...props }, ref) => <BaseMenuButton ref={ref} {...props} />
 );
 
 export type {

@@ -1,4 +1,5 @@
 'use client';
+
 import { ReactNode, useState } from 'react';
 import { ChakraProvider } from '@chakra-ui/react';
 import { CacheProvider as ChakraCacheProvider } from '@chakra-ui/next-js';
@@ -21,7 +22,7 @@ const AppProvider = ({ children }: AppProviderProps) => {
             refetchOnWindowFocus: false,
           },
         },
-      }),
+      })
   );
 
   return (
