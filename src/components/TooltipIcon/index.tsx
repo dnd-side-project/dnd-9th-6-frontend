@@ -33,6 +33,8 @@ const PlatformIcon = React.forwardRef<HTMLOrSVGElement, PlatformIconProps>(
   }
 );
 
+PlatformIcon.displayName = 'PlatformIcon';
+
 const TooltipIcon = ({ variant, ...props }: { variant: Variant }) => (
   <TooltipProvider {...props}>
     <Tooltip>

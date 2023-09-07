@@ -14,7 +14,15 @@ const nextConfig = {
     });
     return config;
   },
-  /* config options here */
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/main',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 // eslint-disable-next-line no-undef

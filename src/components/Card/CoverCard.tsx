@@ -62,7 +62,7 @@ const CoverCard = ({
       <div className="absolute bottom-[24px] right-[16px]">
         <Button size="sm" variant="outlined" className="gap-[4px] pl-16">
           강의 찜하기
-          {<Bookmark />}
+          <Bookmark />
         </Button>
       </div>
       {/* 왼쪽 밑 엣지 배경 */}

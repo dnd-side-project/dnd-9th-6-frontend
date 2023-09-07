@@ -1,4 +1,5 @@
 'use client';
+
 import {
   Card as BaseCard,
   CardProps,
@@ -177,9 +178,9 @@ const SquareCard = ({
         </Box>
         {/* 태그 아이템 */}
         <TagWrap>
-          {태그.split(',').map((item, index) => {
+          {태그.split(',').map(item => {
             return (
-              <Tag key={index} variant="review">
+              <Tag key={item} variant="review">
                 {item}
               </Tag>
             );

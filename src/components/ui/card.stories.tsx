@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Card } from './card';
 import { CoverCard, OutlinedCard, LandScapeCard } from 'components/Card';
+import { Card } from './card';
 
 const meta = {
   title: 'Classcope/Card',

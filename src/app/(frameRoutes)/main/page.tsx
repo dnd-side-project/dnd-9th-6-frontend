@@ -1,4 +1,5 @@
 'use client';
+
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
@@ -34,8 +35,9 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
-import { Autoplay, Pagination } from 'swiper/modules';
+import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import { Separator } from 'components/ui/separator';
 
 const categoryItems = [
@@ -170,6 +172,7 @@ const Home = () => {
               placeholder="검색해보세요"
             />
             <button
+              type="button"
               className="absolute right-0 top-0 flex h-full w-[56px] border-l border-grayscale-200 p-16"
               onClick={() => {
                 router.push(`/lectures?searchKeyword=${value}`);
@@ -283,7 +286,7 @@ const Home = () => {
               </div>
               <SectionBG />
             </div>
-            {/* 배너 + 캐러셀 */}
+            {/* 캐러셀 */}
             <div className="flex items-center justify-between gap-16">
               <Swiper
                 className="main-vertical-carousel-bullet h-[320px] max-w-[890px]"
@@ -332,20 +335,18 @@ const Home = () => {
               </div>
               <SectionIcon />
             </div>
-            {/* 배너 + 캐러셀 */}
+            {/* 캐러셀 */}
             <div className="flex items-center justify-between gap-16">
               <Swiper
-                className="main-vertical-carousel-bullet h-[320px] max-w-[890px]"
+                className="main-vertical-carousel-bullet h-[264px] max-w-[890px] [--swiper-navigation-sides-offset:10px] [--swiper-navigation-size:15px]"
                 slidesPerView={3}
                 spaceBetween={32}
-                pagination={{
-                  clickable: true,
-                }}
+                navigation
                 autoplay={{
                   delay: 3000,
                   disableOnInteraction: false,
                 }}
-                modules={[Autoplay, Pagination]}
+                modules={[Autoplay, Navigation]}
               >
                 {lectureInterest?.map(item => (
                   <SwiperSlide key={item.id}>
@@ -362,8 +363,12 @@ const Home = () => {
               </Swiper>
             </div>
           </div>
+          {/* 로그인하고 찜하러 가기 버튼 */}
+          <Button variant="outlined" size="md" className="mb-[140px] mt-[48px]">
+            로그인하고 찜하러 가기
+          </Button>
         </div>
-        <div className="absolute bottom-0 left-0"></div>
+        <div className="absolute bottom-0 left-0" />
       </div>
     </>
   );

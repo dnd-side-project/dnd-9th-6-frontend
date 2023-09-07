@@ -6,13 +6,13 @@ import { LECTURES_KEY } from 'constants/querykeys';
 
 export const useGetLecturesParameter = (
   params?: LecturesParams['lecturesParameter'],
-  options?: UseQueryOptions<LecturesResponse['search'], AxiosError>,
+  options?: UseQueryOptions<LecturesResponse['search'], AxiosError>
 ) => {
   return useQuery<LecturesResponse['search'], AxiosError>(
     LECTURES_KEY.list([{ ...params }]),
     () => lecturesApi.search(params),
     {
       ...options,
-    },
+    }
   );
 };

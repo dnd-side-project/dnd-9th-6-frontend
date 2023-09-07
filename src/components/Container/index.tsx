@@ -1,7 +1,6 @@
 import { ReactNode } from 'react';
 import styled from '@emotion/styled';
 
-
 interface ContainerProps {
   type?: 'default' | 'wide';
   className?: string;
@@ -11,7 +10,8 @@ interface ContainerProps {
 const Root = styled.div<ContainerProps>`
   width: 100%;
   margin: 0 auto;
-  ${({ type }) => (type === 'wide' ? 'max-width: 1080px;' : 'max-width: 1080px;')}
+  ${({ type }) =>
+    type === 'wide' ? 'max-width: 1080px;' : 'max-width: 1080px;'}
 `;
 
 const Container = ({
@@ -19,10 +19,7 @@ const Container = ({
   children,
   className,
 }: ContainerProps) => (
-  <Root
-    type={type}
-    className={className}
-  >
+  <Root type={type} className={className}>
     {children}
   </Root>
 );

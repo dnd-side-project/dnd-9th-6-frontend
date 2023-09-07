@@ -1,6 +1,6 @@
-import instance from '..';
 import { UserInfo } from 'recoil/types/user';
 import { AUTH_API } from 'constants/api';
+import instance from '..';
 
 /**
  * Access Token & Refresh Token
@@ -24,7 +24,7 @@ const authApi = {
    */
   signIn: (platform: string, code: string | null) =>
     instance.get<string, SignInData>(
-      `${AUTH_API.SIGN_IN}?code=${code}&platform=${platform}`,
+      `${AUTH_API.SIGN_IN}?code=${code}&platform=${platform}`
     ),
 };
 

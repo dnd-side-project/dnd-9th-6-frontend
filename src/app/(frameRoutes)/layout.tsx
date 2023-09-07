@@ -7,9 +7,9 @@ interface RootLayoutProps {
 
 const rootLayout = ({ children }: RootLayoutProps) => {
   return (
-    <div className="relative flex h-full w-full flex-col">
+    <div className="flex flex-col">
       <TopBar />
-      <div className="m-auto w-full flex-1 flex-col bg-bg">{children}</div>
+      {children}
       <Footer />
     </div>
   );

@@ -7,7 +7,7 @@ interface RootLayoutProps {
   children: React.ReactNode;
 }
 
-export const pretendard = localFont({
+const pretendard = localFont({
   src: './fonts/PretendardVariable.woff2',
   display: 'swap',
   fallback: [
@@ -31,13 +31,11 @@ export const pretendard = localFont({
 const rootLayout = ({ children }: RootLayoutProps) => {
   return (
     <html lang="ko">
-      <body>
+      <body className={pretendard.className}>
         <AppProvider>{children}</AppProvider>
       </body>
     </html>
   );
 };
-
-
 
 export default rootLayout;

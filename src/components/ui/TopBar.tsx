@@ -1,4 +1,5 @@
 'use client';
+
 import { useRouter, usePathname } from 'next/navigation';
 
 import Logo from 'assets/icons/logo-black.svg';

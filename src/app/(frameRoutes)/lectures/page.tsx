@@ -1,4 +1,5 @@
 'use client';
+
 import {
   Box,
   Input,
@@ -17,7 +18,7 @@ import { Menu, MenuButton, MenuList, MenuItem } from 'components/Menu';
 import { colors } from 'styles/theme/foundations/colors';
 import Arrow from 'assets/icons/angle-down.svg';
 
-const page = () => {
+const Lectures = () => {
   const options = [
     '전체',
     'UI/UX',
@@ -182,4 +183,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Lectures;

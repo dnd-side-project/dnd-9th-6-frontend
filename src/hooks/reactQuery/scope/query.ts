@@ -5,44 +5,44 @@ import { AxiosError } from 'axios';
 import { SCOPE_KEY } from 'constants/querykeys';
 
 export const useGetScopeReviews = (
-  options?: UseQueryOptions<ScopeResponse['reviews'], AxiosError>,
+  options?: UseQueryOptions<ScopeResponse['reviews'], AxiosError>
 ) => {
   return useQuery<ScopeResponse['reviews'], AxiosError>(
     SCOPE_KEY.list(['reviews']),
     () => scopeApi.reviews(),
-    { ...options },
+    { ...options }
   );
 };
 
 export const useGetScopeLectures = (
-  options?: UseQueryOptions<ScopeResponse['lectures'], AxiosError>,
+  options?: UseQueryOptions<ScopeResponse['lectures'], AxiosError>
 ) => {
   return useQuery<ScopeResponse['lectures'], AxiosError>(
     SCOPE_KEY.list(['lectures']),
     () => scopeApi.lectures(),
-    { ...options },
+    { ...options }
   );
 };
 
 export const useGetScopeRecent = (
-  options?: UseQueryOptions<ScopeResponse['recent'], AxiosError>,
+  options?: UseQueryOptions<ScopeResponse['recent'], AxiosError>
 ) => {
   return useQuery<ScopeResponse['recent'], AxiosError>(
     SCOPE_KEY.list(['recent']),
     () => scopeApi.recent(),
-    { ...options },
+    { ...options }
   );
 };
 
 export const useGetScopeKeyword = (
   params?: ScopeParams['scopeKeyword'],
-  options?: UseQueryOptions<ScopeResponse['keywords'], AxiosError>,
+  options?: UseQueryOptions<ScopeResponse['keywords'], AxiosError>
 ) => {
   return useQuery<ScopeResponse['keywords'], AxiosError>(
     SCOPE_KEY.list([{ ...params }]),
     () => scopeApi.keywords(params),
     {
       ...options,
-    },
+    }
   );
 };

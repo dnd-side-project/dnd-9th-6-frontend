@@ -16,27 +16,18 @@
     "react/require-default-props": "off",
     "jsx-a11y/no-static-element-interactions": "off",
     "jsx-a11y/click-events-have-key-events": "off",
+    "no-param-reassign": "off",
     "jsx-a11y/anchor-is-valid": [
       "error",
       {
-        "components": [
-          "Link"
-        ],
-        "specialLink": [
-          "hrefLeft",
-          "hrefRight"
-        ],
-        "aspects": [
-          "invalidHref",
-          "preferButton"
-        ]
+        "components": ["Link"],
+        "specialLink": ["hrefLeft", "hrefRight"],
+        "aspects": ["invalidHref", "preferButton"]
       }
     ],
     "no-empty-pattern": "warn",
     "import/prefer-default-export": "off",
     "@typescript-eslint/no-unused-vars": "warn"
   },
-  "ignorePatterns": [
-    "*.config.js"
-  ]
+  "ignorePatterns": ["*.config.js"]
 }
