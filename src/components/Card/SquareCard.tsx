@@ -87,7 +87,7 @@ const SquareCard = ({
             {태그.split(',').map(item => {
               return (
                 <div
-                  className="inline-flex items-center justify-center rounded-[2px] bg-grayscale-50 px-[8px] py-[4px]"
+                  className="inline-flex items-center justify-center rounded-[2px] bg-grayscale-50 px-[8px] py-[4px] text-grayscale-600"
                   key={item}
                 >
                   {item}
