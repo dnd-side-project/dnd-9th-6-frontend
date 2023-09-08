@@ -66,16 +66,16 @@ const HorizontalCard = ({
         </div>
       </div>
       {/* 내용 Text */}
-      <div className="mb-[22px] mt-[8px] line-clamp-4 flex h-[88px] flex-row body3-medium">
+      <div className="mt-[8px] line-clamp-4 flex h-[66px] flex-row body3-medium">
         {내용}
       </div>
       {/* 태그, 타이틀 Text */}
-      <div className="flex w-full justify-between">
+      <div className="flex w-full justify-between pt-[22px]">
         <div className="flex max-h-[54px] max-w-[254px] flex-wrap items-start gap-[6px] overflow-hidden detail1-semibold">
           {태그.split(',').map(item => {
             return (
               <div
-                className="inline-flex items-center justify-center rounded-[2px] bg-grayscale-50 px-[8px] py-[4px]"
+                className="inline-flex items-center justify-center rounded-[2px] bg-grayscale-50 px-[8px] py-[4px] text-grayscale-600"
                 key={item}
               >
                 {item}
