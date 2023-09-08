@@ -53,7 +53,7 @@ const HorizontalCard = ({
           <div>{작성자}</div>
           <div className="text-grayscale-300">{작성일.slice(0, 10)}</div>
         </div>
-        <div className="mr-[24px] flex items-center gap-[2px] body3-bold">
+        <div className="mr-[24px] flex items-center gap-[4px] body3-bold">
           <Rating
             emptyStyle={{ display: 'flex' }}
             fillStyle={{ display: '-webkit-inline-box' }}
@@ -62,15 +62,15 @@ const HorizontalCard = ({
             allowFraction
             readonly
           />
-          {별점}
+          {별점.toFixed(1)}
         </div>
       </div>
       {/* 내용 Text */}
-      <div className="mt-[8px] line-clamp-4 flex h-[66px] flex-row body3-medium">
+      <div className="mb-[16px] mt-[8px] line-clamp-5 flex h-[88px] w-full flex-row text-ellipsis body3-medium">
         {내용}
       </div>
       {/* 태그, 타이틀 Text */}
-      <div className="flex w-full justify-between pt-[22px]">
+      <div className="flex w-full justify-between">
         <div className="flex max-h-[54px] max-w-[254px] flex-wrap items-start gap-[6px] overflow-hidden detail1-semibold">
           {태그.split(',').map(item => {
             return (

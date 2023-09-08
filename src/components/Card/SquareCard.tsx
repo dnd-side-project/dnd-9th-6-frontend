@@ -68,16 +68,18 @@ const SquareCard = ({
       <div className="absolute bottom-0 w-full">
         {/* 작성자, 별점, 작성일 Text */}
         <div className="flex flex-col p-16">
-          <div className="flex items-center gap-[3px] detail1-semibold">
-            <div className="mr-16">{작성자}</div>
-            <div className="flex gap-[2px]">
-              <Star />
-              {별점}
+          <div className="flex items-center gap-[16px] detail1-semibold">
+            <div>{작성자}</div>
+            <div className="flex gap-[8px]">
+              <div className="flex gap-[2px]">
+                <Star />
+                {별점.toFixed(1)}
+              </div>
+              <div className="text-grayscale-300">{작성일.slice(0, 10)}</div>
             </div>
-            <div className="text-grayscale-300">{작성일.slice(0, 10)}</div>
           </div>
           {/* 내용 Text */}
-          <div className="mb-[24px] mt-[8px] line-clamp-3 flex h-[52px] text-ellipsis detail1-medium">
+          <div className="mb-[24px] mt-[8px] line-clamp-3 flex h-[52px] w-full text-ellipsis detail1-medium">
             {내용}
           </div>
           {/* 태그 아이템 */}
