@@ -1,72 +1,18 @@
-'use client';
-
-import {
-  Card as BaseCard,
-  CardProps,
-  CardBody as BaseCardBody,
-  Text,
-  Box,
-} from '@chakra-ui/react';
-
-import styled from '@emotion/styled';
 import FastCampus from 'assets/icons/platform/fastcampus-32.svg';
 import Inflearn from 'assets/icons/platform/inflearn-32.svg';
 import Coloso from 'assets/icons/platform/coloso-32.svg';
 import Class101 from 'assets/icons/platform/class101-32.svg';
-import theme from 'styles/theme';
-import { typo } from 'styles/theme/foundations/typo';
 import CardShape from 'assets/icons/card/whitebg-large.svg';
-import { Tag } from 'components/Tag';
 import Star from 'assets/icons/rating/star.svg';
-import Button from 'components/Button';
-
-const Root = styled(BaseCard)`
-  display: flex;
-  width: 305px;
-  height: 364px;
-  flex-direction: column;
-  align-items: center;
-  border-radius: 0px;
-  border: 0.8px solid ${theme.colors.grayscale['gray-100']};
-  background-color: ${theme.colors.grayscale['gray-50']};
-  box-shadow: none;
-  background-size: cover;
-  overflow: hidden;
-`;
-
-const BackgroundImage = styled.img`
-  src: url(${props => props.src});
-  object-fit: cover;
-  width: 305px;
-  height: 200px;
-  position: absolute;
-  top: 0;
-`;
-
-const CardBody = styled(BaseCardBody)`
-  position: absolute;
-  bottom: 0;
-  width: 305px;
-  padding: 16px;
-`;
-
-const CardShapeWrap = styled(CardShape)`
-  position: absolute;
-  bottom: 0;
-`;
-
-const TagWrap = styled.div`
-  display: flex;
-  width: 273px;
-  align-items: flex-start;
-  align-content: flex-start;
-  gap: 2px;
-  flex-wrap: wrap;
-`;
+import Heart from 'assets/icons/heart-16.svg';
+import BigHeart from 'assets/icons/heart-24.svg';
+import { Button } from 'components/ui/button';
+import { Card, CardProps } from 'components/ui/card';
+import { Toggle } from 'components/ui/toggle';
 
 interface SquareCardProps extends CardProps {
   작성자: string;
-  별점: string;
+  별점: number;
   작성일: string;
   내용: string;
   태그: string;
@@ -78,7 +24,7 @@ interface SquareCardProps extends CardProps {
 
 const SquareCard = ({
   작성자 = '',
-  별점 = '',
+  별점 = 0,
   작성일 = '',
   내용 = '',
   태그 = '',
@@ -89,18 +35,16 @@ const SquareCard = ({
   ...props
 }: SquareCardProps) => {
   return (
-    <Root {...props}>
+    <Card
+      className="group relative h-[364px] w-[305px] border border-grayscale-100 bg-grayscale-50"
+      {...props}
+    >
       {/* 배경 이미지 */}
-      <BackgroundImage src={이미지} />
+      <div className="absolute left-0 top-0 h-full w-full">
+        <img src={이미지} alt="cover" className="h-full w-full object-cover" />
+      </div>
       {/* 플랫폼 아이콘 */}
-      <Box
-        style={{
-          position: 'absolute',
-          top: '72px',
-          left: '16px',
-          zIndex: 10,
-        }}
-      >
+      <div className="absolute left-[16px] top-[72px] z-1">
         {(() => {
           switch (플랫폼) {
             case 'fastcampus':
@@ -115,112 +59,64 @@ const SquareCard = ({
               return null;
           }
         })()}
-      </Box>
+      </div>
       {/* CardBody Shape */}
-      <CardShapeWrap>
+      <div className="absolute bottom-0 left-[-1px] w-full">
         <CardShape />
-      </CardShapeWrap>
+      </div>
       {/* CardBody */}
-      <CardBody>
+      <div className="absolute bottom-0 w-full">
         {/* 작성자, 별점, 작성일 Text */}
-        <Box
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: '3px',
-          }}
-        >
-          <Text
-            mr="16px"
-            style={{
-              ...typo.detail1.semibold,
-            }}
-          >
-            {작성자}
-          </Text>
-          <Tag
-            variant="star"
-            style={{
-              ...typo.detail1.semibold,
-            }}
-            gap="2px"
-          >
-            <Star />
-            {별점}
-          </Tag>
-          <Text
-            style={{
-              color: theme.colors.grayscale['gray-300'],
-              ...typo.detail1.semibold,
-            }}
-          >
-            {작성일}
-          </Text>
-        </Box>
-        {/* 내용 Text */}
-        <Box
-          mt="8px"
-          mb="24px"
-          height="52px"
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-          }}
-        >
-          <Text
-            style={{
-              ...typo.detail1.medium,
-            }}
-          >
+        <div className="flex flex-col p-16">
+          <div className="flex items-center gap-[16px] detail1-semibold">
+            <div>{작성자}</div>
+            <div className="flex gap-[8px]">
+              <div className="flex gap-[2px]">
+                <Star />
+                {별점.toFixed(1)}
+              </div>
+              <div className="text-grayscale-300">{작성일.slice(0, 10)}</div>
+            </div>
+          </div>
+          {/* 내용 Text */}
+          <div className="mb-[24px] mt-[8px] line-clamp-3 flex h-[52px] w-full text-ellipsis detail1-medium">
             {내용}
-          </Text>
-        </Box>
-        {/* 태그 아이템 */}
-        <TagWrap>
-          {태그.split(',').map(item => {
-            return (
-              <Tag key={item} variant="review">
-                {item}
-              </Tag>
-            );
-          })}
-        </TagWrap>
+          </div>
+          {/* 태그 아이템 */}
+          <div className="flex h-[50px] max-w-[273px] flex-wrap items-start gap-[2px] overflow-hidden detail1-semibold">
+            {태그.split(',').map(item => {
+              return (
+                <div
+                  className="inline-flex items-center justify-center rounded-[2px] bg-grayscale-50 px-[8px] py-[4px] text-grayscale-600"
+                  key={item}
+                >
+                  {item}
+                </div>
+              );
+            })}
+          </div>
+        </div>
         {/* 찜수 Text */}
-        <Box
-          mt="16px"
-          height="35px"
-          mb="35px"
-          style={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            alignItems: 'center',
-          }}
+        <div className="flex h-[35px] w-full items-center justify-end gap-[2px] p-8 text-grayscale-300 detail1-semibold">
+          <Heart className="fill-grayscale-300" /> {찜수}
+        </div>
+        {/* 좋아요 버튼 (임시) */}
+        <Toggle
+          asChild
+          pressed={좋아요}
+          className="group/button relative bottom-0 left-0 w-full gap-[4px]"
         >
-          <Text
-            style={{
-              color: theme.colors.grayscale['gray-300'],
-              ...typo.detail1.semibold,
-            }}
-          >
-            {찜수}
-          </Text>
-        </Box>
-      </CardBody>
-      {/* 좋아요 버튼 (임시) */}
-      <Box
-        style={{
-          position: 'absolute',
-          width: '305px',
-          left: '0',
-          bottom: '0',
-        }}
-      >
-        <Button width="304px" variant="red-outlined">
-          {좋아요 ? '좋아요 취소' : '좋아요'}
-        </Button>
-      </Box>
-    </Root>
+          <Button size="lg" variant="red" className="w-[305px]">
+            <BigHeart
+              className={`${
+                좋아요 ? 'fill-red' : 'fill-grayscale-300'
+              } transition-colors group-hover/button:fill-red`}
+            />
+            {좋아요 ? '좋아요 취소' : '좋아요'}
+          </Button>
+        </Toggle>
+      </div>
+    </Card>
   );
 };
 

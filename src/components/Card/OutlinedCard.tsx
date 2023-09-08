@@ -10,6 +10,7 @@ interface OutlinedCardProps extends CardProps {
   타이틀: string;
   플랫폼: string;
   이미지: string;
+  fixed?: boolean;
 }
 
 const OutlinedCard = ({
@@ -17,11 +18,14 @@ const OutlinedCard = ({
   타이틀 = '',
   플랫폼 = '',
   이미지 = '',
+  fixed = false,
   ...props
 }: OutlinedCardProps) => {
   return (
     <div
-      className="flex h-[88px] w-[458px] cursor-pointer items-start gap-8 bg-transparent p-8 hover:bg-white"
+      className={`flex h-[88px] ${
+        fixed ? 'w-[458px]' : 'w-full'
+      } cursor-pointer items-start gap-8 bg-transparent p-8 hover:bg-white`}
       {...props}
     >
       {/* 이미지 */}

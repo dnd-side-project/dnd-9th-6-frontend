@@ -15,6 +15,6 @@ const meta = {
 
 export default meta;
 
-export const TopBarExample: StoryObj<typeof Footer> = {
+export const FooterExample: StoryObj<typeof Footer> = {
   render: () => <Footer />,
 };

@@ -2,7 +2,6 @@ import FastCampus from 'assets/icons/platform/fastcampus-32.svg';
 import Inflearn from 'assets/icons/platform/inflearn-32.svg';
 import Coloso from 'assets/icons/platform/coloso-32.svg';
 import Class101 from 'assets/icons/platform/class101-32.svg';
-import Bookmark from 'assets/icons/bookmark-border.svg';
 import Edge from 'assets/icons/card/edge.svg';
 import { Card, CardProps } from 'components/ui/card';
 import { Button } from 'components/ui/button';
@@ -25,11 +24,11 @@ const CoverCard = ({
 }: CoverCardProps) => {
   return (
     <Card
-      className="group relative z-1 h-[263px] w-[557px] gap-[4px] rounded-[4px] bg-grayscale-500 bg-cover px-16 py-24"
+      className="group relative z-1 h-[263px] w-[557px] gap-[4px] rounded-[4px] bg-grayscale-800 bg-cover px-16 py-24"
       {...props}
     >
       {/* 배경 이미지 */}
-      <div className="absolute left-0 top-0 z-[-1] h-full w-full opacity-60 transition-opacity">
+      <div className="absolute left-0 top-0 z-[-1] h-full w-full opacity-50 blur-[2px] transition-opacity">
         <img src={이미지} alt="cover" className="h-full w-full object-cover" />
       </div>
       {/* 강사명, 타이틀명 Text */}
@@ -60,9 +59,8 @@ const CoverCard = ({
       </div>
       {/* 강의 찜 버튼 */}
       <div className="absolute bottom-[24px] right-[16px]">
-        <Button size="sm" variant="outlined" className="gap-[4px] pl-16">
+        <Button size="sm" variant="outlined">
           강의 찜하기
-          <Bookmark />
         </Button>
       </div>
       {/* 왼쪽 밑 엣지 배경 */}

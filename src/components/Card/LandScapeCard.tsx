@@ -25,11 +25,11 @@ const LandScapeCard = ({
 }: LandScapeCardProps) => {
   return (
     <Card
-      className="group relative z-1 h-[264px] w-[275px] border border-grayscale-100 bg-grayscale-50 bg-cover p-16"
+      className="group relative z-1 h-[264px] w-[275px] border border-grayscale-100 bg-cover p-16"
       {...props}
     >
       {/* 배경 이미지 */}
-      <div className="absolute left-0 top-0 z-[-1] h-full w-full opacity-60 transition-opacity">
+      <div className="absolute left-0 top-0 z-[-1] h-full w-full transition-opacity">
         <img src={이미지} alt="cover" className="h-full w-full object-cover" />
       </div>
       {/* 북마크 버튼 */}

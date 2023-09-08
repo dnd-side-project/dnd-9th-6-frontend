@@ -1,42 +1,14 @@
-'use client';
-
-import { Card as BaseCard, CardProps, Text, Box } from '@chakra-ui/react';
-
-import styled from '@emotion/styled';
 import FastCampus from 'assets/icons/platform/fastcampus-16.svg';
 import Inflearn from 'assets/icons/platform/inflearn-16.svg';
 import Coloso from 'assets/icons/platform/coloso-16.svg';
 import Class101 from 'assets/icons/platform/class101-16.svg';
-import theme from 'styles/theme';
-import { typo } from 'styles/theme/foundations/typo';
-import { Tag } from 'components/Tag';
-
-const Root = styled(BaseCard)`
-  display: flex;
-  width: 547px;
-  height: 220px;
-  padding: 16px;
-  align-items: flex-start;
-  border-radius: 0px;
-  background-color: ${theme.colors.grayscale.white};
-  box-shadow: 4px 3px 16px 0px rgba(108, 108, 128, 0.05);
-  background-size: cover;
-  overflow: hidden;
-`;
-
-const TagWrap = styled.div`
-  display: flex;
-  width: 254px;
-  align-items: flex-start;
-  align-content: flex-start;
-  gap: 6px;
-  flex-wrap: wrap;
-`;
+import { Card, CardProps } from 'components/ui/card';
+import { Rating } from 'react-simple-star-rating';
 
 interface HorizontalCardProps extends CardProps {
   타이틀: string;
   작성자: string;
-  별점: string;
+  별점: number;
   작성일: string;
   내용: string;
   태그: string;
@@ -46,7 +18,7 @@ interface HorizontalCardProps extends CardProps {
 const HorizontalCard = ({
   타이틀 = '',
   작성자 = '',
-  별점 = '',
+  별점 = 0,
   작성일 = '',
   내용 = '',
   태그 = '',
@@ -54,15 +26,12 @@ const HorizontalCard = ({
   ...props
 }: HorizontalCardProps) => {
   return (
-    <Root {...props}>
+    <Card
+      className="group relative h-[220px] w-[547px] bg-white p-16 shadow-card"
+      {...props}
+    >
       {/* 플랫폼 아이콘 */}
-      <Box
-        style={{
-          position: 'absolute',
-          top: '21px',
-          right: '16px',
-        }}
-      >
+      <div className="absolute right-[16px] top-[21px]">
         {(() => {
           switch (플랫폼) {
             case 'fastcampus':
@@ -77,100 +46,50 @@ const HorizontalCard = ({
               return null;
           }
         })()}
-      </Box>
+      </div>
       {/* 작성자, 작성일, 별점 Text */}
-      <Box
-        style={{
-          display: 'flex',
-          width: '515px',
-          height: '26px',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}
-      >
-        <Box
-          style={{
-            display: 'flex',
-            width: '388px',
-            flexDirection: 'column',
-            alignItems: 'flex-start',
-            gap: '2px',
-          }}
-        >
-          <Text
-            mr="16px"
-            style={{
-              ...typo.detail2.semibold,
-            }}
-          >
-            {작성자}
-          </Text>
-          <Text
-            style={{
-              color: theme.colors.grayscale['gray-300'],
-              ...typo.detail2.semibold,
-            }}
-          >
-            {작성일}
-          </Text>
-        </Box>
-        <Tag
-          mr="16px"
-          variant="star"
-          style={{
-            ...typo.body3.bold,
-          }}
-          gap="2px"
-        >
-          {별점}
-        </Tag>
-      </Box>
+      <div className="flex h-[26px] w-[515px] items-center justify-between">
+        <div className="flex w-[388px] flex-col items-start gap-[2px] detail2-semibold">
+          <div>{작성자}</div>
+          <div className="text-grayscale-300">{작성일.slice(0, 10)}</div>
+        </div>
+        <div className="mr-[24px] flex items-center gap-[4px] body3-bold">
+          <Rating
+            emptyStyle={{ display: 'flex' }}
+            fillStyle={{ display: '-webkit-inline-box' }}
+            initialValue={별점}
+            size={16}
+            allowFraction
+            readonly
+          />
+          {별점.toFixed(1)}
+        </div>
+      </div>
       {/* 내용 Text */}
-      <Box
-        mt="8px"
-        mb="22px"
-        height="88px"
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-        }}
-      >
-        <Text
-          style={{
-            ...typo.body3.medium,
-          }}
-        >
-          {내용}
-        </Text>
-      </Box>
+      <div className="mb-[16px] mt-[8px] line-clamp-5 flex h-[88px] w-full flex-row text-ellipsis body3-medium">
+        {내용}
+      </div>
       {/* 태그, 타이틀 Text */}
-      <Box display="flex" width="100%" justifyContent="space-between">
-        <TagWrap>
+      <div className="flex w-full justify-between">
+        <div className="flex max-h-[54px] max-w-[254px] flex-wrap items-start gap-[6px] overflow-hidden detail1-semibold">
           {태그.split(',').map(item => {
             return (
-              <Tag key={item} variant="review">
+              <div
+                className="inline-flex items-center justify-center rounded-[2px] bg-grayscale-50 px-[8px] py-[4px] text-grayscale-600"
+                key={item}
+              >
                 {item}
-              </Tag>
+              </div>
             );
           })}
-        </TagWrap>
-        <Box
-          display="flex"
-          width="255px"
-          alignItems="center"
-          justifyContent="flex-end"
-        >
-          <Text
-            style={{
-              color: theme.colors.primary['classcope-blue-3'],
-              ...typo.detail2.semibold,
-            }}
-          >
+        </div>
+        <div className="flex w-[255px] items-center justify-end">
+          <div className="line-clamp-2 text-blue-300 detail2-semibold">
             {타이틀}
-          </Text>
-        </Box>
-      </Box>
-    </Root>
+          </div>
+        </div>
+      </div>
+    </Card>
   );
 };
 

@@ -13,7 +13,7 @@ const buttonVariants = cva(
           'border-[1px] border-blue-400 bg-white text-blue-300 hover:bg-blue-50 active:bg-blue-400 active:text-white',
         secondary:
           'bg-grayscale-100 text-grayscale-700 hover:bg-grayscale-200 active:bg-grayscale-400 active:text-white',
-        red: 'border-[1px] border-grayscale-100 bg-white text-grayscale-300 hover:border-red hover:text-red active:border-red active:bg-[#FDE7E7] active:text-red',
+        red: 'border-[1px] border-grayscale-100 bg-white text-grayscale-300 hover:border-red hover:text-red active:border-red active:bg-[#FDE7E7] active:text-red data-[state=on]:border-red data-[state=on]:text-red',
         purple:
           'bg-purple-300 text-white hover:bg-purple-500 active:bg-purple-400',
         category:
