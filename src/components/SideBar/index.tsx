@@ -1,22 +1,5 @@
 /* eslint-disable react/jsx-pascal-case */
 
-'use client';
-
-import {
-  Text,
-  AccordionButton,
-  Accordion,
-  AccordionItem,
-  AccordionPanel,
-  Button,
-  AccordionIcon,
-  Box,
-  BoxProps,
-} from '@chakra-ui/react';
-import styled from '@emotion/styled';
-import { colors } from 'styles/theme/foundations/colors';
-import { typo } from 'styles/theme/foundations/typo';
-
 import 전체강의 from 'assets/icons/all.svg';
 import 게임 from 'assets/icons/game.svg';
 import 금융투자 from 'assets/icons/money.svg';
@@ -31,53 +14,15 @@ import 데이터사이언스 from 'assets/icons/datascience.svg';
 import 학문외국어 from 'assets/icons/language.svg';
 import 크리에이티브 from 'assets/icons/createtive.svg';
 import 영상3D애니메이션 from 'assets/icons/movie.svg';
-
-const Root = styled(Box)`
-  width: 192px;
-  padding: 0 3px 0 3px;
-  flex-direction: column;
-`;
-
-const LectureButton = styled(AccordionButton)`
-  display: flex;
-  width: 186px;
-  padding: 8px 12px;
-  justify-content: space-between;
-  align-items: center;
-  border-radius: 4px;
-  &:hover {
-    background: ${colors.grayscale['gray-100']};
-  }
-`;
-
-const LecturePanel = styled(AccordionPanel)`
-  display: flex;
-  padding: 4px 0px 8px 0px;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border-radius: 4px;
-  background: ${colors.grayscale['gray-50']};
-`;
-
-const LectureAccordianButton = styled(Button)`
-  display: flex;
-  width: 186px;
-  padding: 8px 36px;
-  align-items: center;
-  justify-content: flex-start;
-  color: ${colors.grayscale['gray-400']};
-  background: ${colors.grayscale['gray-50']};
-  &:hover {
-    background: ${colors.grayscale['gray-100']};
-    & p {
-      color: ${colors.primary['classcope-blue-5']};
-    }
-  }
-`;
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from 'components/ui/accordion';
 
 const LectureAccordionData = [
-  { main: '전체강의', icon: <전체강의 /> },
+  { main: '전체강의', sub: ['전체강의'], icon: <전체강의 /> },
   {
     main: '게임',
     sub: ['게임/e스포츠', '게임개발', '게임제작'],
@@ -174,49 +119,44 @@ const LectureAccordionData = [
   },
 ];
 
-const LectureAccordion = ({ ...props }: BoxProps) => {
+const SideBar = ({ ...props }) => {
   return (
-    <Root {...props}>
+    <div className="flex min-w-[192px] flex-col shadow-dropdown" {...props}>
       {/* 아코디언 */}
-      <Accordion allowToggle bgColor="white">
+      <Accordion type="single" collapsible className="bg-white px-[8px]">
         {LectureAccordionData.map(data => {
           return (
-            <AccordionItem key={data.main} borderTopWidth="0">
+            <AccordionItem key={data.main} value={data.main}>
               {/* 메인 카테고리 버튼 */}
-              <LectureButton>
-                <Box display="flex" gap="4px">
+              <AccordionTrigger className="rounded-[4px] hover:bg-grayscale-100 hover:text-grayscale-800 hover:body3-bold">
+                <div className="flex gap-[4px]">
                   {data.icon}
-                  <Text
-                    color={colors.grayscale['gray-800']}
-                    style={{ ...typo.body3.bold }}
-                  >
-                    {data.main}
-                  </Text>
-                </Box>
-                <AccordionIcon />
-              </LectureButton>
+                  {data.main}
+                </div>
+              </AccordionTrigger>
               {/* 아코디언 패널 */}
-              <LecturePanel>
+              <AccordionContent className="rounded-[4px]">
                 {data.sub?.map(sub => {
                   return (
                     // 서브 카테고리 버튼
-                    <LectureAccordianButton key={sub}>
-                      <Text
-                        color={colors.grayscale['gray-400']}
-                        style={{ ...typo.detail1.semibold }}
-                      >
+                    <button
+                      type="button"
+                      className="group flex w-full items-center justify-start bg-grayscale-50 px-32 py-8 hover:bg-grayscale-100"
+                      key={sub}
+                    >
+                      <div className="text-grayscale-400 detail1-semibold group-hover:text-blue-500">
                         {sub}
-                      </Text>
-                    </LectureAccordianButton>
+                      </div>
+                    </button>
                   );
                 })}
-              </LecturePanel>
+              </AccordionContent>
             </AccordionItem>
           );
         })}
       </Accordion>
-    </Root>
+    </div>
   );
 };
 
-export default LectureAccordion;
+export default SideBar;
