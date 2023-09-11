@@ -123,7 +123,7 @@ const SideBar = ({ ...props }) => {
   return (
     <div className="flex min-w-[192px] flex-col shadow-dropdown" {...props}>
       {/* 아코디언 */}
-      <Accordion type="single" collapsible className="bg-white px-[8px]">
+      <Accordion type="single" collapsible className="bg-white">
         {LectureAccordionData.map(data => {
           return (
             <AccordionItem key={data.main} value={data.main}>
