@@ -25,6 +25,8 @@ export type LecturesResponse = {
       mainCategory: string;
       subCategory: string;
       imageUrl: string;
+      reviewCount: number;
+      bookmarkCount: number;
     }[];
   };
 };

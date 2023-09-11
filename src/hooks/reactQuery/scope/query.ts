@@ -34,15 +34,15 @@ export const useGetScopeRecent = (
   );
 };
 
-export const useGetScopeKeyword = (
-  params?: ScopeParams['scopeKeyword'],
-  options?: UseQueryOptions<ScopeResponse['keywords'], AxiosError>
-) => {
-  return useQuery<ScopeResponse['keywords'], AxiosError>(
-    SCOPE_KEY.list([{ ...params }]),
-    () => scopeApi.keywords(params),
-    {
-      ...options,
-    }
-  );
-};
+// export const useGetScopeKeyword = (
+//   params?: ScopeParams['scopeKeyword'],
+//   options?: UseQueryOptions<ScopeResponse['keywords'], AxiosError>
+// ) => {
+//   return useQuery<ScopeResponse['keywords'], AxiosError>(
+//     SCOPE_KEY.list([{ ...params }]),
+//     () => scopeApi.keywords(params),
+//     {
+//       ...options,
+//     }
+//   );
+// };
