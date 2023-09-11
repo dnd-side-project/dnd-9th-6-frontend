@@ -130,11 +130,24 @@ const categoryItems = [
 const Home = () => {
   const router = useRouter();
   const [value, setValue] = useState('');
-  const { data } = useGetLecturesParameter({
+
+  // 나의 관심분야
+  const { data: interestData } = useGetLecturesParameter({
     mainCategoryId: 11,
   });
+  // 후기가 많이 달린 강의
+  const { data: reviewData } = useGetLecturesParameter({
+    sort: 'review,asc',
+  });
 
-  const lectureInterest = data?.lectures;
+  // 많이 찜한 강의
+  const { data: bookmarkData } = useGetLecturesParameter({
+    sort: 'bookmark,asc',
+  });
+
+  const lectureInterest = interestData?.lectures;
+  const lectureReview = reviewData?.lectures;
+  const lectureBookmark = bookmarkData?.lectures;
 
   return (
     <>
@@ -155,7 +168,7 @@ const Home = () => {
           </div>
         </div>
         {/* 검색바 */}
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center body2-medium">
           <div className="relative w-[695px] translate-y-[-24px]">
             <Input
               variant="search"
@@ -173,14 +186,12 @@ const Home = () => {
             />
             <button
               type="button"
-              className="absolute right-0 top-0 flex h-full w-[56px] border-l border-grayscale-200 p-16"
+              className="absolute inset-y-0 right-0 flex items-center border-l border-grayscale-200 p-16"
               onClick={() => {
                 router.push(`/lectures?searchKeyword=${value}`);
               }}
             >
-              <div className="translate-y-[-2px]">
-                <Search />
-              </div>
+              <Search />
             </button>
           </div>
         </div>
@@ -302,7 +313,7 @@ const Home = () => {
                 }}
                 modules={[Autoplay, Pagination]}
               >
-                {lectureInterest?.map(item => (
+                {lectureReview?.map(item => (
                   <SwiperSlide key={item.id}>
                     <LandScapeCard
                       강사={item.name}
@@ -310,7 +321,7 @@ const Home = () => {
                       가격={item.price}
                       플랫폼={item.source}
                       이미지={item.imageUrl}
-                      후기수={100}
+                      후기수={item.reviewCount}
                     />
                   </SwiperSlide>
                 ))}
@@ -349,7 +360,7 @@ const Home = () => {
                 }}
                 modules={[Autoplay, Navigation]}
               >
-                {lectureInterest?.map(item => (
+                {lectureBookmark?.map(item => (
                   <SwiperSlide key={item.id}>
                     <LandScapeCard
                       강사={item.name}
@@ -357,7 +368,7 @@ const Home = () => {
                       가격={item.price}
                       플랫폼={item.source}
                       이미지={item.imageUrl}
-                      후기수={100}
+                      후기수={item.reviewCount}
                     />
                   </SwiperSlide>
                 ))}
