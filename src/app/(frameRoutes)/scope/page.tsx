@@ -16,7 +16,6 @@ import {
   useGetScopeReviews,
 } from 'hooks/reactQuery/scope/query';
 import { HorizontalCard, OutlinedCard, SquareCard } from 'components/Card';
-import Checkbox from 'components/Checkbox';
 import { Button } from 'components/ui/button';
 import { Separator } from 'components/ui/separator';
 
@@ -24,9 +23,6 @@ const Scope = () => {
   const { data: scopeReviews } = useGetScopeReviews({ staleTime: Infinity });
   const { data: scopeLectures } = useGetScopeLectures({ staleTime: Infinity });
   const { data: scopeRecent } = useGetScopeRecent({ staleTime: Infinity });
-  // const { data: scopeKeyword } = useGetScopeKeyword({
-  //   keyword: '빠른 답변',
-  // });
 
   return (
     <div className="bg-gradient-main">
