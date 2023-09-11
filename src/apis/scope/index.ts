@@ -1,5 +1,5 @@
 import { objToQueryString } from 'utils/objToQueryString';
-import isEmpty from 'lodash';
+import _ from 'lodash';
 import instance from '..';
 import { ScopeParams, ScopeResponse } from './types';
 
@@ -29,7 +29,7 @@ const scopeApi = {
    * 후기 키워드 조회
    */
   keywords: async (params?: ScopeParams['scopeKeyword']) => {
-    const queryString = isEmpty(params)
+    const queryString = _.isEmpty(params)
       ? ''
       : `?${objToQueryString({ keyword: params })}`;
     return instance.get<ScopeResponse['keywords'], ScopeResponse['keywords']>(
