@@ -6,7 +6,10 @@ import { HTTP_BASE_URL } from 'constants/http';
 const instance = axios.create({
   baseURL: HTTP_BASE_URL,
   headers: {
-    'Content-Type': 'application/json',
+    'Content-Type': 'application/json;charset=UTF-8',
+    Accept: 'application/json',
+    'Access-Control-Allow-Origin': `https://www.classcope.co.kr`,
+    'Access-Control-Allow-Credentials': 'true',
   },
   withCredentials: true,
 });
