@@ -11,7 +11,7 @@ import Link from 'next/link';
 
 const SideBar = ({ ...props }) => {
   return (
-    <div className="flex min-w-[192px] flex-col shadow-dropdown" {...props}>
+    <div className="flex min-w-[192px] flex-col shadow-main" {...props}>
       {/* 아코디언 */}
       <Accordion type="single" collapsible className="bg-white">
         {CategoryData.map(data => {
@@ -43,7 +43,7 @@ const SideBar = ({ ...props }) => {
                         type="button"
                         className="group flex w-full items-center justify-start bg-grayscale-50 px-32 py-8 hover:bg-grayscale-100"
                       >
-                        <div className="text-grayscale-400 detail1-semibold group-hover:text-blue-500">
+                        <div className="text-grayscale-400 detail1-semibold hover:detail1-bold group-hover:text-blue-500">
                           {sub[0]}
                         </div>
                       </button>
