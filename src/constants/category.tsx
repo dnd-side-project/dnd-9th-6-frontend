@@ -31,10 +31,18 @@ import 학문외국어 from 'assets/icons/language.svg';
 import 크리에이티브 from 'assets/icons/createtive.svg';
 import 영상3D애니메이션 from 'assets/icons/movie.svg';
 
-export const CategoryData = [
+export interface Category {
+  id: number;
+  main: string;
+  sub: [string, number | string][];
+  mainCategoryIcon: JSX.Element;
+  sideBarIcon: JSX.Element;
+}
+
+export const CategoryData: Category[] = [
   {
     id: 0,
-    main: ['전체강의'],
+    main: '전체강의',
     sub: [['전체강의', 0]],
     mainCategoryIcon: <CategoryIcon />,
     sideBarIcon: <전체강의 />,
