@@ -1,9 +1,3 @@
-export type ScopeParams = {
-  scopeKeyword?: {
-    keyword?: string;
-  };
-};
-
 export type ScopeResponse = {
   reviews: {
     id: number;
