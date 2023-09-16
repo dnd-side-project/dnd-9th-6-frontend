@@ -1,7 +1,7 @@
 import instance from '..';
 import { ScopeResponse } from './types';
 
-const scopeApi = {
+const SCOPE_API = {
   /**
    * 별점 높은 수강 후기 조회
    */
@@ -25,4 +25,4 @@ const scopeApi = {
     ),
 };
 
-export default scopeApi;
+export default SCOPE_API;
