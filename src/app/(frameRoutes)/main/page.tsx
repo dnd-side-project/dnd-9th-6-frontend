@@ -4,20 +4,6 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import Search from 'assets/icons/search.svg';
-import CategoryIcon from 'assets/icons/glass/all-i.svg';
-import ProgrammingIcon from 'assets/icons/glass/programming-l v.svg';
-import DSIcon from 'assets/icons/glass/datascience-l.svg';
-import HardwareIcon from 'assets/icons/glass/hardware-l.svg';
-import DrawingIcon from 'assets/icons/glass/drawing-l.svg';
-import DesignIcon from 'assets/icons/glass/design-l.svg';
-import MovieIcon from 'assets/icons/glass/movie-l.svg';
-import GameIcon from 'assets/icons/glass/game-l.svg';
-import CookingIcon from 'assets/icons/glass/cooking-l.svg';
-import CreativeIcon from 'assets/icons/glass/cratetive-l.svg';
-import MoneyIcon from 'assets/icons/glass/money-l.svg';
-import LanguageIcon from 'assets/icons/glass/language.svg';
-import CareerIcon from 'assets/icons/glass/career-l.svg';
-import LifestyleIcon from 'assets/icons/glass/lifestyle-l.svg';
 import ProgrammingSmallIcon from 'assets/icons/glass/programming.svg';
 import Banner from 'assets/images/banner.svg';
 import SectionBG from 'assets/images/section_bg.svg';
@@ -26,7 +12,7 @@ import Chat from 'assets/icons/glass/chat/purple.svg';
 import Book from 'assets/icons/glass/bookmarrk.svg';
 import SectionIcon from 'assets/icons/glass/bookmark2.svg';
 
-import { useGetLecturesParameter } from 'hooks/reactQuery/lectures/query';
+import { useGetLectures } from 'hooks/reactQuery/lectures/query';
 import { Input } from 'components/ui/input';
 import { Button } from 'components/ui/button';
 import { CoverCard, LandScapeCard, OutlinedCard } from 'components/Card';
@@ -39,109 +25,23 @@ import 'swiper/css/navigation';
 
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import { Separator } from 'components/ui/separator';
-
-const categoryItems = [
-  {
-    id: 'category',
-    icon: <CategoryIcon />,
-    text: '전체강의',
-    to: '/lectures',
-  },
-  {
-    id: 'programming',
-    icon: <ProgrammingIcon />,
-    text: '프로그래밍',
-    to: '/lectures?mainCategoryId=11',
-  },
-  {
-    id: 'ds',
-    icon: <DSIcon />,
-    text: '데이터사이언스',
-    to: '/lectures?mainCategoryId=3',
-  },
-  {
-    id: 'hardware',
-    icon: <HardwareIcon />,
-    text: '하드웨어',
-    to: '/lectures?mainCategoryId=12',
-  },
-  {
-    id: 'drawing',
-    icon: <DrawingIcon />,
-    text: '드로잉',
-    to: '/lectures?mainCategoryId=4',
-  },
-  {
-    id: 'design',
-    icon: <DesignIcon />,
-    text: '디자인',
-    to: '/lectures?mainCategoryId=5',
-  },
-  {
-    id: 'movie',
-    icon: <MovieIcon />,
-    text: '영상 애니메이션',
-    to: '/lectures?mainCategoryId=7',
-  },
-  {
-    id: 'game',
-    icon: <GameIcon />,
-    text: '게임',
-    to: '/lectures?mainCategoryId=1',
-  },
-  {
-    id: 'cooking',
-    icon: <CookingIcon />,
-    text: '요리',
-    to: '/lectures?mainCategoryId=8',
-  },
-  {
-    id: 'creative',
-    icon: <CreativeIcon />,
-    text: '크리에이티브',
-    to: '/lectures?mainCategoryId=10',
-  },
-  {
-    id: 'money',
-    icon: <MoneyIcon />,
-    text: '금융 투자',
-    to: '/lectures?mainCategoryId=2',
-  },
-  {
-    id: 'language',
-    icon: <LanguageIcon />,
-    text: '학문 외국어',
-    to: '/lectures?mainCategoryId=13',
-  },
-  {
-    id: 'career',
-    icon: <CareerIcon />,
-    text: '커리어',
-    to: '/lectures?mainCategoryId=9',
-  },
-  {
-    id: 'lifestyle',
-    icon: <LifestyleIcon />,
-    text: '라이프 스타일',
-    to: '/lectures?mainCategoryId=6',
-  },
-];
+import { CategoryData } from 'constants/category';
+import Link from 'next/link';
 
 const Home = () => {
   const router = useRouter();
   const [value, setValue] = useState('');
 
   // 나의 관심분야
-  const { data: interestData } = useGetLecturesParameter({
+  const { data: interestData } = useGetLectures({
     mainCategoryId: 11,
   });
   // 후기가 많이 달린 강의
-  const { data: reviewData } = useGetLecturesParameter({
+  const { data: reviewData } = useGetLectures({
     sort: 'review,asc',
   });
-
   // 많이 찜한 강의
-  const { data: bookmarkData } = useGetLecturesParameter({
+  const { data: bookmarkData } = useGetLectures({
     sort: 'bookmark,asc',
   });
 
@@ -199,18 +99,13 @@ const Home = () => {
         <div className="container flex flex-col items-center justify-center pb-[76px] pt-[34px]">
           {/* 카테고리 아이콘 */}
           <div className="mb-[58px] flex w-[824px] flex-wrap items-start justify-start gap-16">
-            {categoryItems.map(({ id, icon, text, to }) => (
-              <Button
-                variant="category"
-                size="icon"
-                key={id}
-                onClick={() => {
-                  router.push(to);
-                }}
-              >
-                {icon}
-                {text}
-              </Button>
+            {CategoryData.map(({ id, mainCategoryIcon, main }) => (
+              <Link href={`lectures?mainCategoryId=${id}`} key={id}>
+                <Button variant="category" size="icon">
+                  {mainCategoryIcon}
+                  {main}
+                </Button>
+              </Link>
             ))}
           </div>
           {/* 배너 이미지 */}
