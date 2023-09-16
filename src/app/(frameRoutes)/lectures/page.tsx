@@ -1,11 +1,12 @@
 'use client';
 
+import { notFound, useRouter, useSearchParams } from 'next/navigation';
+
 import SideBar from 'components/SideBar';
 import Pentip from 'assets/icons/designlarge.svg';
 import Search from 'assets/icons/search.svg';
 import { Input } from 'components/ui/input';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import {
   Select,
   SelectContent,
@@ -14,9 +15,10 @@ import {
   SelectValue,
 } from 'components/ui/select';
 import { RadioGroup, RadioGroupItem } from 'components/ui/radio-group';
-import { useGetLecturesParameter } from 'hooks/reactQuery/lectures/query';
 import { LandScapeCard } from 'components/Card';
 import { CategoryData } from 'constants/category';
+import useIntersection from 'hooks/useIntersection';
+import { useGetInfiniteLectures } from 'hooks/reactQuery/lectures/query';
 
 const Lectures = () => {
   const router = useRouter();
@@ -31,18 +33,37 @@ const Lectures = () => {
   const sizeValue = searchParams.get('size') ?? '';
   const sortValue = searchParams.get('sort') ?? '';
 
-  const { data } = useGetLecturesParameter({
+  const params = {
     mainCategoryId: mainCategoryIdValue,
     subCategoryId: subCategoryIdValue,
     searchKeyword: searchKeywordValue,
-    page: searchParams.get('page') ?? '',
-    size: searchParams.get('size') ?? '',
+    page: searchParams.get('page') ?? 1,
+    size: searchParams.get('size') ?? 8,
     sort: searchParams.get('sort') ?? '',
+  };
+
+  const { data, fetchNextPage, hasNextPage, isFetching, isSuccess } =
+    useGetInfiniteLectures(params);
+
+  const lectures = useMemo(
+    // eslint-disable-next-line @typescript-eslint/no-shadow
+    () => (data ? data.pages.flatMap(({ lectures }) => lectures) : []),
+    [data]
+  );
+
+  const ref = useIntersection((entry, observer) => {
+    observer.unobserve(entry.target);
+
+    if (hasNextPage && !isFetching) fetchNextPage();
   });
 
   const options = CategoryData.find(
     item => item.id === Number(mainCategoryIdValue)
   );
+
+  if (isSuccess && lectures.length === 0) {
+    notFound();
+  }
 
   return (
     <div className="bg-gradient-main">
@@ -62,18 +83,29 @@ const Lectures = () => {
             {/* 라디오 버튼 & 검색창 */}
             <div className="flex w-full flex-1 justify-between">
               <div className="flex">
-                <RadioGroup defaultValue="전체">
+                <RadioGroup
+                  value={
+                    options?.sub
+                      .filter(item => item[1] === Number(subCategoryIdValue))
+                      .flatMap(item => item)[0]
+                      ?.toString() ?? '전체강의'
+                  }
+                >
                   {options?.sub.map(item => {
                     return (
                       <RadioGroupItem
                         key={item[0]}
                         value={item[0] as string}
                         id={item[0] as string}
-                        onClick={() => {
-                          router.push(
-                            `/lectures?mainCategoryId=${mainCategoryIdValue}&subCategoryId=${item[1]}`
-                          );
-                        }}
+                        onClick={
+                          searchKeywordValue
+                            ? () => {}
+                            : () => {
+                                router.push(
+                                  `/lectures?mainCategoryId=${mainCategoryIdValue}&subCategoryId=${item[1]}`
+                                );
+                              }
+                        }
                       >
                         {item[0]}
                       </RadioGroupItem>
@@ -110,7 +142,7 @@ const Lectures = () => {
             {/* 검색 결과 텍스트 & 필터 드롭다운 */}
             <div className="flex items-end justify-between">
               <div className="text-grayscale-700 body3-medium">
-                {data?.totalElements ?? 0}개의 검색결과를 찾았어요
+                {data?.pages[0].totalElements ?? 0}개의 검색결과를 찾았어요
               </div>
               <Select
                 onValueChange={value => {
@@ -137,7 +169,7 @@ const Lectures = () => {
           </div>
           {/* 강의 목록 */}
           <div className="mt-12 grid grid-cols-3 gap-16">
-            {data?.lectures.map(lecture => (
+            {lectures?.map(lecture => (
               <LandScapeCard
                 key={lecture.id}
                 강사={lecture.name}
@@ -148,6 +180,7 @@ const Lectures = () => {
                 후기수={lecture.reviewCount}
               />
             ))}
+            <div ref={ref} />
           </div>
         </div>
       </div>
