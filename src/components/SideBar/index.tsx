@@ -43,7 +43,7 @@ const SideBar = ({ ...props }) => {
                         type="button"
                         className="group flex w-full items-center justify-start bg-grayscale-50 px-32 py-8 hover:bg-grayscale-100"
                       >
-                        <div className="text-grayscale-400 detail1-semibold hover:detail1-bold group-hover:text-blue-500">
+                        <div className="text-grayscale-500 detail1-medium hover:detail1-bold group-hover:text-blue-500">
                           {sub[0]}
                         </div>
                       </button>
