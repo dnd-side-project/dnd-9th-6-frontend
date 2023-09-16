@@ -34,7 +34,7 @@ import 영상3D애니메이션 from 'assets/icons/movie.svg';
 export const CategoryData = [
   {
     id: 0,
-    main: '전체강의',
+    main: ['전체강의'],
     sub: [['전체강의', 0]],
     mainCategoryIcon: <CategoryIcon />,
     sideBarIcon: <전체강의 />,
@@ -43,6 +43,7 @@ export const CategoryData = [
     id: 11,
     main: '프로그래밍',
     sub: [
+      ['전체강의', ''],
       ['교양', 8],
       ['데브옵스/인프라', 12],
       ['모바일', 20],
@@ -62,6 +63,7 @@ export const CategoryData = [
     id: 3,
     main: '데이터사이언스',
     sub: [
+      ['전체강의', ''],
       ['데이터분석', 13],
       ['데이터시각화', 14],
       ['데이터엔지니어링', 15],
@@ -75,6 +77,7 @@ export const CategoryData = [
     id: 12,
     main: '하드웨어',
     sub: [
+      ['전체강의', ''],
       ['로봇', 16],
       ['모빌리티', 21],
       ['반도체', 23],
@@ -89,6 +92,7 @@ export const CategoryData = [
     id: 4,
     main: '드로잉',
     sub: [
+      ['전체강의', ''],
       ['웹툰/웹소설', 46],
       ['취미드로잉', 56],
       ['캐릭터일러스트', 57],
@@ -101,6 +105,7 @@ export const CategoryData = [
     id: 5,
     main: '디자인',
     sub: [
+      ['전체강의', ''],
       ['2D/그래픽/브랜딩', 1],
       ['3D/건축', 2],
       ['제품디자인', 53],
@@ -113,6 +118,7 @@ export const CategoryData = [
     id: 7,
     main: '영상/3D/애니메이션',
     sub: [
+      ['전체강의', ''],
       ['3D/CG', 3],
       ['모션그래픽', 22],
       ['블렌더', 28],
@@ -127,6 +133,7 @@ export const CategoryData = [
     id: 1,
     main: '게임',
     sub: [
+      ['전체강의', ''],
       ['게임/e스포츠', 4],
       ['게임개발', 5],
       ['게임제작', 6],
@@ -138,6 +145,7 @@ export const CategoryData = [
     id: 8,
     main: '요리',
     sub: [
+      ['전체강의', ''],
       ['베이킹/디저트', 24],
       ['요리/음료', 43],
     ],
@@ -148,6 +156,7 @@ export const CategoryData = [
     id: 10,
     main: '크리에이티브',
     sub: [
+      ['전체강의', ''],
       ['공예', 7],
       ['메타버스', 19],
       ['소설/글쓰기', 32],
@@ -163,6 +172,7 @@ export const CategoryData = [
     id: 2,
     main: '금융/투자',
     sub: [
+      ['전체강의', ''],
       ['금융투자실무', 9],
       ['부동산', 26],
       ['재무/회계/세무', 51],
@@ -175,6 +185,7 @@ export const CategoryData = [
     id: 13,
     main: '학문/외국어',
     sub: [
+      ['전체강의', ''],
       ['기타외국어', 11],
       ['수학', 33],
       ['아이/부모교육', 36],
@@ -189,6 +200,7 @@ export const CategoryData = [
     id: 9,
     main: '커리어',
     sub: [
+      ['전체강의', ''],
       ['마케팅', 17],
       ['마케팅/기타', 18],
       ['비즈니스', 30],
@@ -206,6 +218,7 @@ export const CategoryData = [
     id: 6,
     main: '라이프 스타일',
     sub: [
+      ['전체강의', ''],
       ['기타', 10],
       ['뷰티', 27],
       ['심리', 35],

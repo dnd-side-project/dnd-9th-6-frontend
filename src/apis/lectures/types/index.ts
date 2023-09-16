@@ -1,5 +1,5 @@
 export type LecturesParams = {
-  lecturesParameter?: {
+  get: {
     mainCategoryId?: number | string;
     subCategoryId?: number | string;
     searchKeyword?: string;
@@ -10,23 +10,21 @@ export type LecturesParams = {
 };
 
 export type LecturesResponse = {
-  search: {
-    totalPages: number;
-    pageNumber: number;
-    pageSize: number;
-    totalElements: number;
-    lectures: {
-      id: number;
-      title: string;
-      source: string;
-      url: string;
-      price: string;
-      name: string;
-      mainCategory: string;
-      subCategory: string;
-      imageUrl: string;
-      reviewCount: number;
-      bookmarkCount: number;
-    }[];
-  };
+  totalPages: number;
+  pageNumber: number;
+  pageSize: number;
+  totalElements: number;
+  lectures: {
+    id: number;
+    title: string;
+    source: string;
+    url: string;
+    price: string;
+    name: string;
+    mainCategory: string;
+    subCategory: string;
+    imageUrl: string;
+    reviewCount: number;
+    bookmarkCount: number;
+  }[];
 };

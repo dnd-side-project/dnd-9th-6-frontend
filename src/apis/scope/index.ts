@@ -1,9 +1,7 @@
-import { objToQueryString } from 'utils/objToQueryString';
-import _ from 'lodash';
 import instance from '..';
-import { ScopeParams, ScopeResponse } from './types';
+import { ScopeResponse } from './types';
 
-const scopeApi = {
+const SCOPE_API = {
   /**
    * 별점 높은 수강 후기 조회
    */
@@ -25,17 +23,6 @@ const scopeApi = {
     instance.get<ScopeResponse['recent'], ScopeResponse['recent']>(
       '/review/recent'
     ),
-  /**
-   * 후기 키워드 조회
-   */
-  keywords: async (params?: ScopeParams['scopeKeyword']) => {
-    const queryString = _.isEmpty(params)
-      ? ''
-      : `?${objToQueryString({ keyword: params })}`;
-    return instance.get<ScopeResponse['keywords'], ScopeResponse['keywords']>(
-      `${`/review/keyword${queryString}`}`
-    );
-  },
 };
 
-export default scopeApi;
+export default SCOPE_API;

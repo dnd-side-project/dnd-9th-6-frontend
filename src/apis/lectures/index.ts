@@ -1,17 +1,17 @@
 import { objToQueryString } from 'utils/objToQueryString';
-import _ from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 import instance from '..';
 import { LecturesParams, LecturesResponse } from './types';
 
-const lecturesApi = {
-  search: async (lecturesParams?: LecturesParams['lecturesParameter']) => {
-    const queryString = _.isEmpty(lecturesParams)
-      ? ''
-      : `?${objToQueryString(lecturesParams)}`;
-    return instance.get<LecturesResponse['search'], LecturesResponse['search']>(
-      `${`/lectures${queryString}`}`
+const LECTURES_API_URL = '/lectures';
+
+const LECTURES_API = {
+  search: async (params?: LecturesParams['get']) => {
+    const queryString = isEmpty(params) ? '' : `?${objToQueryString(params)}`;
+    return instance.get<LecturesResponse, LecturesResponse>(
+      LECTURES_API_URL + queryString
     );
   },
 };
 
-export default lecturesApi;
+export default LECTURES_API;
