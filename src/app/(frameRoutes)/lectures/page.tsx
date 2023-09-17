@@ -61,10 +61,6 @@ const Lectures = () => {
     item => item.id === Number(mainCategoryIdValue)
   );
 
-  if (isSuccess && lectures.length === 0) {
-    notFound();
-  }
-
   return (
     <div className="bg-gradient-main">
       <div className="container flex gap-32 py-[54px]">
@@ -168,20 +164,28 @@ const Lectures = () => {
             </div>
           </div>
           {/* 강의 목록 */}
-          <div className="mt-12 grid grid-cols-3 gap-16">
-            {lectures?.map(lecture => (
-              <LandScapeCard
-                key={lecture.id}
-                강사={lecture.name}
-                타이틀={lecture.title}
-                가격={lecture.price}
-                플랫폼={lecture.source}
-                이미지={lecture.imageUrl}
-                후기수={lecture.reviewCount}
-              />
-            ))}
-            <div ref={ref} />
-          </div>
+          {isSuccess && lectures.length === 0 ? (
+            <div className="flex h-full w-full flex-col items-center justify-center">
+              <span className="text-grayscale-800 body1-bold">
+                검색 결과가 없습니다.
+              </span>
+            </div>
+          ) : (
+            <div className="mt-12 grid grid-cols-3 gap-16">
+              {lectures?.map(lecture => (
+                <LandScapeCard
+                  key={lecture.id}
+                  강사={lecture.name}
+                  타이틀={lecture.title}
+                  가격={lecture.price}
+                  플랫폼={lecture.source}
+                  이미지={lecture.imageUrl}
+                  후기수={lecture.reviewCount}
+                />
+              ))}
+              <div ref={ref} />
+            </div>
+          )}
         </div>
       </div>
     </div>
