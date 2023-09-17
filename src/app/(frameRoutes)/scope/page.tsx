@@ -100,7 +100,7 @@ const Scope = () => {
                     타이틀={item.lectureTitle}
                     작성자={item.userName}
                     별점={parseFloat(item.score.toFixed(1))}
-                    작성일={item.createdDate.slice(0, 10)}
+                    작성일={item.createdDate}
                     내용={item.content}
                     태그={item.tags}
                     플랫폼={item.source}

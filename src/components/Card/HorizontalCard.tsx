@@ -51,7 +51,7 @@ const HorizontalCard = ({
       <div className="flex h-[26px] w-[515px] items-center justify-between">
         <div className="flex w-[388px] flex-col items-start gap-[2px] detail2-semibold">
           <div>{작성자}</div>
-          <div className="text-grayscale-300">{작성일.slice(0, 10)}</div>
+          <div className="text-grayscale-300">{작성일}</div>
         </div>
         <div className="mr-[24px] flex items-center gap-[4px] body3-bold">
           <Rating
