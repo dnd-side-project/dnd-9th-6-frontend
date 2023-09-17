@@ -1,6 +1,6 @@
 'use client';
 
-import { notFound, useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import SideBar from 'components/SideBar';
 import Pentip from 'assets/icons/designlarge.svg';
@@ -23,22 +23,20 @@ import { useGetInfiniteLectures } from 'hooks/reactQuery/lectures/query';
 const Lectures = () => {
   const router = useRouter();
   const [inputValue, setInputValue] = useState('');
+  const [sortValue, setSortValue] = useState('');
 
   const searchParams = useSearchParams();
 
   const mainCategoryIdValue = searchParams.get('mainCategoryId') ?? '';
   const subCategoryIdValue = searchParams.get('subCategoryId') ?? '';
   const searchKeywordValue = searchParams.get('searchKeyword') ?? '';
-  const pageValue = searchParams.get('page') ?? '';
-  const sizeValue = searchParams.get('size') ?? '';
-  const sortValue = searchParams.get('sort') ?? '';
 
   const params = {
     mainCategoryId: mainCategoryIdValue,
     subCategoryId: subCategoryIdValue,
     searchKeyword: searchKeywordValue,
     size: 10,
-    sort: searchParams.get('sort') ?? '',
+    sort: sortValue,
   };
 
   const { data, fetchNextPage, hasNextPage, isFetching, isSuccess } =
@@ -141,9 +139,7 @@ const Lectures = () => {
               </div>
               <Select
                 onValueChange={value => {
-                  router.push(
-                    `/lectures?mainCategoryId=${mainCategoryIdValue}&subCategoryId=${subCategoryIdValue}&searchKeyword=${searchKeywordValue}&page=${pageValue}&size=${sizeValue}&sort=${value}`
-                  );
+                  setSortValue(value);
                 }}
               >
                 <SelectTrigger>
