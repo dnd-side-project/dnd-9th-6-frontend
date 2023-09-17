@@ -37,7 +37,7 @@ const Lectures = () => {
     mainCategoryId: mainCategoryIdValue,
     subCategoryId: subCategoryIdValue,
     searchKeyword: searchKeywordValue,
-    page: searchParams.get('page') ?? 1,
+    page: searchParams.get('page') ?? 0,
     size: searchParams.get('size') ?? 8,
     sort: searchParams.get('sort') ?? '',
   };

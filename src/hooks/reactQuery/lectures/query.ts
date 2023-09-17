@@ -28,7 +28,7 @@ export const useGetInfiniteLectures = (
 ) =>
   useInfiniteQuery<LecturesResponse, AxiosError>(
     LECTURES_KEY.list([{ ...params }]),
-    ({ pageParam = 1 }) => LECTURES_API.search({ ...params, page: pageParam }),
+    ({ pageParam = 0 }) => LECTURES_API.search({ ...params, page: pageParam }),
     {
       getNextPageParam: ({ totalPages, pageNumber }) => {
         const nextPage = pageNumber + 1;
