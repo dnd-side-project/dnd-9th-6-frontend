@@ -1,0 +1,21 @@
+<svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="logo/white">
+<g clip-path="url(#clip0_1265_8108)">
+<path id="Vector" d="M8.46257 9.98661L22.7394 51.8291L50.1595 56.9599L16.655 10.2369L8.46257 9.98661Z" fill="url(#paint0_linear_1265_8108)"/>
+<path id="Vector_2" d="M27.0958 18.8278L41.3723 60.6688L68.7939 65.7992L35.2879 19.0766L27.0958 18.8278Z" fill="url(#paint1_linear_1265_8108)"/>
+</g>
+</g>
+<defs>
+<linearGradient id="paint0_linear_1265_8108" x1="22.0428" y1="6.3478" x2="36.5793" y2="60.5987" gradientUnits="userSpaceOnUse">
+<stop stop-color="#868686"/>
+<stop offset="1" stop-color="#9F9F9F" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="paint1_linear_1265_8108" x1="40.6768" y1="15.1888" x2="55.2129" y2="69.4382" gradientUnits="userSpaceOnUse">
+<stop stop-color="#BBBBBB"/>
+<stop offset="1" stop-color="#BBBBBB" stop-opacity="0"/>
+</linearGradient>
+<clipPath id="clip0_1265_8108">
+<path d="M0 4C0 1.79086 1.79086 0 4 0H68C70.2091 0 72 1.79086 72 4V68C72 70.2091 70.2091 72 68 72H4C1.79086 72 0 70.2091 0 68V4Z" fill="white"/>
+</clipPath>
+</defs>
+</svg>

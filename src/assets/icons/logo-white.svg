@@ -1,0 +1,23 @@
+<svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="logo/symbol">
+<g clip-path="url(#clip0_1413_14261)">
+<path id="Vector" d="M72 0H0V72H72V0Z" fill="white"/>
+<path id="Vector_2" d="M8.4616 9.98661L22.7385 51.8291L50.1586 56.9599L16.654 10.2369L8.4616 9.98661Z" fill="url(#paint0_linear_1413_14261)"/>
+<path id="Vector_3" d="M27.0944 18.8278L41.3708 60.6688L68.7924 65.7992L35.2864 19.0766L27.0944 18.8278Z" fill="url(#paint1_linear_1413_14261)"/>
+</g>
+</g>
+<defs>
+<linearGradient id="paint0_linear_1413_14261" x1="22.0418" y1="6.3478" x2="36.5783" y2="60.5987" gradientUnits="userSpaceOnUse">
+<stop stop-color="#B4A1FF"/>
+<stop offset="0.0001" stop-color="#7795FE" stop-opacity="0.88"/>
+<stop offset="1" stop-color="#98AFFF" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="paint1_linear_1413_14261" x1="40.6754" y1="15.1888" x2="55.2115" y2="69.4382" gradientUnits="userSpaceOnUse">
+<stop stop-color="#7795FE"/>
+<stop offset="0.927083" stop-color="#98AFFF" stop-opacity="0"/>
+</linearGradient>
+<clipPath id="clip0_1413_14261">
+<path d="M0 2C0 0.895431 0.895431 0 2 0H70C71.1046 0 72 0.895431 72 2V70C72 71.1046 71.1046 72 70 72H2C0.895431 72 0 71.1046 0 70V2Z" fill="white"/>
+</clipPath>
+</defs>
+</svg>
