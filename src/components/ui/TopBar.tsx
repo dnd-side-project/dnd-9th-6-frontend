@@ -62,8 +62,9 @@ const TopBar = () => {
           variant={currentTabId !== 'scope' ? 'primary' : 'purple'}
           size="sm"
           className="ml-auto"
+          asChild
         >
-          로그인
+          <Link href="/login">로그인</Link>
         </Button>
       </div>
     </div>
