@@ -4,7 +4,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from 'utils/twUtils';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center rounded-[2px] text-white body3-bold disabled:pointer-events-none disabled:opacity-50',
+  'inline-flex items-center justify-center rounded-[2px] text-white body3-semibold disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {
@@ -18,6 +18,7 @@ const buttonVariants = cva(
           'bg-purple-300 text-white hover:bg-purple-500 active:bg-purple-400',
         category:
           'rounded-[4px] bg-white text-grayscale-500 shadow-main detail1-semibold hover:border-[1px] hover:border-blue-500 hover:text-blue-500 hover:shadow-blue active:border-[1px] active:border-blue-500 active:bg-blue-500/40 active:text-blue-500',
+        social: '',
       },
       size: {
         sm: 'p-8',
