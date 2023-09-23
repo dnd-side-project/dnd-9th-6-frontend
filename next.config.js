@@ -1,10 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    remotePatterns: [
-      {
-        hostname: 'dnd9th6.s3.ap-northeast-2.amazonaws.com',
-      },
+    domains: [
+      'dnd9th6.s3.ap-northeast-2.amazonaws.com',
+      'storage.googleapis.com',
+      'cdn.inflearn.com',
     ],
   },
   webpack: config => {
