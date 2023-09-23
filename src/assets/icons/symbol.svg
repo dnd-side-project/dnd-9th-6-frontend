@@ -1,0 +1,23 @@
+<svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="logo/symbol">
+<g clip-path="url(#clip0_1390_14284)">
+<path id="Vector" d="M19 0H0V19H19V0Z" fill="#0B0B0D"/>
+<path id="Vector_2" d="M2.23304 2.63533L6.00055 13.6771L13.2364 15.0311L4.39494 2.70138L2.23304 2.63533Z" fill="url(#paint0_linear_1390_14284)"/>
+<path id="Vector_3" d="M7.15062 4.96844L10.918 16.0098L18.1543 17.3637L9.31241 5.0341L7.15062 4.96844Z" fill="url(#paint1_linear_1390_14284)"/>
+</g>
+</g>
+<defs>
+<linearGradient id="paint0_linear_1390_14284" x1="5.81672" y1="1.67509" x2="9.65274" y2="15.9913" gradientUnits="userSpaceOnUse">
+<stop stop-color="#B4A1FF"/>
+<stop offset="0.0001" stop-color="#7795FE" stop-opacity="0.88"/>
+<stop offset="1" stop-color="#98AFFF" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="paint1_linear_1390_14284" x1="10.7345" y1="4.00815" x2="14.5704" y2="18.324" gradientUnits="userSpaceOnUse">
+<stop stop-color="#7795FE"/>
+<stop offset="0.927083" stop-color="#98AFFF" stop-opacity="0"/>
+</linearGradient>
+<clipPath id="clip0_1390_14284">
+<path d="M0 2C0 0.895431 0.895431 0 2 0H17C18.1046 0 19 0.895431 19 2V17C19 18.1046 18.1046 19 17 19H2C0.895431 19 0 18.1046 0 17V2Z" fill="white"/>
+</clipPath>
+</defs>
+</svg>
