@@ -5,6 +5,7 @@ import Class101 from 'assets/icons/platform/class101-32.svg';
 import Edge from 'assets/icons/card/edge.svg';
 import { Card, CardProps } from 'components/ui/card';
 import { Button } from 'components/ui/button';
+import Image from 'next/image';
 
 interface CoverCardProps extends CardProps {
   강사: string;
@@ -29,7 +30,16 @@ const CoverCard = ({
     >
       {/* 배경 이미지 */}
       <div className="absolute left-0 top-0 z-[-1] h-full w-full opacity-50 blur-[2px] transition-opacity">
-        <img src={이미지} alt="cover" className="h-full w-full object-cover" />
+        {이미지 ? (
+          <Image
+            src={이미지}
+            alt="cover"
+            className="h-full w-full object-cover"
+            fill
+            placeholder="blur"
+            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBABbWyZJf74GZgAAAABJRU5ErkJggg=="
+          />
+        ) : null}
       </div>
       {/* 강사명, 타이틀명 Text */}
       <div className="flex w-[459px] flex-col gap-8">

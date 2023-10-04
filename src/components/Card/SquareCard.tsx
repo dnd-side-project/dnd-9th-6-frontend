@@ -9,6 +9,7 @@ import BigHeart from 'assets/icons/heart-24.svg';
 import { Button } from 'components/ui/button';
 import { Card, CardProps } from 'components/ui/card';
 import { Toggle } from 'components/ui/toggle';
+import Image from 'next/image';
 
 interface SquareCardProps extends CardProps {
   작성자: string;
@@ -41,7 +42,16 @@ const SquareCard = ({
     >
       {/* 배경 이미지 */}
       <div className="absolute left-0 top-0 h-full w-full">
-        <img src={이미지} alt="cover" className="h-full w-full object-cover" />
+        {이미지 ? (
+          <Image
+            src={이미지}
+            alt="cover"
+            className="h-full w-full object-cover"
+            fill
+            placeholder="blur"
+            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBABbWyZJf74GZgAAAABJRU5ErkJggg=="
+          />
+        ) : null}
       </div>
       {/* 플랫폼 아이콘 */}
       <div className="absolute left-[16px] top-[72px] z-1">

@@ -4,6 +4,7 @@ import CardShape from 'assets/icons/card/whitebg.svg';
 import { Card, CardProps } from 'components/ui/card';
 import { Toggle } from 'components/ui/toggle';
 import { Badge } from 'components/ui/badge';
+import Image from 'next/image';
 
 interface LandScapeCardProps extends CardProps {
   강사: string;
@@ -30,7 +31,16 @@ const LandScapeCard = ({
     >
       {/* 배경 이미지 */}
       <div className="absolute left-0 top-0 z-[-1] h-full w-full transition-opacity">
-        <img src={이미지} alt="cover" className="h-full w-full object-cover" />
+        {이미지 ? (
+          <Image
+            src={이미지}
+            alt="cover"
+            className="h-full w-full object-cover"
+            fill
+            placeholder="blur"
+            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBABbWyZJf74GZgAAAABJRU5ErkJggg=="
+          />
+        ) : null}
       </div>
       {/* 북마크 버튼 */}
       <Toggle
