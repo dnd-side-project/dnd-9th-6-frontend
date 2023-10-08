@@ -315,7 +315,7 @@ module.exports = {
           lineHeight: '24px',
           fontSize: '16px',
         },
-        '.en-H2-semiblod': {
+        '.en-H2-semibold': {
           fontFamily: 'Pretend',
           fontWeight: '600',
           lineHeight: '24px',
