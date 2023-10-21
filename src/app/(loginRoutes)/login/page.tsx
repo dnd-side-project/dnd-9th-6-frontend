@@ -10,6 +10,16 @@ import { LoginCarousel } from 'components/Carousel';
 const page = () => {
   return (
     <div className="flex">
+      <div
+        className="flex h-screen w-4/6 items-center justify-center"
+        style={{
+          backgroundImage: `url(${process.env.NEXT_PUBLIC_IMAGE_URL}/login.png)`,
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
+        }}
+      >
+        <LoginCarousel />
+      </div>
       <div className="flex h-screen w-2/6 min-w-[360px] justify-center rounded-[4px] bg-white">
         <div className="flex flex-col items-start justify-start px-[100px] pt-[26px]">
           <Link href="/">
@@ -63,16 +73,6 @@ const page = () => {
             서비스 이용을 위해 이메일과 이름을 수집합니다.
           </div>
         </div>
-      </div>
-      <div
-        className="flex h-screen w-4/6 items-center justify-center"
-        style={{
-          backgroundImage: `url(${process.env.NEXT_PUBLIC_IMAGE_URL}/login.png)`,
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover',
-        }}
-      >
-        <LoginCarousel />
       </div>
     </div>
   );

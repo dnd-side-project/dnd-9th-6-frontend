@@ -19,47 +19,6 @@ module.exports = {
       foldable: '523px', // @media (min-width: 523px)
       tablet: '768px', // @media (min-width: 768px)
     },
-    colors: {
-      transparent: 'transparent',
-      white: '#ffffff',
-      red: '#ff6b6b',
-      black: '#000000',
-      grayscale: {
-        50: '#f8f9fc',
-        100: '#e8ebf5',
-        200: '#dcdcea',
-        300: '#b8b8cc',
-        400: '#9191a6',
-        500: '#6c6c80',
-        600: '#565666',
-        700: '#434350',
-        800: '#2b2b33',
-        900: '#0b0b0d',
-      },
-      glassicon: {
-        blue: 'linear-gradient(85deg, #5d82fe 0%, #90a9fe 100%)',
-        blue2: '#90a9fe73',
-        purple: 'linear-gradient(85deg, #8d70ff 0%, #b4a1ff 100%)',
-        purple2: '#c7b9ff66',
-        blur: 'linear-gradient(85deg, #ffffff 0%, #90a9fe 100%)',
-      },
-      blue: {
-        500: '#678afe',
-        400: '#7795fe',
-        300: '#90a9fe',
-        200: '#acbfff',
-        100: '#cdd8ff',
-        50: '#e5ebff',
-      },
-      purple: {
-        500: '#8d70ff',
-        400: '#9980ff',
-        300: '#b4a1ff',
-        200: '#c7b9ff',
-        100: '#ded6ff',
-        50: '#ebe5ff',
-      },
-    },
     fontFamily: {
       sans: ['Pretendard'],
     },
@@ -94,6 +53,48 @@ module.exports = {
       dropdown: '0px 16px 30px 4px rgba(0, 0, 0, 0.10)',
     },
     extend: {
+      colors: {
+        transparent: 'transparent',
+        white: '#ffffff',
+        red: '#ff6b6b',
+        black: '#000000',
+        grayscale: {
+          50: '#f8f9fc',
+          100: '#e8ebf5',
+          200: '#dcdcea',
+          300: '#b8b8cc',
+          400: '#9191a6',
+          500: '#6c6c80',
+          600: '#565666',
+          700: '#434350',
+          800: '#2b2b33',
+          900: '#0b0b0d',
+        },
+        glassicon: {
+          blue: 'linear-gradient(85deg, #5d82fe 0%, #90a9fe 100%)',
+          blue2: '#90a9fe73',
+          purple: 'linear-gradient(85deg, #8d70ff 0%, #b4a1ff 100%)',
+          purple2: '#c7b9ff66',
+          blur: 'linear-gradient(85deg, #ffffff 0%, #90a9fe 100%)',
+        },
+        blue: {
+          500: '#678afe',
+          400: '#7795fe',
+          300: '#90a9fe',
+          200: '#acbfff',
+          100: '#cdd8ff',
+          50: '#e5ebff',
+        },
+        purple: {
+          500: '#8d70ff',
+          400: '#9980ff',
+          300: '#b4a1ff',
+          200: '#c7b9ff',
+          100: '#ded6ff',
+          50: '#ebe5ff',
+        },
+      },
+
       keyframes: {
         'accordion-down': {
           from: { height: '0' },
@@ -315,7 +316,7 @@ module.exports = {
           lineHeight: '24px',
           fontSize: '16px',
         },
-        '.en-H2-semiblod': {
+        '.en-H2-semibold': {
           fontFamily: 'Pretend',
           fontWeight: '600',
           lineHeight: '24px',
