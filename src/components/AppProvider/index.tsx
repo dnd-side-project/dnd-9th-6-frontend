@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { LECTURES_KEY } from 'constants/querykeys';
 import TIME from 'constants/time';
+import { RecoilRoot } from 'recoil';
 
 type AppProviderProps = {
   children: ReactNode;
@@ -30,7 +31,7 @@ const AppProvider = ({ children }: AppProviderProps) => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {children}
+      <RecoilRoot>{children}</RecoilRoot>
       <ReactQueryDevtools />
     </QueryClientProvider>
   );
