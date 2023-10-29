@@ -33,21 +33,38 @@ const Home = () => {
   const [value, setValue] = useState('');
 
   // 나의 관심분야
-  const { data: interestData } = useGetLectures({
-    mainCategoryId: 11,
-  });
+  const { data: interestData } = useGetLectures(
+    {
+      mainCategoryId: 11,
+    },
+    {
+      select(data) {
+        return data?.data.data.lectures;
+      },
+    }
+  );
   // 후기가 많이 달린 강의
-  const { data: reviewData } = useGetLectures({
-    sort: 'review,asc',
-  });
+  const { data: reviewData } = useGetLectures(
+    {
+      sort: 'review,asc',
+    },
+    {
+      select(data) {
+        return data?.data.data.lectures;
+      },
+    }
+  );
   // 많이 찜한 강의
-  const { data: bookmarkData } = useGetLectures({
-    sort: 'bookmark,asc',
-  });
-
-  const lectureInterest = interestData?.lectures;
-  const lectureReview = reviewData?.lectures;
-  const lectureBookmark = bookmarkData?.lectures;
+  const { data: bookmarkData } = useGetLectures(
+    {
+      sort: 'bookmark,asc',
+    },
+    {
+      select(data) {
+        return data?.data.data.lectures;
+      },
+    }
+  );
 
   return (
     <>
@@ -61,7 +78,7 @@ const Home = () => {
           }}
         >
           <div className="container flex flex-col items-center justify-center">
-            <div className="text-grayscale-50 en-H2-semiblod">Search</div>
+            <div className="en-H2-semiblod text-grayscale-50">Search</div>
             <div className="text-white H3-semibold">
               클래스코프와 함께 편리한 강의 탐색을 시작하세요!
             </div>
@@ -135,11 +152,11 @@ const Home = () => {
             {/* 배너 + 캐러셀 */}
             <div className="flex items-center justify-between gap-16">
               <CoverCard
-                강사={lectureInterest?.[0].name ?? ''}
-                타이틀={lectureInterest?.[0].title ?? ''}
-                가격={lectureInterest?.[0].price ?? ''}
-                플랫폼={lectureInterest?.[0].source ?? ''}
-                이미지={lectureInterest?.[0].imageUrl ?? ''}
+                강사={interestData?.[0].name ?? ''}
+                타이틀={interestData?.[0].title ?? ''}
+                가격={interestData?.[0].price ?? ''}
+                플랫폼={interestData?.[0].source ?? ''}
+                이미지={interestData?.[0].imageUrl ?? ''}
               />
               <Swiper
                 className="main-vertical-carousel-bullet h-[272px] w-full"
@@ -154,7 +171,7 @@ const Home = () => {
                 }}
                 modules={[Autoplay, Pagination]}
               >
-                {lectureInterest?.map(item => (
+                {interestData?.map(item => (
                   <SwiperSlide key={item.id}>
                     <OutlinedCard
                       강사={item.name}
@@ -208,7 +225,7 @@ const Home = () => {
                 }}
                 modules={[Autoplay, Pagination]}
               >
-                {lectureReview?.map(item => (
+                {reviewData?.map(item => (
                   <SwiperSlide key={item.id}>
                     <LandScapeCard
                       강사={item.name}
@@ -255,7 +272,7 @@ const Home = () => {
                 }}
                 modules={[Autoplay, Navigation]}
               >
-                {lectureBookmark?.map(item => (
+                {bookmarkData?.map(item => (
                   <SwiperSlide key={item.id}>
                     <LandScapeCard
                       강사={item.name}
