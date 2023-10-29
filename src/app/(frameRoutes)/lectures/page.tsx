@@ -40,13 +40,21 @@ const Lectures = () => {
   };
 
   const { data, fetchNextPage, hasNextPage, isFetching, isSuccess } =
-    useGetInfiniteLectures(params);
+    useGetInfiniteLectures(params, {
+      // eslint-disable-next-line @typescript-eslint/no-shadow
+      select: data => ({
+        pages: data.pages.flatMap(page => page.data.data),
+        pageParams: data.pageParams,
+      }),
+    });
 
-  const lectures = useMemo(
-    // eslint-disable-next-line @typescript-eslint/no-shadow
-    () => (data ? data.pages.flatMap(({ lectures }) => lectures) : []),
-    [data]
-  );
+  const lectures = useMemo(() => {
+    return data?.pages.flatMap(page => page.lectures);
+  }, [data]);
+
+  const totalElements = useMemo(() => {
+    return data?.pages[0].totalElements;
+  }, [data]);
 
   const ref = useIntersection((entry, observer) => {
     observer.unobserve(entry.target);
@@ -135,7 +143,7 @@ const Lectures = () => {
             {/* 검색 결과 텍스트 & 필터 드롭다운 */}
             <div className="flex items-end justify-between">
               <div className="text-grayscale-700 body3-medium">
-                {data?.pages[0].totalElements ?? 0}개의 검색결과를 찾았어요
+                {totalElements ?? 0}개의 검색결과를 찾았어요
               </div>
               <Select
                 onValueChange={value => {
@@ -159,7 +167,7 @@ const Lectures = () => {
             </div>
           </div>
           {/* 강의 목록 */}
-          {isSuccess && lectures.length === 0 ? (
+          {isSuccess && totalElements === 0 ? (
             <div className="flex h-full w-full flex-col items-center justify-center">
               <span className="text-grayscale-800 body1-bold">
                 검색 결과가 없습니다.
