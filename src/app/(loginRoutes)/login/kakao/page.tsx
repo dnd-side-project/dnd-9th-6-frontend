@@ -10,18 +10,15 @@ import Image from 'next/image';
 const GoogleLogin = () => {
   const searchParams = useSearchParams();
   const code = searchParams?.get('code') ?? '';
-  const { signIn, isLoading } = useSocialLogin({
-    platform: 'KAKAO',
-    code,
-  });
+  const { signIn, isSignInLoading } = useSocialLogin();
   useEffect(() => {
     if (!code) return;
-    async function fetchData() {
-      await signIn();
-    }
-    fetchData();
+    signIn({
+      platform: 'KAKAO',
+      code,
+    });
   }, []);
-  if (isLoading)
+  if (isSignInLoading)
     return (
       <div className="flex h-screen w-full flex-col items-center justify-center gap-16">
         <Image src={LoadingAnimation} width={70} height={70} alt="loading" />
