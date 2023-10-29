@@ -1,5 +1,5 @@
-export type ScopeResponse = {
-  reviews: {
+export interface ScopeReviewsResponse extends GlobalResponse {
+  data: {
     id: number;
     lectureTitle: string;
     userName: string;
@@ -9,14 +9,20 @@ export type ScopeResponse = {
     tags: string;
     source: string;
   }[];
-  lectures: {
+}
+
+export interface ScopeLecturesResponse extends GlobalResponse {
+  data: {
     id: number;
     source: string;
     imageUrl: string;
     title: string;
     name: string;
   }[];
-  recent: {
+}
+
+export interface ScopeRecentResponse extends GlobalResponse {
+  data: {
     isAddLike: boolean;
     review: {
       reviewId: number;
@@ -39,14 +45,17 @@ export type ScopeResponse = {
       nickName: string;
     };
   }[];
-  keywords: {
-    id: number;
-    lectureTitle: string;
-    userName: string;
-    createdDate: string;
-    score: number;
-    content: string;
-    tags: string;
-    source: string;
-  }[];
-};
+}
+
+// export interface ScopeKeywordsResponse extends GlobalResponse {
+//   data: {
+//     id: number;
+//     lectureTitle: string;
+//     userName: string;
+//     createdDate: string;
+//     score: number;
+//     content: string;
+//     tags: string;
+//     source: string;
+//   }[];
+// }
