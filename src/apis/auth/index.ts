@@ -5,15 +5,22 @@ import instance from '..';
 /**
  * Access Token & Refresh Token
  */
-type JwtToken = {
+interface JwtToken {
   accessToken: string;
   refreshToken: string;
-};
+}
 
 /**
  * 회원가입 Response 응답 데이터
  */
-type SignInData = UserInfo & JwtToken;
+interface SignInResponse extends GlobalResponse {
+  data: JwtToken & UserInfo;
+}
+
+interface LoginRequestParams {
+  code: string;
+  platform: string;
+}
 
 const authApi = {
   /**
@@ -22,11 +29,12 @@ const authApi = {
    * @param platform 구글/카카오
    * @description 회원가입 또는 로그인하여 accessToken 발급
    */
-  signIn: (platform: string, code: string | null) =>
-    instance.get<string, SignInData>(
-      `${AUTH_API.SIGN_IN}?code=${code}&platform=${platform}`
-    ),
+  signIn: async (params: LoginRequestParams) => {
+    return instance.get<SignInResponse>(`${AUTH_API.SIGN_IN}`, {
+      params,
+    });
+  },
 };
 
-export type { JwtToken, SignInData };
+export type { JwtToken, SignInResponse, LoginRequestParams };
 export default authApi;
