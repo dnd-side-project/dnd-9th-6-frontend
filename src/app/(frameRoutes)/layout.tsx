@@ -1,5 +1,5 @@
 import Footer from 'components/ui/Footer';
-import TopBar from 'components/ui/TopBar';
+import TopBar from 'components/TopBar';
 
 interface RootLayoutProps {
   children: React.ReactNode;

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import TopBar from './TopBar';
+import TopBar from '.';
 
 const meta = {
   title: 'Classcope/TopBar',
