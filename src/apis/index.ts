@@ -1,7 +1,7 @@
-import axios, { AxiosResponse } from 'axios';
-import { getCookie } from 'cookies-next';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 
 import { HTTP_BASE_URL } from 'constants/http';
+import { ROUTES } from 'constants/routes';
 
 const instance = axios.create({
   baseURL: HTTP_BASE_URL,
@@ -22,8 +22,9 @@ export const logOnDev = (message: string) => {
 
 instance.interceptors.request.use(
   config => {
-    const accessToken = getCookie('access_token');
-    config.headers.Authorization = `Bearer ${accessToken || ''}`;
+    logOnDev(
+      `🚀 [API] ${config.method?.toUpperCase()} ${config.url} | Request`
+    );
 
     return config;
   },
@@ -33,24 +34,34 @@ instance.interceptors.request.use(
 );
 
 instance.interceptors.response.use(
-  (response: AxiosResponse) => {
-    const { method, url } = response.config;
-    const { status } = response;
+  (response: AxiosResponse<GlobalResponse>) => {
+    const { status, config } = response;
+    const { method, url } = config;
 
-    logOnDev(`🚀 [API] ${method?.toUpperCase()} ${url} | Response ${status}}`);
+    logOnDev(`🚀 [API] ${method?.toUpperCase()} ${url} | Response ${status}`);
 
-    return response.data.data;
+    return response;
   },
 
-  error => {
-    const { message } = error;
-    const { method, url } = error.config;
-    const { status, statusText } = error.response;
+  async (error: AxiosError<GlobalResponse>) => {
+    const { response } = error;
+    const { code, message } = response?.data || {};
 
-    logOnDev(
-      `🚀 [API] ${method?.toUpperCase()} ${url} | Error ${status} ${statusText} | ${message}}`
-    );
-
+    // 강의 id가 없는 경우, 존재하지 않는 강의, (메인, 서브)카테고리,
+    if (
+      code === -1 ||
+      code === -2000 ||
+      code === -2001 ||
+      code === -2002 ||
+      code === -2003
+    ) {
+      alert(message);
+      window.location.replace(`${ROUTES.LECTURES}`);
+    }
+    // 존재하지 않는 사용자인 경우
+    if (code === -1000) {
+      window.location.replace(`${ROUTES.LOGIN}`);
+    }
     return Promise.reject(error);
   }
 );
