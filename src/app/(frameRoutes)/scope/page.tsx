@@ -20,9 +20,23 @@ import { Button } from 'components/ui/button';
 import { Separator } from 'components/ui/separator';
 
 const Scope = () => {
-  const { data: scopeReviews } = useGetScopeReviews({ staleTime: Infinity });
-  const { data: scopeLectures } = useGetScopeLectures({ staleTime: Infinity });
-  const { data: scopeRecent } = useGetScopeRecent({ staleTime: Infinity });
+  const { data: scopeReviews, isSuccess: scopeSuccess } = useGetScopeReviews({
+    select(data) {
+      return data.data;
+    },
+  });
+  const { data: scopeLectures } = useGetScopeLectures({
+    select(data) {
+      return data.data;
+    },
+  });
+  const { data: scopeRecent } = useGetScopeRecent({
+    select(data) {
+      return data.data;
+    },
+  });
+
+  console.log(scopeReviews);
 
   return (
     <div className="bg-gradient-main">
@@ -34,7 +48,7 @@ const Scope = () => {
         }}
       >
         <div className="container flex flex-col items-center justify-center">
-          <div className="text-grayscale-50 en-H2-semiblod">Scope</div>
+          <div className="en-H2-semiblod text-grayscale-50">Scope</div>
           <div className="text-white H3-semibold">
             나의 Fit에 맞는 Scoping을 즐겨보세요
           </div>
@@ -94,19 +108,20 @@ const Scope = () => {
               modules={[Autoplay]}
               allowTouchMove={false}
             >
-              {scopeReviews?.map(item => (
-                <SwiperSlide key={item.id}>
-                  <HorizontalCard
-                    타이틀={item.lectureTitle}
-                    작성자={item.userName}
-                    별점={parseFloat(item.score.toFixed(1))}
-                    작성일={item.createdDate}
-                    내용={item.content}
-                    태그={item.tags}
-                    플랫폼={item.source}
-                  />
-                </SwiperSlide>
-              ))}
+              {scopeSuccess &&
+                scopeReviews?.data?.map(item => (
+                  <SwiperSlide key={item.id}>
+                    <HorizontalCard
+                      타이틀={item.lectureTitle}
+                      작성자={item.userName}
+                      별점={parseFloat(item.score.toFixed(1))}
+                      작성일={item.createdDate}
+                      내용={item.content}
+                      태그={item.tags}
+                      플랫폼={item.source}
+                    />
+                  </SwiperSlide>
+                ))}
             </Swiper>
           </div>
           {/* 강의력 좋은 섹션 */}
@@ -116,7 +131,7 @@ const Scope = () => {
               <div className="ml-8 H5-bold">강의력 좋은</div>
             </div>
             <div className="flex flex-col gap-[14px]">
-              {scopeLectures?.map(item => (
+              {scopeLectures?.data?.map(item => (
                 <>
                   <OutlinedCard
                     key={item.id}
@@ -154,7 +169,7 @@ const Scope = () => {
           }}
           modules={[Pagination, Autoplay]}
         >
-          {scopeRecent?.map(item => (
+          {scopeRecent?.data?.map(item => (
             <SwiperSlide key={item.lecture.lectureId}>
               <SquareCard
                 작성자={item.user.nickName}
