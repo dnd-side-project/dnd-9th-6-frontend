@@ -5,8 +5,6 @@ import { useRouter, usePathname } from 'next/navigation';
 import Logo from 'assets/icons/logo-black.svg';
 import LogoTextWhite from 'assets/icons/logo-text-white.svg';
 import Link from 'next/link';
-import { useRecoilValue } from 'recoil';
-import { userInfo } from 'recoil/atoms';
 import { Tabs, TabsList, TabsTrigger } from '../ui/tabs';
 import { Button } from '../ui/button';
 
@@ -29,8 +27,6 @@ const TopBar = () => {
   const pathname = usePathname();
   const currentTabId = pathname?.split('/')[1];
   const router = useRouter();
-
-  const UserData = useRecoilValue(userInfo);
 
   return (
     <div
@@ -62,18 +58,14 @@ const TopBar = () => {
             ))}
           </TabsList>
         </Tabs>
-        {UserData ? (
-          <div>{UserData.name}</div>
-        ) : (
-          <Button
-            variant={currentTabId !== 'scope' ? 'primary' : 'purple'}
-            size="sm"
-            className="ml-auto"
-            asChild
-          >
-            <Link href="/login">로그인</Link>
-          </Button>
-        )}
+        <Button
+          variant={currentTabId !== 'scope' ? 'primary' : 'purple'}
+          size="sm"
+          className="ml-auto"
+          asChild
+        >
+          <Link href="/login">로그인</Link>
+        </Button>
       </div>
     </div>
   );
