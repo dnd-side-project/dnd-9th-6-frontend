@@ -1,4 +1,3 @@
-import { authStore } from 'auth/store';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { USER_ACCESS_TOKEN, USER_REFRESH_TOKEN } from 'constants/account';
 
@@ -10,6 +9,7 @@ import {
   isRefreshTokenExpired,
   isTokenNotExist,
 } from 'utils/http';
+import { authStore } from 'store/auth';
 import authApi from './auth';
 
 const instance = axios.create({

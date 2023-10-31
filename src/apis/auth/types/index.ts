@@ -1,5 +1,9 @@
-import { SignInData } from 'auth/types/auth';
+import { Token } from 'store/types/token';
+import { UserInfo } from 'store/types/user';
 
+/**
+ * 회원가입 또는 로그인 시 응답 데이터
+ */
 export interface SignInResponse extends GlobalResponse {
-  data: SignInData;
+  data: UserInfo & Token;
 }

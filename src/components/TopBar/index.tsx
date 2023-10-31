@@ -5,8 +5,8 @@ import { useRouter, usePathname } from 'next/navigation';
 import Logo from 'assets/icons/logo-black.svg';
 import LogoTextWhite from 'assets/icons/logo-text-white.svg';
 import Link from 'next/link';
-import { useUserName } from 'auth/store/user';
-import { useIsRequesting, useIsSignedIn } from 'auth/store';
+import { useUserName } from 'store/user';
+import { useIsRequesting, useIsSignedIn } from 'store/auth';
 import { Tabs, TabsList, TabsTrigger } from '../ui/tabs';
 import { Button } from '../ui/button';
 

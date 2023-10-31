@@ -1,6 +1,6 @@
 import { AUTH_API } from 'constants/api';
-import { RefreshToken } from 'auth/types/auth';
 import instance from 'apis';
+import { RefreshToken } from 'store/types/token';
 import { SignInResponse } from './types';
 
 interface LoginRequestParams {

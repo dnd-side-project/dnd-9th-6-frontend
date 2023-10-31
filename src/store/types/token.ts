@@ -1,5 +1,3 @@
-import { UserInfo } from 'auth/store/types/user';
-
 /**
  * Token
  */
@@ -13,8 +11,3 @@ export interface RefreshToken {
 }
 
 export type Token = AccessToken & RefreshToken;
-
-/**
- * 회원가입 데이터
- */
-export type SignInData = UserInfo & Token;

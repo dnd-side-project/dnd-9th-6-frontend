@@ -1,4 +1,4 @@
-import { UserInfo } from 'auth/store/types/user';
+import { UserInfo } from 'store/types/user';
 
 /**
  * 유저 정보 조회 결과
