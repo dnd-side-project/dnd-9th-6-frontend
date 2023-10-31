@@ -69,10 +69,12 @@ const TopBar = () => {
           className="ml-auto"
           asChild
         >
-          {isRequesting ? (
-            <div>로딩중...</div>
-          ) : isSignedIn ? (
-            <div>{userName}</div>
+          {isSignedIn ? (
+            isRequesting ? (
+              <div>로딩중...</div>
+            ) : (
+              <div>{userName}</div>
+            )
           ) : (
             <Link href="/login">로그인</Link>
           )}
