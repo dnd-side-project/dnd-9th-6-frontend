@@ -6,8 +6,8 @@ import authApi from 'apis/auth';
 import { ROUTES } from 'constants/routes';
 import { USER_ACCESS_TOKEN, USER_REFRESH_TOKEN } from 'constants/account';
 import { useMutation } from '@tanstack/react-query';
-import { useUserActions } from 'auth/store/user';
-import { useIsSignedIn } from 'auth/store';
+import { useIsSignedIn } from 'store/auth';
+import { useUserActions } from 'store/user';
 import { setLocalStorage, setSessionStorage } from './storage';
 
 type SocialLoginProps = {
