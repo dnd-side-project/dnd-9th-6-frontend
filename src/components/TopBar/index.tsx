@@ -5,6 +5,8 @@ import { useRouter, usePathname } from 'next/navigation';
 import Logo from 'assets/icons/logo-black.svg';
 import LogoTextWhite from 'assets/icons/logo-text-white.svg';
 import Link from 'next/link';
+import { useUserName } from 'auth/store/user';
+import { useIsRequesting, useIsSignedIn } from 'auth/store';
 import { Tabs, TabsList, TabsTrigger } from '../ui/tabs';
 import { Button } from '../ui/button';
 
@@ -27,6 +29,9 @@ const TopBar = () => {
   const pathname = usePathname();
   const currentTabId = pathname?.split('/')[1];
   const router = useRouter();
+  const userName = useUserName();
+  const isSignedIn = useIsSignedIn();
+  const isRequesting = useIsRequesting();
 
   return (
     <div
@@ -64,7 +69,13 @@ const TopBar = () => {
           className="ml-auto"
           asChild
         >
-          <Link href="/login">로그인</Link>
+          {isRequesting ? (
+            <div>로딩중...</div>
+          ) : isSignedIn ? (
+            <div>{userName}</div>
+          ) : (
+            <Link href="/login">로그인</Link>
+          )}
         </Button>
       </div>
     </div>
