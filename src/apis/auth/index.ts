@@ -1,21 +1,7 @@
-import { UserInfo } from 'recoil/types/user';
 import { AUTH_API } from 'constants/api';
-import instance from '..';
-
-/**
- * Access Token & Refresh Token
- */
-interface JwtToken {
-  accessToken: string;
-  refreshToken: string;
-}
-
-/**
- * 회원가입 Response 응답 데이터
- */
-interface SignInResponse extends GlobalResponse {
-  data: JwtToken & UserInfo;
-}
+import { RefreshToken } from 'auth/types/auth';
+import instance from 'apis';
+import { SignInResponse } from './types';
 
 interface LoginRequestParams {
   code: string;
@@ -34,7 +20,23 @@ const authApi = {
       params,
     });
   },
+  /**
+   *
+   * @description cookie에 담겨있는 refreshToken을 활용하여 accessToken 재발급
+   */
+  reIssue: (param: RefreshToken['refreshToken']) =>
+    instance.post<RefreshToken>(AUTH_API.REISSUE, { param }),
+  /**
+   *
+   * @description refreshToken을 전달하여 회원 탈퇴
+   */
+  withDraw: () => instance.delete(AUTH_API.WITHDRAW),
+  /**
+   * @description 로그아웃
+   */
+  signOut: async () => {
+    return instance.delete(`${AUTH_API.SIGN_OUT}`);
+  },
 };
 
-export type { JwtToken, SignInResponse, LoginRequestParams };
 export default authApi;
