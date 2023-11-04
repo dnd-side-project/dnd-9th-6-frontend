@@ -4,9 +4,13 @@ import { useRouter } from 'next/navigation';
 
 import authApi from 'apis/auth';
 import { ROUTES } from 'constants/routes';
-import { USER_ACCESS_TOKEN, USER_REFRESH_TOKEN } from 'constants/account';
+import {
+  USER_ACCESS_TOKEN,
+  USER_INFO,
+  USER_REFRESH_TOKEN,
+} from 'constants/account';
 import { useMutation } from '@tanstack/react-query';
-import { useIsSignedIn } from 'store/auth';
+import { useAuthActions, useIsSignedIn } from 'store/auth';
 import { useUserActions } from 'store/user';
 import { setLocalStorage, setSessionStorage } from './storage';
 
@@ -18,6 +22,8 @@ type SocialLoginProps = {
 const useSocialLogin = () => {
   const router = useRouter();
   const isSignedIn = useIsSignedIn();
+  const { setIsTokenRequired, setIsSignedIn, setIsRequesting } =
+    useAuthActions();
   const { setUserInfo } = useUserActions();
   const { mutate: signIn, isLoading: isSignInLoading } = useMutation(
     authApi.signIn,
@@ -25,8 +31,12 @@ const useSocialLogin = () => {
       onSuccess: ({ data: { data } }) => {
         const { accessToken, refreshToken, ...userInfoData } = data;
         setUserInfo(userInfoData);
+        setLocalStorage(USER_INFO, JSON.stringify(userInfoData));
         setLocalStorage(USER_ACCESS_TOKEN, accessToken);
         setSessionStorage(USER_REFRESH_TOKEN, refreshToken);
+        setIsSignedIn(true);
+        setIsTokenRequired(false);
+        setIsRequesting(false);
         router.push(ROUTES.HOME);
       },
       onError: () => {
