@@ -5,8 +5,31 @@ import { useRouter, usePathname } from 'next/navigation';
 import Logo from 'assets/icons/logo-black.svg';
 import LogoTextWhite from 'assets/icons/logo-text-white.svg';
 import Link from 'next/link';
-import { useUserName } from 'store/user';
-import { useIsRequesting, useIsSignedIn } from 'store/auth';
+import { useUserEmail, useUserImageUrl, useUserName } from 'store/user';
+import { useAuthActions, useIsRequesting, useIsSignedIn } from 'store/auth';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from 'components/ui/dropdown-menu';
+import { Avatar, AvatarFallback, AvatarImage } from 'components/ui/avatar';
+import AngleUpIcon from 'assets/icons/angle-up.svg';
+import Cog from 'assets/icons/cog.svg';
+import Pencil from 'assets/icons/pencil.svg';
+import Headset from 'assets/icons/headset.svg';
+import Logout from 'assets/icons/logout.svg';
+import {
+  USER_ACCESS_TOKEN,
+  USER_INFO,
+  USER_REFRESH_TOKEN,
+} from 'constants/account';
+import {
+  removeFromLocalStorage,
+  removeFromSessionStorage,
+} from 'hooks/storage';
 import { Tabs, TabsList, TabsTrigger } from '../ui/tabs';
 import { Button } from '../ui/button';
 
@@ -30,8 +53,23 @@ const TopBar = () => {
   const currentTabId = pathname?.split('/')[1];
   const router = useRouter();
   const userName = useUserName();
+  const userEmail = useUserEmail();
+  const userProfileImg = useUserImageUrl();
   const isSignedIn = useIsSignedIn();
   const isRequesting = useIsRequesting();
+
+  const { setIsTokenRequired, setIsSignedIn, setIsRequesting } =
+    useAuthActions();
+
+  const handleSignOut = () => {
+    removeFromLocalStorage(USER_INFO);
+    removeFromLocalStorage(USER_ACCESS_TOKEN);
+    removeFromSessionStorage(USER_REFRESH_TOKEN);
+    setIsTokenRequired(false);
+    setIsSignedIn(false);
+    setIsRequesting(false);
+    router.refresh();
+  };
 
   return (
     <div
@@ -63,22 +101,105 @@ const TopBar = () => {
             ))}
           </TabsList>
         </Tabs>
-        <Button
-          variant={currentTabId !== 'scope' ? 'primary' : 'purple'}
-          size="sm"
-          className="ml-auto"
-          asChild
-        >
-          {isSignedIn ? (
-            isRequesting ? (
+        {isSignedIn ? (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <div className="ml-auto cursor-pointer">
+                <div className="flex items-center gap-[4px]">
+                  <Avatar className="h-16 w-16 rounded-lg text-white">
+                    <AvatarImage
+                      className="object-cover"
+                      src={userProfileImg}
+                      alt="profileImg"
+                    />
+                    <AvatarFallback>?</AvatarFallback>
+                  </Avatar>
+                  <div className="text-white body3-semibold">{userName}</div>
+                  <AngleUpIcon />
+                </div>
+              </div>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="z-4 rounded-none">
+              <div className="flex gap-8 p-8">
+                <Avatar className="h-32 w-32 rounded-full text-white">
+                  <AvatarImage
+                    className="object-cover"
+                    src={userProfileImg}
+                    alt="profileImg"
+                  />
+                  <AvatarFallback>?</AvatarFallback>
+                </Avatar>
+                <div className="flex flex-col gap-[4px]">
+                  <p className="text-black detail1-semibold">{userName}</p>
+                  <p className="text-grayscale-400 detail2-semibold">
+                    {userEmail}
+                  </p>
+                </div>
+              </div>
+              <DropdownMenuSeparator />
+              <DropdownMenuGroup>
+                <DropdownMenuItem
+                  onClick={() => {
+                    router.push('/my-profile');
+                  }}
+                >
+                  <div className="flex gap-8 px-16 py-8">
+                    <Cog />
+                    <p className="text-grayscale-500 detail1-semibold">
+                      내 프로필
+                    </p>
+                  </div>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => {
+                    router.push('/my-profile');
+                  }}
+                >
+                  <div className="flex gap-8 px-16 py-8">
+                    <Pencil />
+                    <p className="text-grayscale-500 detail1-semibold">
+                      내 후기
+                    </p>
+                  </div>
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => {
+                    router.push('/my-profile');
+                  }}
+                >
+                  <div className="flex gap-8 px-16 py-8">
+                    <Headset />
+                    <p className="text-grayscale-500 detail1-semibold">
+                      문의하기
+                    </p>
+                  </div>
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
+              <div className="flex w-full items-center justify-center p-8">
+                <div
+                  onClick={handleSignOut}
+                  className="flex w-full cursor-pointer items-center justify-center gap-8 bg-grayscale-50 px-16 py-8 text-gray-600 detail1-semibold"
+                >
+                  <Logout />
+                  로그아웃
+                </div>
+              </div>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        ) : (
+          <Button
+            variant={currentTabId !== 'scope' ? 'primary' : 'purple'}
+            size="sm"
+            className="ml-auto"
+            asChild
+          >
+            {isRequesting ? (
               <div>로딩중...</div>
             ) : (
-              <div>{userName}</div>
-            )
-          ) : (
-            <Link href="/login">로그인</Link>
-          )}
-        </Button>
+              <Link href="/login">로그인</Link>
+            )}
+          </Button>
+        )}
       </div>
     </div>
   );
