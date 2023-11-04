@@ -9,7 +9,7 @@ import {
   isRefreshTokenExpired,
   isTokenNotExist,
 } from 'utils/http';
-import { authStore } from 'store/auth';
+import { authStore, useAuthActions } from 'store/auth';
 import authApi from './auth';
 
 const instance = axios.create({
@@ -69,8 +69,7 @@ instance.interceptors.response.use(
      * @description  토큰이 존재하지 않을 경우
      */
     if (isTokenNotExist()) {
-      const { setIsTokenRequired, setIsSignedIn } =
-        authStore.getState().actions;
+      const { setIsTokenRequired, setIsSignedIn } = useAuthActions();
       setIsTokenRequired(true);
       setIsSignedIn(false);
     }
