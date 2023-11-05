@@ -36,8 +36,6 @@ const Scope = () => {
     },
   });
 
-  console.log(scopeReviews);
-
   return (
     <div className="bg-gradient-main">
       {/* Scope 메인 배너 */}
