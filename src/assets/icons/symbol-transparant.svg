@@ -1,0 +1,22 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="logo/symbol">
+<g clip-path="url(#clip0_1762_20229)">
+<path id="Vector" d="M4.70089 5.54813L12.6325 28.794L27.8659 31.6444L9.25225 5.68718L4.70089 5.54813Z" fill="url(#paint0_linear_1762_20229)"/>
+<path id="Vector_2" d="M15.0524 10.4599L22.9837 33.7049L38.2179 36.5551L19.6035 10.5981L15.0524 10.4599Z" fill="url(#paint1_linear_1762_20229)"/>
+</g>
+</g>
+<defs>
+<linearGradient id="paint0_linear_1762_20229" x1="12.2455" y1="3.52657" x2="20.3213" y2="33.666" gradientUnits="userSpaceOnUse">
+<stop stop-color="#B4A1FF"/>
+<stop offset="0.0001" stop-color="#7795FE" stop-opacity="0.88"/>
+<stop offset="1" stop-color="#98AFFF" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="paint1_linear_1762_20229" x1="22.5973" y1="8.43818" x2="30.6729" y2="38.5767" gradientUnits="userSpaceOnUse">
+<stop stop-color="#7795FE"/>
+<stop offset="0.927083" stop-color="#98AFFF" stop-opacity="0"/>
+</linearGradient>
+<clipPath id="clip0_1762_20229">
+<path d="M0 2C0 0.895431 0.895431 0 2 0H38C39.1046 0 40 0.895431 40 2V38C40 39.1046 39.1046 40 38 40H2C0.895431 40 0 39.1046 0 38V2Z" fill="white"/>
+</clipPath>
+</defs>
+</svg>
