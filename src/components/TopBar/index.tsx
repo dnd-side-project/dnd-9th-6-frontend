@@ -119,7 +119,7 @@ const TopBar = () => {
                 </div>
               </div>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="z-4 rounded-none">
+            <DropdownMenuContent className="z-4 rounded-none border-none shadow-dropdown">
               <div className="flex gap-8 p-8">
                 <Avatar className="h-32 w-32 rounded-full text-white">
                   <AvatarImage
