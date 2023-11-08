@@ -5,6 +5,7 @@ const nextConfig = {
       'dnd9th6.s3.ap-northeast-2.amazonaws.com',
       'storage.googleapis.com',
       'cdn.inflearn.com',
+      'lh3.googleusercontent.com',
     ],
   },
   webpack: config => {
