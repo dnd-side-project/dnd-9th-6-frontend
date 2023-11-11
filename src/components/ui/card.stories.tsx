@@ -51,7 +51,7 @@ export const LandScapeCardExample: StoryObj<typeof LandScapeCard> = {
   },
   render: args => <LandScapeCard {...args} />,
 };
-export const HorizontalCardardExample: StoryObj<typeof HorizontalCard> = {
+export const HorizontalCardExample: StoryObj<typeof HorizontalCard> = {
   args: {
     타이틀: '김코딩의 자바스크립트 강의',
     작성자: '김코딩',
