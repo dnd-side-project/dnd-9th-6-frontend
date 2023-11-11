@@ -1,6 +1,5 @@
 import { create } from 'zustand';
-
-import { AuthState } from 'auth/types/store';
+import { AuthState } from './types/auth';
 
 export const authStore = create<AuthState>(set => ({
   isSignedIn: false,
