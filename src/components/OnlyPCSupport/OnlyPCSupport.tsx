@@ -4,7 +4,7 @@ import React from 'react';
 import Logo from 'assets/icons/logo-white.svg';
 import { useBlockScroll } from 'hooks/useBlockScroll';
 
-const OnlyPCSupport = () => {
+function OnlyPCSupport() {
   useBlockScroll(true);
 
   return (
@@ -24,6 +24,6 @@ const OnlyPCSupport = () => {
       </div>
     </div>
   );
-};
+}
 
 export default OnlyPCSupport;

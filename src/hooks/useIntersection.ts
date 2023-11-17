@@ -11,10 +11,7 @@ import { useCallback, useEffect, useRef } from 'react';
  * @returns target 요소에 전달할 ref
  */
 const useIntersection = (
-  onIntersect: (
-    entry: IntersectionObserverEntry,
-    observer: IntersectionObserver
-  ) => void,
+  onIntersect: (entry: IntersectionObserverEntry, observer: IntersectionObserver) => void,
   options?: IntersectionObserverInit
 ) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -27,7 +24,7 @@ const useIntersection = (
    */
   const callback = useCallback(
     (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
-      entries.forEach(entry => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) onIntersect(entry, observer);
       });
     },

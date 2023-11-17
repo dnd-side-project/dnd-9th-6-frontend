@@ -1,15 +1,11 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import { USER_ACCESS_TOKEN, USER_REFRESH_TOKEN } from 'constants/account';
-
 import { HTTP_BASE_URL } from 'constants/http';
 import { ROUTES } from 'constants/routes';
 import { getLocalStorage, getSessionStorage } from 'hooks/storage';
-import {
-  isAccessTokenExpired,
-  isRefreshTokenExpired,
-  isTokenNotExist,
-} from 'utils/http';
-import { authStore, useAuthActions } from 'store/auth';
+import { useAuthActions } from 'store/auth';
+import { isAccessTokenExpired, isRefreshTokenExpired, isTokenNotExist } from 'utils/http';
+
 import authApi from './auth';
 
 const instance = axios.create({
@@ -30,14 +26,12 @@ export const logOnDev = (message: string) => {
 };
 
 instance.interceptors.request.use(
-  config => {
-    logOnDev(
-      `🚀 [API] ${config.method?.toUpperCase()} ${config.url} | Request`
-    );
+  (config) => {
+    logOnDev(`🚀 [API] ${config.method?.toUpperCase()} ${config.url} | Request`);
 
     return config;
   },
-  error => {
+  (error) => {
     return Promise.reject(error);
   }
 );
@@ -62,7 +56,7 @@ instance.interceptors.response.use(
     if (isAccessTokenExpired() && !isRefreshTokenExpired()) {
       const refreshToken = getSessionStorage(USER_REFRESH_TOKEN);
       await authApi.reIssue(refreshToken as string);
-      return axios(response?.config!);
+      if (response?.config) return axios(response?.config);
     }
 
     /**

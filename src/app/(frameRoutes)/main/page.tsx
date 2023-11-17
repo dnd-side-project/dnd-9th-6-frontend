@@ -1,34 +1,29 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-
-import Search from 'assets/icons/search.svg';
+import SectionIcon from 'assets/icons/glass/bookmark2.svg';
+import Book from 'assets/icons/glass/bookmarrk.svg';
+import Chat from 'assets/icons/glass/chat/purple.svg';
 import ProgrammingSmallIcon from 'assets/icons/glass/programming.svg';
+import Search from 'assets/icons/search.svg';
 import Banner from 'assets/images/banner.svg';
 import SectionBG from 'assets/images/section_bg.svg';
-
-import Chat from 'assets/icons/glass/chat/purple.svg';
-import Book from 'assets/icons/glass/bookmarrk.svg';
-import SectionIcon from 'assets/icons/glass/bookmark2.svg';
-
-import { useGetLectures } from 'hooks/reactQuery/lectures/query';
-import { Input } from 'components/ui/input';
-import { Button } from 'components/ui/button';
 import { CoverCard, LandScapeCard, OutlinedCard } from 'components/Card';
-
+import { Button } from 'components/ui/button';
+import { Input } from 'components/ui/input';
+import { Separator } from 'components/ui/separator';
+import { CategoryData } from 'constants/category';
+import { useGetLectures } from 'hooks/reactQuery/lectures/query';
+import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
-import { Autoplay, Pagination, Navigation } from 'swiper/modules';
-import { Separator } from 'components/ui/separator';
-import { CategoryData } from 'constants/category';
-import Link from 'next/link';
-
-const Home = () => {
+function Home() {
   const router = useRouter();
   const [value, setValue] = useState('');
 
@@ -79,9 +74,7 @@ const Home = () => {
         >
           <div className="container flex flex-col items-center justify-center">
             <div className="en-H2-semiblod text-grayscale-50">Search</div>
-            <div className="text-white H3-semibold">
-              클래스코프와 함께 편리한 강의 탐색을 시작하세요!
-            </div>
+            <div className="text-white H3-semibold">클래스코프와 함께 편리한 강의 탐색을 시작하세요!</div>
           </div>
         </div>
         {/* 검색바 */}
@@ -91,10 +84,10 @@ const Home = () => {
               variant="search"
               size="lg"
               value={value}
-              onChange={e => {
+              onChange={(e) => {
                 setValue(e.target.value);
               }}
-              onKeyDown={e => {
+              onKeyDown={(e) => {
                 if (e.key === 'Enter') {
                   router.push(`/lectures?searchKeyword=${value}`);
                 }
@@ -141,9 +134,7 @@ const Home = () => {
                 <div className="H3-bold">강의들을 모아놨어요!</div>
               </div>
               <div className="flex items-center justify-between">
-                <div className="text-grayscale-400 body3-semibold">
-                  관심분야 기반으로 맞춤 추전을 받으세요!
-                </div>
+                <div className="text-grayscale-400 body3-semibold">관심분야 기반으로 맞춤 추전을 받으세요!</div>
                 <Button variant="outlined" size="sm">
                   관심분야 등록
                 </Button>
@@ -171,7 +162,7 @@ const Home = () => {
                 }}
                 modules={[Autoplay, Pagination]}
               >
-                {interestData?.map(item => (
+                {interestData?.map((item) => (
                   <SwiperSlide key={item.id}>
                     <OutlinedCard
                       강사={item.name}
@@ -198,12 +189,8 @@ const Home = () => {
             <div className="flex justify-between">
               <div className="flex flex-col">
                 <Chat />
-                <div className="mt-8 text-purple-400 H4-bold">
-                  후기가 많이달린
-                </div>
-                <div className="text-grayscale-700 H4-bold">
-                  강의들을 확인해보세요
-                </div>
+                <div className="mt-8 text-purple-400 H4-bold">후기가 많이달린</div>
+                <div className="text-grayscale-700 H4-bold">강의들을 확인해보세요</div>
                 <div className="mt-16 text-grayscale-400 body3-semibold">
                   찾아 볼 수 없었던 생생한 강의 후기를 확인하고 등록해보세요
                 </div>
@@ -225,7 +212,7 @@ const Home = () => {
                 }}
                 modules={[Autoplay, Pagination]}
               >
-                {reviewData?.map(item => (
+                {reviewData?.map((item) => (
                   <SwiperSlide key={item.id}>
                     <LandScapeCard
                       강사={item.name}
@@ -246,12 +233,9 @@ const Home = () => {
             <div className="flex items-end justify-between">
               <div className="flex flex-col">
                 <Book />
-                <div className="mt-8 text-grayscale-800 H4-bold">
-                  다른사람들이
-                </div>
+                <div className="mt-8 text-grayscale-800 H4-bold">다른사람들이</div>
                 <div className="text-grayscale-700 H4-bold">
-                  <span className="text-blue-500">많이 찜한 강의</span>를 구경해
-                  보세요
+                  <span className="text-blue-500">많이 찜한 강의</span>를 구경해 보세요
                 </div>
                 <div className="mt-16 text-grayscale-400 body3-semibold">
                   찾아 볼 수 없었던 생생한 강의 후기를 확인하고 등록해보세요
@@ -272,7 +256,7 @@ const Home = () => {
                 }}
                 modules={[Autoplay, Navigation]}
               >
-                {bookmarkData?.map(item => (
+                {bookmarkData?.map((item) => (
                   <SwiperSlide key={item.id}>
                     <LandScapeCard
                       강사={item.name}
@@ -296,6 +280,6 @@ const Home = () => {
       </div>
     </>
   );
-};
+}
 
 export default Home;

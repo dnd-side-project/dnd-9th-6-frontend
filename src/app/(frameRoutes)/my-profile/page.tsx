@@ -1,34 +1,25 @@
 'use client';
 
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-
-import Symbol from 'assets/icons/symbol-transparant.svg';
-
 import Cog from 'assets/icons/cog.svg';
-import Pencil from 'assets/icons/pencil.svg';
 import Headset from 'assets/icons/headset.svg';
 import Logout from 'assets/icons/logout.svg';
-
-import { Tabs, TabsList, TabsTrigger } from 'components/ui/tabs';
-import { Separator } from 'components/ui/separator';
-import Image from 'next/image';
-import { useUserEmail, useUserImageUrl, useUserName } from 'store/user';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from 'components/ui/form';
-import { Input } from 'components/ui/input';
+import Pencil from 'assets/icons/pencil.svg';
+import Symbol from 'assets/icons/symbol-transparant.svg';
 import { Button } from 'components/ui/button';
-import { z } from 'zod';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from 'components/ui/form';
+import { Input } from 'components/ui/input';
+import { Separator } from 'components/ui/separator';
+import { Tabs, TabsList, TabsTrigger } from 'components/ui/tabs';
 import { ArrowRightIcon } from 'lucide-react';
+import { useForm } from 'react-hook-form';
+import { useUserEmail, useUserImageUrl, useUserName } from 'store/user';
+import { z } from 'zod';
 
-const Lectures = () => {
+import { zodResolver } from '@hookform/resolvers/zod';
+
+function Lectures() {
   const router = useRouter();
 
   const userName = useUserName();
@@ -110,10 +101,7 @@ const Lectures = () => {
             <Image width={100} height={100} src={userProfileImg} alt="" />
           </div>
           <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="mt-20 flex flex-col gap-32"
-            >
+            <form onSubmit={form.handleSubmit(onSubmit)} className="mt-20 flex flex-col gap-32">
               <FormField
                 control={form.control}
                 name="nickname"
@@ -121,11 +109,7 @@ const Lectures = () => {
                   <FormItem>
                     <FormLabel className="body2-bold">닉네임</FormLabel>
                     <FormControl>
-                      <Input
-                        placeholder="변경하실 닉네임을 입력하세요."
-                        defaultValue={userName}
-                        {...field}
-                      />
+                      <Input placeholder="변경하실 닉네임을 입력하세요." defaultValue={userName} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -138,24 +122,14 @@ const Lectures = () => {
                   <FormItem>
                     <FormLabel className="body2-bold">닉네임</FormLabel>
                     <FormControl>
-                      <Input
-                        className="bg-grayscale-50"
-                        defaultValue={userEmail}
-                        disabled
-                        {...field}
-                      />
+                      <Input className="bg-grayscale-50" defaultValue={userEmail} disabled {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
               <div className="mt-16 flex justify-end">
-                <Button
-                  className="px-16 py-8 body3-bold"
-                  variant="primary"
-                  size="md"
-                  type="submit"
-                >
+                <Button className="px-16 py-8 body3-bold" variant="primary" size="md" type="submit">
                   변경하기
                   <ArrowRightIcon className="w-20" />
                 </Button>
@@ -166,6 +140,6 @@ const Lectures = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Lectures;

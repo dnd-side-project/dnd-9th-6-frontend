@@ -1,17 +1,15 @@
 'use client';
 
-import { Swiper, SwiperSlide } from 'swiper/react';
-
-import Platform from 'assets/images/platform.svg';
 import Chat from 'assets/images/chat.svg';
 import Logo from 'assets/images/logo.svg';
+import Platform from 'assets/images/platform.svg';
+import { Autoplay, Pagination } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-import { Autoplay, Pagination } from 'swiper/modules';
-
-const LoginCarousel = () => {
+function LoginCarousel() {
   return (
     <Swiper
       className="flex h-[500px] w-full items-center justify-center [--swiper-pagination-bottom:-5px] [--swiper-pagination-bullet-horizontal-gap:10px] [--swiper-pagination-color:white]"
@@ -57,6 +55,6 @@ const LoginCarousel = () => {
       </SwiperSlide>
     </Swiper>
   );
-};
+}
 
 export default LoginCarousel;

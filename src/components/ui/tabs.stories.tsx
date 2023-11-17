@@ -1,8 +1,10 @@
-import type { Meta, StoryObj } from '@storybook/react';
 import Cog from 'assets/icons/cog.svg';
-import Pencil from 'assets/icons/pencil.svg';
 import Headset from 'assets/icons/headset.svg';
 import Logout from 'assets/icons/logout.svg';
+import Pencil from 'assets/icons/pencil.svg';
+
+import type { Meta, StoryObj } from '@storybook/react';
+
 import { Tabs, TabsList, TabsTrigger } from './tabs';
 
 const meta = {
@@ -15,7 +17,7 @@ export default meta;
 
 export const TopBarTab: StoryObj<typeof Tabs> = {
   args: {},
-  render: args => (
+  render: (args) => (
     <Tabs {...args} className="bg-blue-500">
       <TabsList>
         <TabsTrigger value="강의">강의</TabsTrigger>
@@ -28,7 +30,7 @@ export const TopBarTab: StoryObj<typeof Tabs> = {
 
 export const MyProfileTab: StoryObj<typeof Tabs> = {
   args: {},
-  render: args => (
+  render: (args) => (
     <Tabs {...args} className="inline-flex bg-white">
       <TabsList className="flex max-w-[174px] flex-col items-start gap-0">
         <TabsTrigger

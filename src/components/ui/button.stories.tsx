@@ -1,5 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/react';
 import CategoryIcon from 'assets/icons/glass/all-i.svg';
+
+import type { Meta, StoryObj } from '@storybook/react';
+
 import { Button } from './button';
 
 const meta = {
@@ -15,7 +17,7 @@ export const Primary: StoryObj<typeof Button> = {
     size: 'sm',
     variant: 'primary',
   },
-  render: args => <Button {...args}>Button</Button>,
+  render: (args) => <Button {...args}>Button</Button>,
 };
 
 export const Outlined: StoryObj<typeof Button> = {
@@ -23,7 +25,7 @@ export const Outlined: StoryObj<typeof Button> = {
     size: 'sm',
     variant: 'outlined',
   },
-  render: args => <Button {...args}>Button</Button>,
+  render: (args) => <Button {...args}>Button</Button>,
 };
 
 export const Secondary: StoryObj<typeof Button> = {
@@ -31,7 +33,7 @@ export const Secondary: StoryObj<typeof Button> = {
     size: 'sm',
     variant: 'secondary',
   },
-  render: args => <Button {...args}>Button</Button>,
+  render: (args) => <Button {...args}>Button</Button>,
 };
 
 export const Red: StoryObj<typeof Button> = {
@@ -39,7 +41,7 @@ export const Red: StoryObj<typeof Button> = {
     size: 'sm',
     variant: 'red',
   },
-  render: args => <Button {...args}>Button</Button>,
+  render: (args) => <Button {...args}>Button</Button>,
 };
 
 export const Purple: StoryObj<typeof Button> = {
@@ -47,7 +49,7 @@ export const Purple: StoryObj<typeof Button> = {
     size: 'sm',
     variant: 'purple',
   },
-  render: args => <Button {...args}>Button</Button>,
+  render: (args) => <Button {...args}>Button</Button>,
 };
 
 export const Category: StoryObj<typeof Button> = {
@@ -55,7 +57,7 @@ export const Category: StoryObj<typeof Button> = {
     size: 'icon',
     variant: 'category',
   },
-  render: args => (
+  render: (args) => (
     <Button {...args}>
       <CategoryIcon />
       Button

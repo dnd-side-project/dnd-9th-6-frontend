@@ -1,35 +1,34 @@
 /* eslint-disable react/jsx-pascal-case */
 // Main Category Icon
-import CategoryIcon from 'assets/icons/glass/all-i.svg';
-import ProgrammingIcon from 'assets/icons/glass/programming-l v.svg';
-import DSIcon from 'assets/icons/glass/datascience-l.svg';
-import HardwareIcon from 'assets/icons/glass/hardware-l.svg';
-import DrawingIcon from 'assets/icons/glass/drawing-l.svg';
-import DesignIcon from 'assets/icons/glass/design-l.svg';
-import MovieIcon from 'assets/icons/glass/movie-l.svg';
-import GameIcon from 'assets/icons/glass/game-l.svg';
-import CookingIcon from 'assets/icons/glass/cooking-l.svg';
-import CreativeIcon from 'assets/icons/glass/cratetive-l.svg';
-import MoneyIcon from 'assets/icons/glass/money-l.svg';
-import LanguageIcon from 'assets/icons/glass/language.svg';
-import CareerIcon from 'assets/icons/glass/career-l.svg';
-import LifestyleIcon from 'assets/icons/glass/lifestyle-l.svg';
-
 // Sidebar Icon
 import 전체강의 from 'assets/icons/all.svg';
-import 게임 from 'assets/icons/game.svg';
-import 금융투자 from 'assets/icons/money.svg';
-import 드로잉 from 'assets/icons/drawing.svg';
-import 디자인 from 'assets/icons/design.svg';
-import 라이프스타일 from 'assets/icons/lifestyle.svg';
-import 요리 from 'assets/icons/cooking.svg';
 import 커리어 from 'assets/icons/career.svg';
-import 프로그래밍 from 'assets/icons/programming.svg';
-import 하드웨어 from 'assets/icons/hardware.svg';
-import 데이터사이언스 from 'assets/icons/datascience.svg';
-import 학문외국어 from 'assets/icons/language.svg';
+import 요리 from 'assets/icons/cooking.svg';
 import 크리에이티브 from 'assets/icons/createtive.svg';
+import 데이터사이언스 from 'assets/icons/datascience.svg';
+import 디자인 from 'assets/icons/design.svg';
+import 드로잉 from 'assets/icons/drawing.svg';
+import 게임 from 'assets/icons/game.svg';
+import CategoryIcon from 'assets/icons/glass/all-i.svg';
+import CareerIcon from 'assets/icons/glass/career-l.svg';
+import CookingIcon from 'assets/icons/glass/cooking-l.svg';
+import CreativeIcon from 'assets/icons/glass/cratetive-l.svg';
+import DSIcon from 'assets/icons/glass/datascience-l.svg';
+import DesignIcon from 'assets/icons/glass/design-l.svg';
+import DrawingIcon from 'assets/icons/glass/drawing-l.svg';
+import GameIcon from 'assets/icons/glass/game-l.svg';
+import HardwareIcon from 'assets/icons/glass/hardware-l.svg';
+import LanguageIcon from 'assets/icons/glass/language.svg';
+import LifestyleIcon from 'assets/icons/glass/lifestyle-l.svg';
+import MoneyIcon from 'assets/icons/glass/money-l.svg';
+import MovieIcon from 'assets/icons/glass/movie-l.svg';
+import ProgrammingIcon from 'assets/icons/glass/programming-l v.svg';
+import 하드웨어 from 'assets/icons/hardware.svg';
+import 학문외국어 from 'assets/icons/language.svg';
+import 라이프스타일 from 'assets/icons/lifestyle.svg';
+import 금융투자 from 'assets/icons/money.svg';
 import 영상3D애니메이션 from 'assets/icons/movie.svg';
+import 프로그래밍 from 'assets/icons/programming.svg';
 
 export interface Category {
   id: number;

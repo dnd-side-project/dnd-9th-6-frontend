@@ -1,6 +1,8 @@
 import { AUTH_API } from 'constants/api';
-import instance from 'apis';
 import { RefreshToken } from 'store/types/token';
+
+import instance from '..';
+
 import { SignInResponse } from './types';
 
 interface LoginRequestParams {
@@ -24,8 +26,7 @@ const authApi = {
    *
    * @description cookie에 담겨있는 refreshToken을 활용하여 accessToken 재발급
    */
-  reIssue: (param: RefreshToken['refreshToken']) =>
-    instance.post<RefreshToken>(AUTH_API.REISSUE, { param }),
+  reIssue: (param: RefreshToken['refreshToken']) => instance.post<RefreshToken>(AUTH_API.REISSUE, { param }),
   /**
    *
    * @description refreshToken을 전달하여 회원 탈퇴

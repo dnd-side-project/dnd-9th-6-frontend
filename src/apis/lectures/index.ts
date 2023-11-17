@@ -1,4 +1,5 @@
 import instance from '..';
+
 import { LecturesParams, LecturesResponse } from './types';
 
 const LECTURES_API_URL = '/lectures';

@@ -1,25 +1,20 @@
 'use client';
 
-import Symbol from 'assets/icons/symbol.svg';
-import Logo from 'assets/icons/logo-text-black.svg';
 import Link from 'next/link';
+import Logo from 'assets/icons/logo-text-black.svg';
+import Symbol from 'assets/icons/symbol.svg';
 import { LoginCarousel } from 'components/Carousel';
-import { CategoryData } from 'constants/category';
-import { CheckboxButton } from 'components/ui/checkbox-button';
 import { Button } from 'components/ui/button';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { CheckboxButton } from 'components/ui/checkbox-button';
+import { Form, FormControl, FormField, FormItem, FormMessage } from 'components/ui/form';
+import { CategoryData } from 'constants/category';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from 'components/ui/form';
+
+import { zodResolver } from '@hookform/resolvers/zod';
 
 const page = () => {
-  const category = CategoryData.filter(v => {
+  const category = CategoryData.filter((v) => {
     return v.main !== '전체강의';
   });
 
@@ -61,20 +56,14 @@ const page = () => {
               <Logo />
             </div>
           </Link>
-          <div className="flex pt-[116px] text-blue-400 en-H2-semibold">
-            Onboarding
-          </div>
+          <div className="flex pt-[116px] text-blue-400 en-H2-semibold">Onboarding</div>
           <div className="pt-16 H4-semibold">
-            <span className="text-blue-400">클래스코프</span>에 오신 것을
-            환영해요!
+            <span className="text-blue-400">클래스코프</span>에 오신 것을 환영해요!
             <div>
-              <span className="text-blue-400">관심 분야</span>가 어떻게
-              되시나요?
+              <span className="text-blue-400">관심 분야</span>가 어떻게 되시나요?
             </div>
           </div>
-          <div className="pt-16 text-grayscale-300 body3-semibold">
-            2가지 이내로 선택해주세요 :)
-          </div>
+          <div className="pt-16 text-grayscale-300 body3-semibold">2가지 이내로 선택해주세요 :)</div>
           <div className="flex flex-wrap gap-16 pt-[64px]">
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -83,7 +72,7 @@ const page = () => {
                   name="category"
                   render={() => (
                     <FormItem className="inline-flex flex-wrap gap-8">
-                      {category.map(item => (
+                      {category.map((item) => (
                         <FormField
                           key={item.id}
                           control={form.control}
@@ -94,17 +83,10 @@ const page = () => {
                                 <FormControl>
                                   <CheckboxButton
                                     checked={field.value?.includes(item.main)}
-                                    onCheckedChange={checked => {
+                                    onCheckedChange={(checked) => {
                                       return checked
-                                        ? field.onChange([
-                                            ...field.value,
-                                            item.main,
-                                          ])
-                                        : field.onChange(
-                                            field.value.filter(
-                                              value => value !== item.main
-                                            )
-                                          );
+                                        ? field.onChange([...field.value, item.main])
+                                        : field.onChange(field.value.filter((value) => value !== item.main));
                                     }}
                                   >
                                     {item.sideBarIcon}

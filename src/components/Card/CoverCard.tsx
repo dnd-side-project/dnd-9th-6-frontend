@@ -1,28 +1,28 @@
+import Image from 'next/image';
+import Edge from 'assets/icons/card/edge.svg';
+import Class101 from 'assets/icons/platform/class101-32.svg';
+import Coloso from 'assets/icons/platform/coloso-32.svg';
 import FastCampus from 'assets/icons/platform/fastcampus-32.svg';
 import Inflearn from 'assets/icons/platform/inflearn-32.svg';
-import Coloso from 'assets/icons/platform/coloso-32.svg';
-import Class101 from 'assets/icons/platform/class101-32.svg';
-import Edge from 'assets/icons/card/edge.svg';
-import { Card, CardProps } from 'components/ui/card';
 import { Button } from 'components/ui/button';
-import Image from 'next/image';
+import { Card, CardProps } from 'components/ui/card';
 
 interface CoverCardProps extends CardProps {
   강사: string;
   타이틀: string;
   가격: string;
   플랫폼: string;
-  이미지?: string;
+  이미지: string;
 }
 
-const CoverCard = ({
+function CoverCard({
   강사 = '강사명',
   타이틀 = '강의명',
   가격 = '가격',
   플랫폼 = 'fastcampus',
   이미지 = '',
   ...props
-}: CoverCardProps) => {
+}: CoverCardProps) {
   return (
     <Card
       className="group relative z-1 h-[263px] w-[557px] gap-[4px] rounded-[4px] bg-grayscale-800 bg-cover px-16 py-24"
@@ -44,9 +44,7 @@ const CoverCard = ({
       {/* 강사명, 타이틀명 Text */}
       <div className="flex w-[459px] flex-col gap-8">
         <div className="text-blue-300 body3-bold">{강사}</div>
-        <div className="line-clamp-2 min-h-[48px] text-white H5-bold">
-          {타이틀}
-        </div>
+        <div className="line-clamp-2 min-h-[48px] text-white H5-bold">{타이틀}</div>
       </div>
       {/* 가격 Text */}
       <div className="text-white H4-bold">{가격}</div>
@@ -79,6 +77,6 @@ const CoverCard = ({
       </div>
     </Card>
   );
-};
+}
 
 export default CoverCard;

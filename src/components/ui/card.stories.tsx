@@ -1,11 +1,7 @@
+import { CoverCard, HorizontalCard, LandScapeCard, OutlinedCard, SquareCard } from 'components/Card';
+
 import type { Meta, StoryObj } from '@storybook/react';
-import {
-  CoverCard,
-  OutlinedCard,
-  LandScapeCard,
-  HorizontalCard,
-  SquareCard,
-} from 'components/Card';
+
 import { Card } from './card';
 
 const meta = {
@@ -22,10 +18,9 @@ export const CoverCardExample: StoryObj<typeof CoverCard> = {
     타이틀: '김코딩의 자바스크립트 강의',
     가격: '100,000',
     플랫폼: 'fastcampus',
-    이미지:
-      'https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202308/132817-865/thumb--1-.jpg',
+    이미지: 'https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202308/132817-865/thumb--1-.jpg',
   },
-  render: args => <CoverCard {...args} />,
+  render: (args) => <CoverCard {...args} />,
 };
 
 export const OutlinedCardExample: StoryObj<typeof OutlinedCard> = {
@@ -33,10 +28,9 @@ export const OutlinedCardExample: StoryObj<typeof OutlinedCard> = {
     강사: '김코딩',
     타이틀: '김코딩의 자바스크립트 강의',
     플랫폼: 'fastcampus',
-    이미지:
-      'https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202308/132817-865/thumb--1-.jpg',
+    이미지: 'https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202308/132817-865/thumb--1-.jpg',
   },
-  render: args => <OutlinedCard {...args} />,
+  render: (args) => <OutlinedCard {...args} />,
 };
 
 export const LandScapeCardExample: StoryObj<typeof LandScapeCard> = {
@@ -45,11 +39,10 @@ export const LandScapeCardExample: StoryObj<typeof LandScapeCard> = {
     타이틀: '김코딩의 자바스크립트 강의',
     가격: '100,000',
     플랫폼: 'fastcampus',
-    이미지:
-      'https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202308/132817-865/thumb--1-.jpg',
+    이미지: 'https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202308/132817-865/thumb--1-.jpg',
     후기수: 100,
   },
-  render: args => <LandScapeCard {...args} />,
+  render: (args) => <LandScapeCard {...args} />,
 };
 export const HorizontalCardExample: StoryObj<typeof HorizontalCard> = {
   args: {
@@ -61,7 +54,7 @@ export const HorizontalCardExample: StoryObj<typeof HorizontalCard> = {
     태그: '뛰어난 강의력,구성이 알차요,도움이 많이 됐어요',
     플랫폼: 'fastcampus',
   },
-  render: args => <HorizontalCard {...args} />,
+  render: (args) => <HorizontalCard {...args} />,
 };
 
 export const SquareCardExample: StoryObj<typeof SquareCard> = {
@@ -71,11 +64,10 @@ export const SquareCardExample: StoryObj<typeof SquareCard> = {
     작성일: '2023-08-23T00:00:00',
     내용: '강의가 너무 좋아요',
     태그: '뛰어난 강의력,구성이 알차요,도움이 많이 됐어요',
-    이미지:
-      'https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202308/132817-865/thumb--1-.jpg',
+    이미지: 'https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202308/132817-865/thumb--1-.jpg',
     플랫폼: 'fastcampus',
     찜수: 100,
     좋아요: true,
   },
-  render: args => <SquareCard {...args} />,
+  render: (args) => <SquareCard {...args} />,
 };

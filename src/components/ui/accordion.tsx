@@ -1,10 +1,10 @@
 'use client';
 
 import * as React from 'react';
-import * as AccordionPrimitive from '@radix-ui/react-accordion';
 import Angle from 'assets/icons/arrow-right.svg';
-
 import { cn } from 'utils/twUtils';
+
+import * as AccordionPrimitive from '@radix-ui/react-accordion';
 
 const Accordion = AccordionPrimitive.Root;
 
@@ -12,11 +12,7 @@ const AccordionItem = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>
 >(({ className, ...props }, ref) => (
-  <AccordionPrimitive.Item
-    ref={ref}
-    className={cn('px-[3px]', className)}
-    {...props}
-  />
+  <AccordionPrimitive.Item ref={ref} className={cn('px-[3px]', className)} {...props} />
 ));
 AccordionItem.displayName = 'AccordionItem';
 
@@ -57,4 +53,4 @@ const AccordionContent = React.forwardRef<
 ));
 AccordionContent.displayName = AccordionPrimitive.Content.displayName;
 
-export { Accordion, AccordionItem, AccordionTrigger, AccordionContent };
+export { Accordion, AccordionContent, AccordionItem, AccordionTrigger };

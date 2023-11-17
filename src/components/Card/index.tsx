@@ -1,9 +1,9 @@
 'use client';
 
 import CoverCard from './CoverCard';
-import LandScapeCard from './LandScapeCard';
-import SquareCard from './SquareCard';
 import HorizontalCard from './HorizontalCard';
+import LandScapeCard from './LandScapeCard';
 import OutlinedCard from './OutlinedCard';
+import SquareCard from './SquareCard';
 
-export { CoverCard, LandScapeCard, SquareCard, HorizontalCard, OutlinedCard };
+export { CoverCard, HorizontalCard, LandScapeCard, OutlinedCard, SquareCard };

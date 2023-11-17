@@ -1,10 +1,10 @@
 'use client';
 
-import OnlyPCSupport from 'components/OnlyPCSupport/OnlyPCSupport';
-import { useMediaQuery } from 'hooks/useMediaQuery';
-import { USER_ACCESS_TOKEN, USER_INFO } from 'constants/account';
 import { useEffect } from 'react';
+import OnlyPCSupport from 'components/OnlyPCSupport/OnlyPCSupport';
+import { USER_ACCESS_TOKEN, USER_INFO } from 'constants/account';
 import { getLocalStorage } from 'hooks/storage';
+import { useMediaQuery } from 'hooks/useMediaQuery';
 import { useAuthActions } from 'store/auth';
 import { useUserActions } from 'store/user';
 

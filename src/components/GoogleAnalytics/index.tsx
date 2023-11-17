@@ -2,12 +2,10 @@
 
 import Script from 'next/script';
 
-const GoogleAnalytics = () => {
+function GoogleAnalytics() {
   return (
     <>
-      <Script
-        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
-      />
+      <Script src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`} />
       <Script id="google-analytics">
         {`
           window.dataLayer = window.dataLayer || [];
@@ -19,6 +17,6 @@ const GoogleAnalytics = () => {
       </Script>
     </>
   );
-};
+}
 
 export default GoogleAnalytics;

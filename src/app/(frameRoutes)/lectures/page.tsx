@@ -1,26 +1,19 @@
 'use client';
 
+import { useMemo, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-
-import SideBar from 'components/SideBar';
 import Pentip from 'assets/icons/designlarge.svg';
 import Search from 'assets/icons/search.svg';
-import { Input } from 'components/ui/input';
-import { useMemo, useState } from 'react';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from 'components/ui/select';
-import { RadioGroup, RadioGroupItem } from 'components/ui/radio-group';
 import { LandScapeCard } from 'components/Card';
+import SideBar from 'components/SideBar';
+import { Input } from 'components/ui/input';
+import { RadioGroup, RadioGroupItem } from 'components/ui/radio-group';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from 'components/ui/select';
 import { CategoryData } from 'constants/category';
-import useIntersection from 'hooks/useIntersection';
 import { useGetInfiniteLectures } from 'hooks/reactQuery/lectures/query';
+import useIntersection from 'hooks/useIntersection';
 
-const Lectures = () => {
+function Lectures() {
   const router = useRouter();
   const [inputValue, setInputValue] = useState('');
   const [sortValue, setSortValue] = useState('');
@@ -39,17 +32,16 @@ const Lectures = () => {
     sort: sortValue,
   };
 
-  const { data, fetchNextPage, hasNextPage, isFetching, isSuccess } =
-    useGetInfiniteLectures(params, {
-      // eslint-disable-next-line @typescript-eslint/no-shadow
-      select: data => ({
-        pages: data.pages.flatMap(page => page.data.data),
-        pageParams: data.pageParams,
-      }),
-    });
+  const { data, fetchNextPage, hasNextPage, isFetching, isSuccess } = useGetInfiniteLectures(params, {
+    // eslint-disable-next-line @typescript-eslint/no-shadow
+    select: (data) => ({
+      pages: data.pages.flatMap((page) => page.data.data),
+      pageParams: data.pageParams,
+    }),
+  });
 
   const lectures = useMemo(() => {
-    return data?.pages.flatMap(page => page.lectures);
+    return data?.pages.flatMap((page) => page.lectures);
   }, [data]);
 
   const totalElements = useMemo(() => {
@@ -62,9 +54,7 @@ const Lectures = () => {
     if (hasNextPage && !isFetching) fetchNextPage();
   });
 
-  const options = CategoryData.find(
-    item => item.id === Number(mainCategoryIdValue)
-  );
+  const options = CategoryData.find((item) => item.id === Number(mainCategoryIdValue));
 
   return (
     <div className="bg-gradient-main">
@@ -87,12 +77,12 @@ const Lectures = () => {
                 <RadioGroup
                   value={
                     options?.sub
-                      .filter(item => item[1] === Number(subCategoryIdValue))
-                      .flatMap(item => item)[0]
+                      .filter((item) => item[1] === Number(subCategoryIdValue))
+                      .flatMap((item) => item)[0]
                       ?.toString() ?? '전체강의'
                   }
                 >
-                  {options?.sub.map(item => {
+                  {options?.sub.map((item) => {
                     return (
                       <RadioGroupItem
                         key={item[0]}
@@ -102,9 +92,7 @@ const Lectures = () => {
                           searchKeywordValue
                             ? () => {}
                             : () => {
-                                router.push(
-                                  `/lectures?mainCategoryId=${mainCategoryIdValue}&subCategoryId=${item[1]}`
-                                );
+                                router.push(`/lectures?mainCategoryId=${mainCategoryIdValue}&subCategoryId=${item[1]}`);
                               }
                         }
                       >
@@ -119,10 +107,10 @@ const Lectures = () => {
                   variant="search"
                   size="sm"
                   value={inputValue}
-                  onChange={e => {
+                  onChange={(e) => {
                     setInputValue(e.target.value);
                   }}
-                  onKeyDown={e => {
+                  onKeyDown={(e) => {
                     if (e.key === 'Enter') {
                       router.push(`/lectures?searchKeyword=${inputValue}`);
                     }
@@ -142,19 +130,14 @@ const Lectures = () => {
             </div>
             {/* 검색 결과 텍스트 & 필터 드롭다운 */}
             <div className="flex items-end justify-between">
-              <div className="text-grayscale-700 body3-medium">
-                {totalElements ?? 0}개의 검색결과를 찾았어요
-              </div>
+              <div className="text-grayscale-700 body3-medium">{totalElements ?? 0}개의 검색결과를 찾았어요</div>
               <Select
-                onValueChange={value => {
+                onValueChange={(value) => {
                   setSortValue(value);
                 }}
               >
                 <SelectTrigger>
-                  <SelectValue
-                    defaultValue={sortValue ?? 'title,desc'}
-                    placeholder="추천순"
-                  />
+                  <SelectValue defaultValue={sortValue ?? 'title,desc'} placeholder="추천순" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="title,desc">추천순</SelectItem>
@@ -169,13 +152,11 @@ const Lectures = () => {
           {/* 강의 목록 */}
           {isSuccess && totalElements === 0 ? (
             <div className="flex h-full w-full flex-col items-center justify-center">
-              <span className="text-grayscale-800 body1-bold">
-                검색 결과가 없습니다.
-              </span>
+              <span className="text-grayscale-800 body1-bold">검색 결과가 없습니다.</span>
             </div>
           ) : (
             <div className="mt-12 grid grid-cols-3 gap-16">
-              {lectures?.map(lecture => (
+              {lectures?.map((lecture) => (
                 <LandScapeCard
                   key={lecture.id}
                   강사={lecture.name}
@@ -193,6 +174,6 @@ const Lectures = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Lectures;

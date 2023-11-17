@@ -1,6 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/react';
 import SideBar from 'components/SideBar';
 import { Accordion } from 'components/ui/accordion';
+
+import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
   title: 'Classcope/Accordion',

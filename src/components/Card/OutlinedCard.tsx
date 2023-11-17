@@ -1,8 +1,7 @@
+import Class101 from 'assets/icons/platform/class101-16.svg';
+import Coloso from 'assets/icons/platform/coloso-16.svg';
 import FastCampus from 'assets/icons/platform/fastcampus-16.svg';
 import Inflearn from 'assets/icons/platform/inflearn-16.svg';
-import Coloso from 'assets/icons/platform/coloso-16.svg';
-import Class101 from 'assets/icons/platform/class101-16.svg';
-
 import { CardProps } from 'components/ui/card';
 
 interface OutlinedCardProps extends CardProps {
@@ -13,14 +12,14 @@ interface OutlinedCardProps extends CardProps {
   fixed?: boolean;
 }
 
-const OutlinedCard = ({
+function OutlinedCard({
   강사 = '',
   타이틀 = '',
   플랫폼 = '',
   이미지 = '',
   fixed = false,
   ...props
-}: OutlinedCardProps) => {
+}: OutlinedCardProps) {
   return (
     <div
       className={`flex h-[88px] ${
@@ -29,10 +28,7 @@ const OutlinedCard = ({
       {...props}
     >
       {/* 이미지 */}
-      <div
-        className="h-[72px] w-[103px] bg-cover bg-no-repeat"
-        style={{ backgroundImage: `url(${이미지})` }}
-      />
+      <div className="h-[72px] w-[103px] bg-cover bg-no-repeat" style={{ backgroundImage: `url(${이미지})` }} />
 
       <div className="flex w-[262px] flex-col gap-8">
         {/* 플랫폼 아이콘, 강사 Text */}
@@ -58,6 +54,6 @@ const OutlinedCard = ({
       </div>
     </div>
   );
-};
+}
 
 export default OutlinedCard;

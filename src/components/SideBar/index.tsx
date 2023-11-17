@@ -1,20 +1,15 @@
 /* eslint-disable react/jsx-pascal-case */
 
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from 'components/ui/accordion';
-import { CategoryData } from 'constants/category';
 import Link from 'next/link';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from 'components/ui/accordion';
+import { CategoryData } from 'constants/category';
 
-const SideBar = ({ ...props }) => {
+function SideBar({ ...props }) {
   return (
     <div className="flex min-w-[192px] flex-col shadow-main" {...props}>
       {/* 아코디언 */}
       <Accordion type="single" collapsible className="bg-white">
-        {CategoryData.map(data => {
+        {CategoryData.map((data) => {
           return (
             <AccordionItem key={data.main} value={data.main}>
               {/* 메인 카테고리 버튼 */}
@@ -26,7 +21,7 @@ const SideBar = ({ ...props }) => {
               </AccordionTrigger>
               {/* 아코디언 패널 */}
               <AccordionContent className="rounded-[4px]">
-                {data.sub?.map(sub => {
+                {data.sub?.map((sub) => {
                   return (
                     // 서브 카테고리 버튼
                     <Link
@@ -57,6 +52,6 @@ const SideBar = ({ ...props }) => {
       </Accordion>
     </div>
   );
-};
+}
 
 export default SideBar;

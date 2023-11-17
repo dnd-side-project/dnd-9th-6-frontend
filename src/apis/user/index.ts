@@ -1,5 +1,7 @@
 import { USER_API } from 'constants/api';
+
 import instance from '..';
+
 import { AddInterests, GetUserInfo, UpdateUserInfo } from './types';
 
 const userApi = {
@@ -19,8 +21,7 @@ const userApi = {
   /**
    * 유저 관심분야 추가
    */
-  postInterests: async (param: AddInterests) =>
-    instance.post<AddInterests>(USER_API.POST_INTERESTS, param),
+  postInterests: async (param: AddInterests) => instance.post<AddInterests>(USER_API.POST_INTERESTS, param),
 };
 
 export default userApi;

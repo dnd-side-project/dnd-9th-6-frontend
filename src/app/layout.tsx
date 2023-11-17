@@ -1,10 +1,10 @@
-import './globals.css';
-import localFont from 'next/font/local';
 import { Metadata } from 'next';
-
+import localFont from 'next/font/local';
 import AppProvider from 'components/AppProvider';
-import META from 'constants/metadata';
 import GoogleAnalytics from 'components/GoogleAnalytics';
+import META from 'constants/metadata';
+
+import './globals.css';
 
 interface RootLayoutProps {
   children: React.ReactNode;

@@ -1,17 +1,11 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTrigger,
-} from 'components/ui/dialog';
-import { Button } from 'components/ui/button';
-import { TooltipIcon } from 'components/TooltipIcon';
-import { Bookmark, MoveDownRightIcon, PencilIcon } from 'lucide-react';
 import Image from 'next/image';
-import { Rating } from 'react-simple-star-rating';
-
 import Like from 'assets/icons/glass/like.svg';
 import Notification from 'assets/icons/glass/notification.svg';
+import { TooltipIcon } from 'components/TooltipIcon';
+import { Button } from 'components/ui/button';
+import { Dialog, DialogContent, DialogHeader, DialogTrigger } from 'components/ui/dialog';
+import { Bookmark, MoveDownRightIcon, PencilIcon } from 'lucide-react';
+import { Rating } from 'react-simple-star-rating';
 
 interface LectureDialogProps {
   가격: string;
@@ -21,14 +15,14 @@ interface LectureDialogProps {
   리뷰수: number;
 }
 
-const LectureDialog = ({
+function LectureDialog({
   가격 = '100,000원',
   플랫폼 = 'fastcampus',
   이미지 = '',
   별점 = 4.5,
   리뷰수 = 100,
   ...props
-}: LectureDialogProps) => {
+}: LectureDialogProps) {
   return (
     <Dialog defaultOpen {...props}>
       <DialogTrigger asChild>
@@ -65,38 +59,24 @@ const LectureDialog = ({
                 })()}
                 일러스트레이트 둡
               </div>
-              <div className="body2-semibold">
-                연필 하나만으로 모든 분위기를 담아내요, 둡의 연필 드로잉
-              </div>
+              <div className="body2-semibold">연필 하나만으로 모든 분위기를 담아내요, 둡의 연필 드로잉</div>
             </div>
             <div className="flex items-end body3-extrabold">{가격}</div>
             <div className="flex items-end gap-8">
               <div>
-                <Button
-                  className="flex items-center gap-[4px]"
-                  size="sm"
-                  variant="outlined"
-                >
+                <Button className="flex items-center gap-[4px]" size="sm" variant="outlined">
                   후기 남기기
                   <PencilIcon className="h-16 w-16" />
                 </Button>
               </div>
               <div>
-                <Button
-                  className="flex items-center gap-[4px]"
-                  size="sm"
-                  variant="outlined"
-                >
+                <Button className="flex items-center gap-[4px]" size="sm" variant="outlined">
                   사이트로 이동
                   <MoveDownRightIcon className="h-16 w-16" />
                 </Button>
               </div>
               <div>
-                <Button
-                  className="flex items-center gap-[4px]"
-                  size="sm"
-                  variant="outlined"
-                >
+                <Button className="flex items-center gap-[4px]" size="sm" variant="outlined">
                   강의 찜하기
                   <Bookmark className="h-16 w-16" />
                 </Button>
@@ -136,6 +116,6 @@ const LectureDialog = ({
       </DialogContent>
     </Dialog>
   );
-};
+}
 
 export default LectureDialog;

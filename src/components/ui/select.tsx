@@ -1,10 +1,10 @@
 'use client';
 
 import * as React from 'react';
-import * as SelectPrimitive from '@radix-ui/react-select';
 import Angle from 'assets/icons/angle-down.svg';
-
 import { cn } from 'utils/twUtils';
+
+import * as SelectPrimitive from '@radix-ui/react-select';
 
 const Select = SelectPrimitive.Root;
 
@@ -77,4 +77,4 @@ const SelectItem = React.forwardRef<
 ));
 SelectItem.displayName = SelectPrimitive.Item.displayName;
 
-export { Select, SelectValue, SelectTrigger, SelectContent, SelectItem };
+export { Select, SelectContent, SelectItem, SelectTrigger, SelectValue };

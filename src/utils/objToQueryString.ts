@@ -5,5 +5,5 @@
  */
 export const objToQueryString = (obj: object) =>
   Object.entries(obj)
-    .map(param => param.join('='))
+    .map((param) => param.join('='))
     .join('&');

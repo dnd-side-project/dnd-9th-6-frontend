@@ -1,15 +1,15 @@
-import FastCampus from 'assets/icons/platform/fastcampus-32.svg';
-import Inflearn from 'assets/icons/platform/inflearn-32.svg';
-import Coloso from 'assets/icons/platform/coloso-32.svg';
-import Class101 from 'assets/icons/platform/class101-32.svg';
+import Image from 'next/image';
 import CardShape from 'assets/icons/card/whitebg-large.svg';
-import Star from 'assets/icons/rating/star.svg';
 import Heart from 'assets/icons/heart-16.svg';
 import BigHeart from 'assets/icons/heart-24.svg';
+import Class101 from 'assets/icons/platform/class101-32.svg';
+import Coloso from 'assets/icons/platform/coloso-32.svg';
+import FastCampus from 'assets/icons/platform/fastcampus-32.svg';
+import Inflearn from 'assets/icons/platform/inflearn-32.svg';
+import Star from 'assets/icons/rating/star.svg';
 import { Button } from 'components/ui/button';
 import { Card, CardProps } from 'components/ui/card';
 import { Toggle } from 'components/ui/toggle';
-import Image from 'next/image';
 
 interface SquareCardProps extends CardProps {
   작성자: string;
@@ -23,7 +23,7 @@ interface SquareCardProps extends CardProps {
   좋아요: boolean;
 }
 
-const SquareCard = ({
+function SquareCard({
   작성자 = '',
   별점 = 0,
   작성일 = '',
@@ -34,12 +34,9 @@ const SquareCard = ({
   찜수 = 0,
   좋아요 = false,
   ...props
-}: SquareCardProps) => {
+}: SquareCardProps) {
   return (
-    <Card
-      className="group relative h-[364px] w-[305px] border border-grayscale-100 bg-grayscale-50"
-      {...props}
-    >
+    <Card className="group relative h-[364px] w-[305px] border border-grayscale-100 bg-grayscale-50" {...props}>
       {/* 배경 이미지 */}
       <div className="absolute left-0 top-0 h-full w-full">
         {이미지 ? (
@@ -94,7 +91,7 @@ const SquareCard = ({
           </div>
           {/* 태그 아이템 */}
           <div className="flex h-[50px] max-w-[273px] flex-wrap items-start gap-[2px] overflow-hidden detail1-semibold">
-            {태그.split(',').map(item => {
+            {태그.split(',').map((item) => {
               return (
                 <div
                   className="inline-flex items-center justify-center rounded-[2px] bg-grayscale-50 px-[8px] py-[4px] text-grayscale-600"
@@ -111,16 +108,10 @@ const SquareCard = ({
           <Heart className="fill-grayscale-300" /> {찜수}
         </div>
         {/* 좋아요 버튼 (임시) */}
-        <Toggle
-          asChild
-          pressed={좋아요}
-          className="group/button relative bottom-0 left-0 w-full gap-[4px]"
-        >
+        <Toggle asChild pressed={좋아요} className="group/button relative bottom-0 left-0 w-full gap-[4px]">
           <Button size="lg" variant="red" className="w-[305px]">
             <BigHeart
-              className={`${
-                좋아요 ? 'fill-red' : 'fill-grayscale-300'
-              } transition-colors group-hover/button:fill-red`}
+              className={`${좋아요 ? 'fill-red' : 'fill-grayscale-300'} transition-colors group-hover/button:fill-red`}
             />
             {좋아요 ? '좋아요 취소' : '좋아요'}
           </Button>
@@ -128,6 +119,6 @@ const SquareCard = ({
       </div>
     </Card>
   );
-};
+}
 
 export default SquareCard;

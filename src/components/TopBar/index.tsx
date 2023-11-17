@@ -1,12 +1,15 @@
 'use client';
 
-import { useRouter, usePathname } from 'next/navigation';
-
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+import AngleUpIcon from 'assets/icons/angle-up.svg';
+import Cog from 'assets/icons/cog.svg';
+import Headset from 'assets/icons/headset.svg';
 import Logo from 'assets/icons/logo-black.svg';
 import LogoTextWhite from 'assets/icons/logo-text-white.svg';
-import Link from 'next/link';
-import { useUserEmail, useUserImageUrl, useUserName } from 'store/user';
-import { useAuthActions, useIsRequesting, useIsSignedIn } from 'store/auth';
+import Logout from 'assets/icons/logout.svg';
+import Pencil from 'assets/icons/pencil.svg';
+import { Avatar, AvatarFallback, AvatarImage } from 'components/ui/avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,24 +18,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from 'components/ui/dropdown-menu';
-import { Avatar, AvatarFallback, AvatarImage } from 'components/ui/avatar';
-import AngleUpIcon from 'assets/icons/angle-up.svg';
-import Cog from 'assets/icons/cog.svg';
-import Pencil from 'assets/icons/pencil.svg';
-import Headset from 'assets/icons/headset.svg';
-import Logout from 'assets/icons/logout.svg';
-import {
-  USER_ACCESS_TOKEN,
-  USER_INFO,
-  USER_REFRESH_TOKEN,
-} from 'constants/account';
-import {
-  removeFromLocalStorage,
-  removeFromSessionStorage,
-} from 'hooks/storage';
+import { USER_ACCESS_TOKEN, USER_INFO, USER_REFRESH_TOKEN } from 'constants/account';
+import { removeFromLocalStorage, removeFromSessionStorage } from 'hooks/storage';
 import { Loader2 } from 'lucide-react';
-import { Tabs, TabsList, TabsTrigger } from '../ui/tabs';
+import { useAuthActions, useIsRequesting, useIsSignedIn } from 'store/auth';
+import { useUserEmail, useUserImageUrl, useUserName } from 'store/user';
+
 import { Button } from '../ui/button';
+import { Tabs, TabsList, TabsTrigger } from '../ui/tabs';
 
 const tabItems = [
   {
@@ -49,7 +42,7 @@ const tabItems = [
   },
 ];
 
-const TopBar = () => {
+function TopBar() {
   const pathname = usePathname();
   const currentTabId = pathname?.split('/')[1];
   const router = useRouter();
@@ -59,8 +52,7 @@ const TopBar = () => {
   const isSignedIn = useIsSignedIn();
   const isRequesting = useIsRequesting();
 
-  const { setIsTokenRequired, setIsSignedIn, setIsRequesting } =
-    useAuthActions();
+  const { setIsTokenRequired, setIsSignedIn, setIsRequesting } = useAuthActions();
 
   const handleSignOut = () => {
     removeFromLocalStorage(USER_INFO);
@@ -90,7 +82,7 @@ const TopBar = () => {
         <Tabs
           activationMode="manual"
           value={currentTabId}
-          onValueChange={value => {
+          onValueChange={(value) => {
             router.push(`/${value}`);
           }}
         >
@@ -108,11 +100,7 @@ const TopBar = () => {
               <div className="ml-auto cursor-pointer">
                 <div className="flex items-center gap-[4px]">
                   <Avatar className="h-16 w-16 rounded-lg text-white">
-                    <AvatarImage
-                      className="object-cover"
-                      src={userProfileImg}
-                      alt="profileImg"
-                    />
+                    <AvatarImage className="object-cover" src={userProfileImg} alt="profileImg" />
                     <AvatarFallback>?</AvatarFallback>
                   </Avatar>
                   <div className="text-white body3-semibold">{userName}</div>
@@ -123,18 +111,12 @@ const TopBar = () => {
             <DropdownMenuContent className="z-4 rounded-none border-none shadow-dropdown">
               <div className="flex gap-8 p-8">
                 <Avatar className="h-32 w-32 rounded-full text-white">
-                  <AvatarImage
-                    className="object-cover"
-                    src={userProfileImg}
-                    alt="profileImg"
-                  />
+                  <AvatarImage className="object-cover" src={userProfileImg} alt="profileImg" />
                   <AvatarFallback>?</AvatarFallback>
                 </Avatar>
                 <div className="flex flex-col gap-[4px]">
                   <p className="text-black detail1-semibold">{userName}</p>
-                  <p className="text-grayscale-400 detail2-semibold">
-                    {userEmail}
-                  </p>
+                  <p className="text-grayscale-400 detail2-semibold">{userEmail}</p>
                 </div>
               </div>
               <DropdownMenuSeparator />
@@ -146,9 +128,7 @@ const TopBar = () => {
                 >
                   <div className="flex gap-8 px-16 py-8">
                     <Cog />
-                    <p className="text-grayscale-500 detail1-semibold">
-                      내 프로필
-                    </p>
+                    <p className="text-grayscale-500 detail1-semibold">내 프로필</p>
                   </div>
                 </DropdownMenuItem>
                 <DropdownMenuItem
@@ -158,9 +138,7 @@ const TopBar = () => {
                 >
                   <div className="flex gap-8 px-16 py-8">
                     <Pencil />
-                    <p className="text-grayscale-500 detail1-semibold">
-                      내 후기
-                    </p>
+                    <p className="text-grayscale-500 detail1-semibold">내 후기</p>
                   </div>
                 </DropdownMenuItem>
                 <DropdownMenuItem
@@ -170,9 +148,7 @@ const TopBar = () => {
                 >
                   <div className="flex gap-8 px-16 py-8">
                     <Headset />
-                    <p className="text-grayscale-500 detail1-semibold">
-                      문의하기
-                    </p>
+                    <p className="text-grayscale-500 detail1-semibold">문의하기</p>
                   </div>
                 </DropdownMenuItem>
               </DropdownMenuGroup>
@@ -194,16 +170,12 @@ const TopBar = () => {
             className="ml-auto flex items-center"
             {...(!isRequesting && { asChild: true })}
           >
-            {isRequesting ? (
-              <Loader2 className="mx-8 h-16 w-16 animate-spin" />
-            ) : (
-              <Link href="/login">로그인</Link>
-            )}
+            {isRequesting ? <Loader2 className="mx-8 h-16 w-16 animate-spin" /> : <Link href="/login">로그인</Link>}
           </Button>
         )}
       </div>
     </div>
   );
-};
+}
 
 export default TopBar;

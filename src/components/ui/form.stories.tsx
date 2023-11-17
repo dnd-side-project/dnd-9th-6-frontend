@@ -1,35 +1,18 @@
 'use client';
 
-import type { Meta, StoryObj } from '@storybook/react';
-
 import Link from 'next/link';
+import { useForm } from 'react-hook-form';
+import { toast } from 'utils/useToast';
+import * as z from 'zod';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
-import { useForm } from 'react-hook-form';
+import type { Meta, StoryObj } from '@storybook/react';
 
-import { toast } from 'utils/useToast';
-import { Toaster } from './toaster';
-
-import { Input } from './input';
 import { Button } from './button';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from './select';
-
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from './form';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from './form';
+import { Input } from './input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './select';
+import { Toaster } from './toaster';
 
 const meta = {
   title: 'Classcope/Form',
@@ -40,8 +23,7 @@ const meta = {
     nextjs: {
       appDirectory: true,
     },
-    componentSubtitle:
-      'Form는 사용자의 입력을 검증하고 제출할 수 있는 컴포넌트입니다.',
+    componentSubtitle: 'Form는 사용자의 입력을 검증하고 제출할 수 있는 컴포넌트입니다.',
     docs: {
       description: {
         component: 'react-hook-form과 zod 라이브러리를 사용합니다.',
@@ -49,7 +31,7 @@ const meta = {
     },
   },
   decorators: [
-    Story => (
+    (Story) => (
       <div className="p-12">
         <Story />
         <Toaster />
@@ -68,7 +50,7 @@ export const WithInputForm: StoryObj<typeof Form> = {
       },
     },
   },
-  render: args => {
+  render: (args) => {
     const FormSchema = z.object({
       username: z.string().min(2, {
         message: 'Username must be at least 2 characters.',
@@ -92,10 +74,7 @@ export const WithInputForm: StoryObj<typeof Form> = {
 
     return (
       <Form {...form} {...args}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-6 w-2/3"
-        >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 w-2/3">
           <FormField
             control={form.control}
             name="username"
@@ -105,9 +84,7 @@ export const WithInputForm: StoryObj<typeof Form> = {
                 <FormControl>
                   <Input placeholder="shadcn" {...field} />
                 </FormControl>
-                <FormDescription>
-                  This is your public display name.
-                </FormDescription>
+                <FormDescription>This is your public display name.</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
@@ -127,7 +104,7 @@ export const WithSelectForm: StoryObj<typeof Form> = {
       },
     },
   },
-  render: args => {
+  render: (args) => {
     const FormSchema = z.object({
       email: z
         .string({
@@ -152,20 +129,14 @@ export const WithSelectForm: StoryObj<typeof Form> = {
 
     return (
       <Form {...form} {...args}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-6 w-2/3"
-        >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 w-2/3">
           <FormField
             control={form.control}
             name="email"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Email</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
                     <SelectTrigger>
                       <SelectValue placeholder="Select a verified email to display" />

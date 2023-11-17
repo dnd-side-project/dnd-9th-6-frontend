@@ -1,21 +1,21 @@
-import { TooltipIcon } from 'components/TooltipIcon';
+import Image from 'next/image';
 import Bookmark from 'assets/icons/bookmark.svg';
 import CardShape from 'assets/icons/card/whitebg.svg';
+import { TooltipIcon } from 'components/TooltipIcon';
+import { Badge } from 'components/ui/badge';
 import { Card, CardProps } from 'components/ui/card';
 import { Toggle } from 'components/ui/toggle';
-import { Badge } from 'components/ui/badge';
-import Image from 'next/image';
 
 interface LandScapeCardProps extends CardProps {
   강사: string;
   타이틀: string;
   가격: string;
   플랫폼: string;
-  이미지?: string;
+  이미지: string;
   후기수: number;
 }
 
-const LandScapeCard = ({
+function LandScapeCard({
   강사 = '강사명',
   타이틀 = '강의명',
   가격 = '가격',
@@ -23,12 +23,9 @@ const LandScapeCard = ({
   이미지 = '',
   후기수 = 0,
   ...props
-}: LandScapeCardProps) => {
+}: LandScapeCardProps) {
   return (
-    <Card
-      className="group relative z-1 h-[264px] w-[275px] border border-grayscale-100 bg-cover p-16"
-      {...props}
-    >
+    <Card className="group relative z-1 h-[264px] w-[275px] border border-grayscale-100 bg-cover p-16" {...props}>
       {/* 배경 이미지 */}
       <div className="absolute left-0 top-0 z-[-1] h-full w-full transition-opacity">
         {이미지 ? (
@@ -58,13 +55,13 @@ const LandScapeCard = ({
         {(() => {
           switch (플랫폼) {
             case 'fastcampus':
-              return <TooltipIcon variant="fastcampus" />;
+              return <TooltipIcon variant="fastcampus" size="24" />;
             case 'inflearn':
-              return <TooltipIcon variant="inflearn" />;
+              return <TooltipIcon variant="inflearn" size="24" />;
             case 'coloso':
-              return <TooltipIcon variant="coloso" />;
+              return <TooltipIcon variant="coloso" size="24" />;
             case 'class101':
-              return <TooltipIcon variant="class101" />;
+              return <TooltipIcon variant="class101" size="24" />;
             default:
               return null;
           }
@@ -90,6 +87,6 @@ const LandScapeCard = ({
       </div>
     </Card>
   );
-};
+}
 
 export default LandScapeCard;

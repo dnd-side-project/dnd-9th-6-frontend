@@ -1,11 +1,11 @@
-import Symbol from 'assets/icons/symbol.svg';
-import Logo from 'assets/icons/logo-text-black.svg';
-import LogoWhite from 'assets/icons/logo-white.svg';
+import Link from 'next/link';
 import Google from 'assets/icons/google.svg';
 import Kakao from 'assets/icons/kakao.svg';
-import { Button } from 'components/ui/button';
-import Link from 'next/link';
+import Logo from 'assets/icons/logo-text-black.svg';
+import LogoWhite from 'assets/icons/logo-white.svg';
+import Symbol from 'assets/icons/symbol.svg';
 import { LoginCarousel } from 'components/Carousel';
+import { Button } from 'components/ui/button';
 
 const page = () => {
   return (
@@ -35,8 +35,7 @@ const page = () => {
           <div className="pt-16 H4-semibold">
             <span className="text-blue-400">클래스코프</span>에서
             <div>
-              <span className="text-blue-400">편리한 강의 탐색</span>을
-              시작하세요 :)
+              <span className="text-blue-400">편리한 강의 탐색</span>을 시작하세요 :)
             </div>
           </div>
           <div className="flex flex-col gap-16 pt-[64px]">
@@ -51,12 +50,7 @@ const page = () => {
                 구글로 시작하기
               </Link>
             </Button>
-            <Button
-              variant="social"
-              size="lg"
-              className="gap-12 bg-[#FEE500] text-black"
-              asChild
-            >
+            <Button variant="social" size="lg" className="gap-12 bg-[#FEE500] text-black" asChild>
               <Link href={process.env.NEXT_PUBLIC_KAKAO_LOGIN_URL as string}>
                 <Kakao />
                 카카오로 시작하기
@@ -67,9 +61,8 @@ const page = () => {
             </Button>
           </div>
           <div className="pt-16 text-[8px] text-grayscale-400">
-            로그인 시 <span className="text-purple-400">개인정보보호 정책</span>
-            및 <span className="text-purple-400">서비스 약관</span>에 동의하는
-            것으로 간주하며, <br />
+            로그인 시 <span className="text-purple-400">개인정보보호 정책</span>및{' '}
+            <span className="text-purple-400">서비스 약관</span>에 동의하는 것으로 간주하며, <br />
             서비스 이용을 위해 이메일과 이름을 수집합니다.
           </div>
         </div>
