@@ -192,6 +192,7 @@ const TopBar = () => {
             variant={currentTabId !== 'scope' ? 'primary' : 'purple'}
             size="sm"
             className="ml-auto flex items-center"
+            {...(!isRequesting && { asChild: true })}
           >
             {isRequesting ? (
               <Loader2 className="mx-8 h-16 w-16 animate-spin" />
