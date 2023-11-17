@@ -29,6 +29,7 @@ yarn-error.log*
 
 # vercel
 .vercel
+components.json
 
 # typescript
 *.tsbuildinfo
@@ -36,4 +37,5 @@ next-env.d.ts
 
 # storybook
 build-storybook.log
+storybook-static
 ```
