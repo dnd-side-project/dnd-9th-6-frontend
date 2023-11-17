@@ -1,38 +1,72 @@
 {
   "extends": [
     "airbnb",
-    "airbnb/hooks",
     "airbnb-typescript",
-    "next/core-web-vitals",
+    "airbnb/hooks",
+    "next",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:jsx-a11y/recommended",
     "plugin:prettier/recommended",
     "plugin:storybook/recommended"
   ],
+  "plugins": ["prettier", "simple-import-sort", "unused-imports"],
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": "tsconfig.json"
+    "project": "./tsconfig.json"
   },
+  "ignorePatterns": ["next.config.js", "postcss.config.js"],
   "rules": {
+    "react/react-in-jsx-scope": "off",
     "react/jsx-props-no-spreading": "off",
-    "react/function-component-definition": "off",
     "react/require-default-props": "off",
     "react-hooks/rules-of-hooks": "off",
     "react/jsx-no-constructed-context-values": "off",
-    "@typescript-eslint/no-use-before-define": "off",
     "jsx-a11y/no-static-element-interactions": "off",
     "jsx-a11y/click-events-have-key-events": "off",
-    "no-param-reassign": "off",
-    "jsx-a11y/anchor-is-valid": [
-      "error",
-      {
-        "components": ["Link"],
-        "specialLink": ["hrefLeft", "hrefRight"],
-        "aspects": ["invalidHref", "preferButton"]
-      }
-    ],
-    "no-empty-pattern": "warn",
     "import/prefer-default-export": "off",
     "import/no-cycle": "off",
-    "@typescript-eslint/no-unused-vars": "warn",
-    "no-nested-ternary": "off"
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-use-before-define": "off",
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "warn",
+      {
+        "vars": "all",
+        "varsIgnorePattern": "^_",
+        "args": "after-used",
+        "argsIgnorePattern": "^_"
+      }
+    ]
   },
-  "ignorePatterns": ["*.config.js"]
+  "overrides": [
+    {
+      "files": ["**/*.js", "**/*.ts", "**/*.tsx"],
+      "rules": {
+        "simple-import-sort/imports": [
+          "error",
+          {
+            "groups": [
+              // `react` first, `next` second, then packages starting with a character
+              ["^react$", "^next", "^[a-z]"],
+              // Packages starting with `@`
+              ["^@"],
+              // Packages starting with `~`
+              ["^~"],
+              // Imports starting with `../`
+              ["^\\.\\.(?!/?$)", "^\\.\\./?$"],
+              // Imports starting with `./`
+              ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
+              // Style imports
+              ["^.+\\.s?css$"],
+              // Side effect imports
+              ["^\\u0000"]
+            ]
+          }
+        ]
+      }
+    }
+  ]
 }
