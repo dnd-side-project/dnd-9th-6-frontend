@@ -30,6 +30,7 @@ import {
   removeFromLocalStorage,
   removeFromSessionStorage,
 } from 'hooks/storage';
+import { Loader2 } from 'lucide-react';
 import { Tabs, TabsList, TabsTrigger } from '../ui/tabs';
 import { Button } from '../ui/button';
 
@@ -190,11 +191,10 @@ const TopBar = () => {
           <Button
             variant={currentTabId !== 'scope' ? 'primary' : 'purple'}
             size="sm"
-            className="ml-auto"
-            asChild
+            className="ml-auto flex items-center"
           >
             {isRequesting ? (
-              <div>로딩중...</div>
+              <Loader2 className="mx-8 h-16 w-16 animate-spin" />
             ) : (
               <Link href="/login">로그인</Link>
             )}
