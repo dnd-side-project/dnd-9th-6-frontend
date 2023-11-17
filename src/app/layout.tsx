@@ -103,7 +103,7 @@ const rootLayout = ({ children }: RootLayoutProps) => {
   return (
     <html lang="ko">
       <link rel="icon" href="/favicon.ico" sizes="any" />
-      <body className={pretendard.className}  >
+      <body className={pretendard.className}>
         <AppProvider>{children}</AppProvider>
         <GoogleAnalytics />
       </body>
