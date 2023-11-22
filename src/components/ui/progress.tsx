@@ -29,16 +29,20 @@ const progressVariants = cva('h-full w-full flex-1 transition-all', {
 
 export interface ProgressProps
   extends React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root>,
-    VariantProps<typeof progressVariants> {}
+    VariantProps<typeof progressVariants> {
+  label?: string;
+  count?: number;
+}
 
 const Progress = React.forwardRef<React.ElementRef<typeof ProgressPrimitive.Root>, ProgressProps>(
-  ({ className, variant, value, ...props }, ref) => (
+  ({ className, variant, label, count, value, ...props }, ref) => (
     <ProgressPrimitive.Root
       ref={ref}
       className={cn('relative h-24 w-full overflow-hidden rounded-sm bg-grayscale-100', className)}
       {...props}
     >
-      <p className="absolute left-8 z-1 translate-y-1/2 text-white detail2-semibold">커리큘럼과 똑같아요</p>
+      <p className="absolute left-8 z-1 translate-y-1/2 text-white detail2-semibold">{label}</p>
+      <p className="absolute right-8 z-1 translate-y-1/2 text-grayscale-600 detail2-bold">{count}</p>
       <ProgressPrimitive.Indicator
         className={cn(progressVariants({ variant }))}
         style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
