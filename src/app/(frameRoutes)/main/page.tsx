@@ -3,19 +3,20 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import Book from 'assets/icons/glass/bookmark.svg';
 import SectionIcon from 'assets/icons/glass/bookmark2.svg';
-import Book from 'assets/icons/glass/bookmarrk.svg';
 import Chat from 'assets/icons/glass/chat/purple.svg';
 import ProgrammingSmallIcon from 'assets/icons/glass/programming.svg';
 import Search from 'assets/icons/search.svg';
 import Banner from 'assets/images/banner.svg';
 import SectionBG from 'assets/images/section_bg.svg';
 import { CoverCard, LandScapeCard, OutlinedCard } from 'components/Card';
+import LectureDialog from 'components/Dialog/LectureDialog';
 import { Button } from 'components/ui/button';
 import { Input } from 'components/ui/input';
 import { Separator } from 'components/ui/separator';
 import { CategoryData } from 'constants/category';
-import { useGetLectures } from 'hooks/reactQuery/lectures/query';
+import { useGetLecture, useGetLectureReviews, useGetLectures } from 'hooks/reactQuery/lectures/query';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -26,6 +27,8 @@ import 'swiper/css/navigation';
 function Home() {
   const router = useRouter();
   const [value, setValue] = useState('');
+  const [clickId, setClickId] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
 
   // 나의 관심분야
   const { data: interestData } = useGetLectures(
@@ -61,6 +64,19 @@ function Home() {
     }
   );
 
+  const { data: detailLectureData } = useGetLecture(clickId, {
+    enabled: isOpen,
+    select(data) {
+      return data?.data.data;
+    },
+  });
+
+  const { data: LectureReviewData } = useGetLectureReviews(clickId, {
+    enabled: isOpen,
+    select(data) {
+      return data?.data.data.reviews;
+    },
+  });
   return (
     <>
       {/* Top Section */}
@@ -142,13 +158,15 @@ function Home() {
             </div>
             {/* 배너 + 캐러셀 */}
             <div className="flex items-center justify-between gap-16">
-              <CoverCard
-                강사={interestData?.[0].name ?? ''}
-                타이틀={interestData?.[0].title ?? ''}
-                가격={interestData?.[0].price ?? ''}
-                플랫폼={interestData?.[0].source ?? ''}
-                이미지={interestData?.[0].imageUrl ?? ''}
-              />
+              {interestData && (
+                <CoverCard
+                  강사={interestData[0].name}
+                  타이틀={interestData[0].title}
+                  가격={interestData[0].price}
+                  플랫폼={interestData[0].source}
+                  이미지={interestData[0].imageUrl}
+                />
+              )}
               <Swiper
                 className="main-vertical-carousel-bullet h-[272px] w-full"
                 direction="vertical"
@@ -162,18 +180,61 @@ function Home() {
                 }}
                 modules={[Autoplay, Pagination]}
               >
-                {interestData?.map((item) => (
-                  <SwiperSlide key={item.id}>
-                    <OutlinedCard
-                      강사={item.name}
-                      타이틀={item.title}
-                      플랫폼={item.source}
-                      이미지={item.imageUrl}
-                      fixed
-                    />
-                    <Separator className="w-[458px]" />
-                  </SwiperSlide>
-                ))}
+                {interestData &&
+                  interestData.map((item) => (
+                    <SwiperSlide key={item.id}>
+                      <LectureDialog
+                        강사명={item.name}
+                        강의명={item.title}
+                        가격={item.price}
+                        리뷰수={item.reviewCount}
+                        별점={detailLectureData?.averageScore ?? 0}
+                        플랫폼={item.source}
+                        이미지={item.imageUrl}
+                        추천후기={
+                          LectureReviewData?.map((review) => {
+                            return {
+                              타이틀: item.title,
+                              작성자: review.nickname,
+                              별점: review.score,
+                              작성일: review.createdDate,
+                              내용: review.content,
+                              태그: review.tags.join(''),
+                              플랫폼: item.source,
+                            };
+                          }) ?? []
+                        }
+                        태그그룹={
+                          detailLectureData?.tagGroups.map((items) => {
+                            return items.tags.map((tag) => {
+                              return {
+                                태그이름: tag.name,
+                                태그수: tag.count,
+                              };
+                            });
+                          }) ?? []
+                        }
+                        contentProps={{
+                          onInteractOutside: () => {
+                            setIsOpen(false);
+                          },
+                        }}
+                      >
+                        <OutlinedCard
+                          강사={item.name}
+                          타이틀={item.title}
+                          플랫폼={item.source}
+                          이미지={item.imageUrl}
+                          fixed
+                          onClick={() => {
+                            setClickId(item.id);
+                            setIsOpen(true);
+                          }}
+                        />
+                      </LectureDialog>
+                      <Separator className="w-[458px]" />
+                    </SwiperSlide>
+                  ))}
               </Swiper>
             </div>
           </div>
