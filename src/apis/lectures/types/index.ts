@@ -30,3 +30,47 @@ export interface LecturesResponse extends GlobalResponse {
     lectures: Lecture[];
   };
 }
+
+export interface DetailLectureResponse extends GlobalResponse {
+  data: {
+    id: number;
+    title: string;
+    source: string;
+    url: string;
+    price: string;
+    name: string;
+    mainCategory: string;
+    subCategory: string;
+    imageUrl: string;
+    reviewCount: number;
+    averageScore: number;
+    bookmarkCount: number;
+    tagGroups: {
+      name: string;
+      tags: {
+        name: string;
+        count: number;
+      }[];
+    }[];
+  };
+}
+
+export interface Review {
+  id: number;
+  nickname: string;
+  tags: string[];
+  content: string;
+  createdDate: string;
+  score: number;
+  likeCount: number;
+}
+
+export interface ReviewsResponse extends GlobalResponse {
+  data: {
+    totalPages: number;
+    pageNumber: number;
+    pageSize: number;
+    totalElements: number;
+    reviews: Review[];
+  };
+}

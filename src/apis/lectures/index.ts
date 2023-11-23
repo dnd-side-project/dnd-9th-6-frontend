@@ -1,6 +1,6 @@
 import instance from '..';
 
-import { LecturesParams, LecturesResponse } from './types';
+import { DetailLectureResponse, LecturesParams, LecturesResponse, ReviewsResponse } from './types';
 
 const LECTURES_API_URL = '/lectures';
 
@@ -9,6 +9,12 @@ const LECTURES_API = {
     return instance.get<LecturesResponse>(LECTURES_API_URL, {
       params,
     });
+  },
+  detail: async (id: number) => {
+    return instance.get<DetailLectureResponse>(`${LECTURES_API_URL}/${id}`);
+  },
+  review: async (id: number) => {
+    return instance.get<ReviewsResponse>(`${LECTURES_API_URL}/${id}/reviews`);
   },
 };
 
