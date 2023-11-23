@@ -1,5 +1,12 @@
 import LECTURES_API from 'apis/lectures';
-import { Lecture, LecturesParams, LecturesResponse } from 'apis/lectures/types';
+import {
+  DetailLectureResponse,
+  Lecture,
+  LecturesParams,
+  LecturesResponse,
+  Review,
+  ReviewsResponse,
+} from 'apis/lectures/types';
 import { AxiosError, AxiosResponse } from 'axios';
 import { LECTURES_KEY } from 'constants/querykeys';
 
@@ -12,6 +19,32 @@ export const useGetLectures = (
   return useQuery<AxiosResponse<LecturesResponse>, AxiosError, Lecture[]>(
     LECTURES_KEY.list([{ ...params }]),
     () => LECTURES_API.search(params),
+    {
+      ...options,
+    }
+  );
+};
+
+export const useGetLecture = (
+  id: number,
+  options?: UseQueryOptions<AxiosResponse<DetailLectureResponse>, AxiosError, DetailLectureResponse['data']>
+) => {
+  return useQuery<AxiosResponse<DetailLectureResponse>, AxiosError, DetailLectureResponse['data']>(
+    LECTURES_KEY.detail([id, 'lecture']),
+    () => LECTURES_API.detail(id),
+    {
+      ...options,
+    }
+  );
+};
+
+export const useGetLectureReviews = (
+  id: number,
+  options?: UseQueryOptions<AxiosResponse<ReviewsResponse>, AxiosError, Review[]>
+) => {
+  return useQuery<AxiosResponse<ReviewsResponse>, AxiosError, Review[]>(
+    LECTURES_KEY.detail([id, 'reviews']),
+    () => LECTURES_API.review(id),
     {
       ...options,
     }
