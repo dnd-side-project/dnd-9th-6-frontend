@@ -2,6 +2,7 @@ import LectureDialog from 'components/Dialog/LectureDialog';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
+import { Button } from './button';
 import { Dialog } from './dialog';
 
 const meta = {
@@ -49,5 +50,9 @@ export const DialogExample: StoryObj<typeof LectureDialog> = {
       },
     ],
   },
-  render: (args) => <LectureDialog {...args} />,
+  render: (args) => (
+    <LectureDialog {...args}>
+      <Button variant="primary">Dialog</Button>
+    </LectureDialog>
+  ),
 };
