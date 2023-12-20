@@ -17,6 +17,8 @@ import { Input } from 'components/ui/input';
 import { Separator } from 'components/ui/separator';
 import { CategoryData } from 'constants/category';
 import { useGetLecture, useGetLectureReviews, useGetLectures } from 'hooks/reactQuery/lectures/query';
+import { useIsSignedIn } from 'store/auth';
+import { useUserName } from 'store/user';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -29,6 +31,9 @@ function Home() {
   const [value, setValue] = useState('');
   const [clickId, setClickId] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
+
+  const userName = useUserName();
+  const isSignedIn = useIsSignedIn();
 
   // 나의 관심분야
   const { data: interestData } = useGetLectures(
@@ -141,16 +146,22 @@ function Home() {
             {/* 나의 관심분야 Description */}
             <div className="flex flex-col gap-[6px]">
               <div className=" text-blue-400 body2-bold">나의 관심분야</div>
-              <div className="H3-bold">000님을 위한</div>
-              <div className="flex items-center gap-8">
-                <div className="inline-flex items-center justify-center gap-8 rounded-[4px] border border-grayscale-100 bg-white p-8">
-                  <ProgrammingSmallIcon />
-                  <div className="text-blue-400 H5-bold">프로그래밍</div>
-                </div>
-                <div className="H3-bold">강의들을 모아놨어요!</div>
-              </div>
+              {isSignedIn ? (
+                <>
+                  <div className="H3-bold">{userName}님을 위한</div>
+                  <div className="flex items-center gap-8">
+                    <div className="inline-flex items-center justify-center gap-8 rounded-[4px] border border-grayscale-100 bg-white p-8">
+                      <ProgrammingSmallIcon />
+                      <div className="text-blue-400 H5-bold">프로그래밍</div>
+                    </div>
+                    <div className="H3-bold">강의들을 모아놨어요!</div>
+                  </div>
+                </>
+              ) : (
+                <div className="H3-bold">로그인하고 관심분야를 등록해보세요!</div>
+              )}
               <div className="flex items-center justify-between">
-                <div className="text-grayscale-400 body3-semibold">관심분야 기반으로 맞춤 추전을 받으세요!</div>
+                <div className="text-grayscale-400 body3-semibold">관심분야 기반으로 맞춤 추천을 받으세요!</div>
                 <Button variant="outlined" size="sm">
                   관심분야 등록
                 </Button>
