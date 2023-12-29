@@ -83,11 +83,11 @@ const LectureDialog = React.forwardRef<React.ElementRef<typeof DialogPrimitive.R
     });
 
     function onSubmit(data: z.infer<typeof FormSchema>) {
-      const { score, tags } = data;
+      const { score, tags1, tags2, tags3 } = data;
       const submitData = {
         lectureId: 1,
         score,
-        tags,
+        tags: [...tags1, ...tags2, ...tags3],
         content: '좋은 강의였습니다.',
       };
     }
