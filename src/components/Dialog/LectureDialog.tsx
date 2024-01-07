@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import Bookmark2 from 'assets/icons/glass/bookmark.svg';
 import Career from 'assets/icons/glass/career.svg';
 import Like from 'assets/icons/glass/like.svg';
@@ -27,6 +28,7 @@ interface LectureDialogProps extends React.ComponentPropsWithoutRef<typeof Dialo
   강의명: string;
   가격: string;
   플랫폼: string;
+  URL: string;
   이미지?: string;
   별점: number;
   리뷰수: number;
@@ -40,9 +42,11 @@ interface LectureDialogProps extends React.ComponentPropsWithoutRef<typeof Dialo
     플랫폼: string;
   }[];
   태그그룹: {
-    태그이름: string;
-    태그수: number;
-  }[][];
+    tags: {
+      name: string;
+      count: number;
+    }[];
+  }[];
   contentProps?: React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>;
 }
 
@@ -55,10 +59,12 @@ const LectureDialog = React.forwardRef<React.ElementRef<typeof DialogPrimitive.R
       강의명 = '연필 하나만으로 모든 분위기를 담아내요, 둡의 연필 드로잉',
       가격 = '100,000원',
       플랫폼 = 'fastcampus',
+      URL = '',
       이미지 = '',
       별점 = 4.5,
       리뷰수 = 100,
       추천후기 = [],
+      태그그룹 = [],
       children,
       contentProps,
       ...props
@@ -145,7 +151,9 @@ const LectureDialog = React.forwardRef<React.ElementRef<typeof DialogPrimitive.R
                 </div>
                 <div>
                   <Button className="flex items-center gap-[4px]" size="sm" variant="outlined">
-                    사이트로 이동
+                    <Link href={URL} target="_blank">
+                      사이트로 이동
+                    </Link>
                     <MoveDownRightIcon className="h-16 w-16" />
                   </Button>
                 </div>

@@ -10,6 +10,15 @@ export interface Lecture {
   imageUrl: string;
   reviewCount: number;
   bookmarkCount: number;
+  averageScore: number;
+  tagGroups: {
+    name: string;
+    tags: {
+      name: string;
+      count: number;
+    }[];
+  }[];
+  reviews?: Review[];
 }
 
 export interface LecturesParams {

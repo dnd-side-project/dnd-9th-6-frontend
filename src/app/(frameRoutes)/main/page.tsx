@@ -16,7 +16,7 @@ import { Button } from 'components/ui/button';
 import { Input } from 'components/ui/input';
 import { Separator } from 'components/ui/separator';
 import { CategoryData } from 'constants/category';
-import { useGetLecture, useGetLectureReviews, useGetLectures } from 'hooks/reactQuery/lectures/query';
+import { useGetLectures } from 'hooks/reactQuery/lectures/query';
 import { useIsSignedIn } from 'store/auth';
 import { useUserName } from 'store/user';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
@@ -29,8 +29,6 @@ import 'swiper/css/navigation';
 function Home() {
   const router = useRouter();
   const [value, setValue] = useState('');
-  const [clickId, setClickId] = useState(0);
-  const [isOpen, setIsOpen] = useState(false);
 
   const userName = useUserName();
   const isSignedIn = useIsSignedIn();
@@ -69,19 +67,6 @@ function Home() {
     }
   );
 
-  const { data: detailLectureData } = useGetLecture(clickId, {
-    enabled: isOpen,
-    select(data) {
-      return data?.data.data;
-    },
-  });
-
-  const { data: LectureReviewData } = useGetLectureReviews(clickId, {
-    enabled: isOpen,
-    select(data) {
-      return data?.data.data.reviews;
-    },
-  });
   return (
     <>
       {/* Top Section */}
@@ -199,11 +184,12 @@ function Home() {
                         강의명={item.title}
                         가격={item.price}
                         리뷰수={item.reviewCount}
-                        별점={detailLectureData?.averageScore ?? 0}
+                        별점={item.averageScore ?? 0}
                         플랫폼={item.source}
+                        URL={item.url}
                         이미지={item.imageUrl}
                         추천후기={
-                          LectureReviewData?.map((review) => {
+                          item.reviews?.map((review) => {
                             return {
                               타이틀: item.title,
                               작성자: review.nickname,
@@ -215,21 +201,7 @@ function Home() {
                             };
                           }) ?? []
                         }
-                        태그그룹={
-                          detailLectureData?.tagGroups.map((items) => {
-                            return items.tags.map((tag) => {
-                              return {
-                                태그이름: tag.name,
-                                태그수: tag.count,
-                              };
-                            });
-                          }) ?? []
-                        }
-                        contentProps={{
-                          onInteractOutside: () => {
-                            setIsOpen(false);
-                          },
-                        }}
+                        태그그룹={item.tagGroups ?? []}
                       >
                         <OutlinedCard
                           강사={item.name}
@@ -237,10 +209,6 @@ function Home() {
                           플랫폼={item.source}
                           이미지={item.imageUrl}
                           fixed
-                          onClick={() => {
-                            setClickId(item.id);
-                            setIsOpen(true);
-                          }}
                         />
                       </LectureDialog>
                       <Separator className="w-[458px]" />
