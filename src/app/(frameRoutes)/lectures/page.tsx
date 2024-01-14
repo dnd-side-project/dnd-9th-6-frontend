@@ -85,6 +85,7 @@ function Lectures() {
                   {options?.sub.map((item) => {
                     return (
                       <RadioGroupItem
+                        variant="lecture"
                         key={item[0]}
                         value={item[0] as string}
                         id={item[0] as string}
