@@ -98,7 +98,7 @@ function HorizontalCard({
       <div className="flex w-full justify-between">
         <div
           className={`flex flex-wrap items-start gap-[6px] overflow-hidden detail1-semibold ${
-            variant === 'lecture' ? 'max-h-24 max-w-[200px] overflow-hidden' : 'max-h-[54px] max-w-[254px]'
+            variant === 'lecture' ? 'max-h-32 max-w-[200px] overflow-hidden' : 'max-h-[54px] max-w-[254px]'
           }`}
         >
           {태그.split(',').map((item) => {
