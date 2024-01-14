@@ -8,12 +8,12 @@ import Notification from 'assets/icons/glass/notification.svg';
 import { HorizontalCard } from 'components/Card';
 import { TooltipIcon } from 'components/TooltipIcon';
 import { Button } from 'components/ui/button';
-import { CheckboxButton } from 'components/ui/checkbox-button';
 import { Dialog, DialogContent, DialogHeader, DialogTrigger } from 'components/ui/dialog';
 import { Form, FormControl, FormField, FormItem, FormMessage } from 'components/ui/form';
 import { Progress } from 'components/ui/progress';
-import { RadioGroup } from 'components/ui/radio-group';
+import { RadioGroup, RadioGroupItem } from 'components/ui/radio-group';
 import { ScrollArea } from 'components/ui/scroll-area';
+import { Textarea } from 'components/ui/textarea';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from 'components/ui/tooltip';
 import { Bookmark, MoveDownRightIcon, PencilIcon } from 'lucide-react';
 import { useForm } from 'react-hook-form';
@@ -72,30 +72,62 @@ const LectureDialog = React.forwardRef<React.ElementRef<typeof DialogPrimitive.R
     ref
   ) => {
     const [step, setStep] = useState<LectureDialogStep>('Lecture');
+    const [reviewData, setReviewData] = useState({});
 
-    const FormSchema = z.object({
+    const ReviewFormSchema = z.object({
       score: z.number().min(0.5, { message: '별점을 선택해주세요' }),
-      tags1: z.array(z.string()).min(1, { message: '최소 한개 이상 선택해주세요 :)' }),
-      tags2: z.array(z.string()).min(1, { message: '최소 한개 이상 선택해주세요 :)' }),
-      tags3: z.array(z.string()).min(1, { message: '최소 한개 이상 선택해주세요 :)' }),
+      tags1: z.enum([...tagsItems[0].items], {
+        required_error: '태그를 선택해주세요',
+      }),
+      tags2: z.enum([...tagsItems[1].items], {
+        required_error: '태그를 선택해주세요',
+      }),
+      tags3: z.enum([...tagsItems[2].items], {
+        required_error: '태그를 선택해주세요',
+      }),
     });
 
-    const form = useForm<z.infer<typeof FormSchema>>({
-      resolver: zodResolver(FormSchema),
+    const DetailReviewFormSchema = z.object({
+      content: z
+        .string()
+        .min(10, {
+          message: '10글자 이상 입력해주세요',
+        })
+        .max(300, {
+          message: '300자를 초과할 수 없습니다',
+        }),
+    });
+
+    const reviewform = useForm<z.infer<typeof ReviewFormSchema>>({
+      resolver: zodResolver(ReviewFormSchema),
       defaultValues: {
         score: 0,
-        tags1: [],
+        tags1: undefined,
+        tags2: undefined,
+        tags3: undefined,
       },
     });
 
-    function onSubmit(data: z.infer<typeof FormSchema>) {
+    const detailReviewForm = useForm<z.infer<typeof DetailReviewFormSchema>>({
+      resolver: zodResolver(DetailReviewFormSchema),
+      defaultValues: {
+        content: '',
+      },
+    });
+
+    function onReviewSubmit(data: z.infer<typeof ReviewFormSchema>) {
       const { score, tags1, tags2, tags3 } = data;
-      const submitData = {
+      setReviewData({
         lectureId: 1,
         score,
-        tags: [...tags1, ...tags2, ...tags3],
-        content: '좋은 강의였습니다.',
-      };
+        tags: [tags1, tags2, tags3],
+      });
+      setStep('DetailReview');
+    }
+
+    function onSubmit(data: z.infer<typeof DetailReviewFormSchema>) {
+      const submitData = { ...reviewData, content: data.content };
+      console.log(submitData);
     }
 
     const totalTagsCount = useMemo(() => {
@@ -300,15 +332,15 @@ const LectureDialog = React.forwardRef<React.ElementRef<typeof DialogPrimitive.R
                     </Tooltip>
                   </TooltipProvider>
                   <div className="flex flex-wrap">
-                    <Form {...form}>
-                      <form onSubmit={form.handleSubmit(onSubmit)}>
+                    <Form {...reviewform}>
+                      <form onSubmit={reviewform.handleSubmit(onReviewSubmit)}>
                         <FormField
-                          control={form.control}
+                          control={reviewform.control}
                           name="score"
                           render={() => (
                             <FormItem className="flex justify-center gap-[64px]">
                               <FormField
-                                control={form.control}
+                                control={reviewform.control}
                                 name="score"
                                 render={({ field }) => {
                                   return (
@@ -342,49 +374,34 @@ const LectureDialog = React.forwardRef<React.ElementRef<typeof DialogPrimitive.R
                             </FormItem>
                           )}
                         />
-                        <FormField
-                          control={form.control}
-                          name="tags1"
-                          render={() => (
-                            <FormItem className="flex justify-center gap-[64px] pt-32">
-                              {tagsItems.map((item) => (
-                                <div key={item.label} className="flex flex-col items-center justify-start gap-8">
-                                  <div className="text-blue-500 body2-semibold">{item.label}</div>
-                                  <RadioGroup>
-                                    {item.items.map((tag) => {
-                                      return (
-                                        <FormField
-                                          key={tag}
-                                          control={form.control}
-                                          name="tags1"
-                                          render={({ field }) => {
-                                            return (
-                                              <FormItem>
-                                                <FormControl>
-                                                  <CheckboxButton
-                                                    checked={field.value?.includes(tag)}
-                                                    onCheckedChange={(checked) => {
-                                                      return checked
-                                                        ? field.onChange([...field.value, tag])
-                                                        : field.onChange(field.value.filter((value) => value !== tag));
-                                                    }}
-                                                  >
-                                                    {tag}
-                                                  </CheckboxButton>
-                                                </FormControl>
-                                              </FormItem>
-                                            );
-                                          }}
-                                        />
-                                      );
-                                    })}
-                                  </RadioGroup>
-                                </div>
-                              ))}
-                              <FormMessage className="absolute bottom-[120px] right-[100px]" />
-                            </FormItem>
-                          )}
-                        />
+                        <div>
+                          {tagsItems.map((item, index) => (
+                            <FormField
+                              key={item.label}
+                              control={reviewform.control}
+                              name={`tags${index + 1}` as 'tags1' | 'tags2' | 'tags3'}
+                              render={(field) => (
+                                <FormItem className="flex justify-center gap-[64px] pt-32">
+                                  <FormControl>
+                                    <RadioGroup onValueChange={field.field.onChange} defaultValue={field.field.value}>
+                                      <div className="flex items-center justify-start gap-8">
+                                        <div className="text-blue-500 body2-semibold">{item.label}</div>
+                                        {item.items.map((tag) => {
+                                          return (
+                                            <RadioGroupItem variant="review" key={tag} value={tag}>
+                                              {tag}
+                                            </RadioGroupItem>
+                                          );
+                                        })}
+                                      </div>
+                                    </RadioGroup>
+                                  </FormControl>
+                                  <FormMessage className="absolute bottom-[120px] right-[100px]" />
+                                </FormItem>
+                              )}
+                            />
+                          ))}
+                        </div>
                         <div className="flex gap-8 pt-32">
                           <Button
                             size="lg"
@@ -395,7 +412,7 @@ const LectureDialog = React.forwardRef<React.ElementRef<typeof DialogPrimitive.R
                           >
                             이전으로
                           </Button>
-                          <Button type="submit" size="lg" variant="primary">
+                          <Button size="lg" variant="primary" type="submit">
                             다음으로
                           </Button>
                         </div>
@@ -403,6 +420,53 @@ const LectureDialog = React.forwardRef<React.ElementRef<typeof DialogPrimitive.R
                     </Form>
                   </div>
                 </div>
+              </div>
+            </div>
+          )}
+          {step === 'DetailReview' && (
+            <div className="relative flex h-full flex-col justify-center gap-16 overflow-hidden px-20 py-20">
+              <div className="absolute left-32 top-32">
+                <div className="H5-bold">강의의 어떤 점이 좋으셨나요?</div>
+                <div className="detail1-semibold">여러분의 수강 후기를 자유롭게 남겨주세요.</div>
+              </div>
+              <div className="flex flex-col items-center pt-32">
+                <Form {...detailReviewForm}>
+                  <form onSubmit={detailReviewForm.handleSubmit(onSubmit)} className="space-y-6 w-2/3">
+                    <FormField
+                      control={detailReviewForm.control}
+                      name="content"
+                      render={({ field }) => (
+                        <FormItem className="flex flex-col items-center">
+                          <FormControl>
+                            <Textarea
+                              className="flex h-[200px] w-[400px] resize-none"
+                              placeholder="간단한 후기를 작성해 주시면 클래스 코프가 더욱 풍부해질 거예요!"
+                              {...field}
+                            />
+                          </FormControl>
+                          <div className="flex w-[400px] flex-col items-end">
+                            {field.value.length} / 300
+                            <FormMessage />
+                          </div>
+                        </FormItem>
+                      )}
+                    />
+                    <div className="flex gap-8 pt-32">
+                      <Button
+                        size="lg"
+                        variant="secondary"
+                        onClick={() => {
+                          setStep('Review');
+                        }}
+                      >
+                        이전으로
+                      </Button>
+                      <Button type="submit" size="lg" variant="primary" disabled={!detailReviewForm.formState.isDirty}>
+                        후기 작성 완료
+                      </Button>
+                    </div>
+                  </form>
+                </Form>
               </div>
             </div>
           )}
@@ -429,4 +493,4 @@ const tagsItems = [
     label: '강의 후 느끼는 변화',
     items: ['도움이 많이 되었어요', '보통이에요', '도움이 안되었어요'],
   },
-];
+] as const;
