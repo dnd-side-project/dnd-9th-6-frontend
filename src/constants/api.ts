@@ -1,4 +1,5 @@
 export const AUTH_API = {
+  PROFILE: '/auth',
   SIGN_IN: '/auth/signin',
   REISSUE: '/auth/reissue',
   WITHDRAW: '/auth/withdraw',
