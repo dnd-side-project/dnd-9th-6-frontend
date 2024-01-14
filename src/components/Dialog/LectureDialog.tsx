@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Bookmark2 from 'assets/icons/glass/bookmark.svg';
@@ -97,6 +97,14 @@ const LectureDialog = React.forwardRef<React.ElementRef<typeof DialogPrimitive.R
         content: '좋은 강의였습니다.',
       };
     }
+
+    const totalTagsCount = useMemo(() => {
+      return 태그그룹.map((group) => {
+        return group.tags.reduce((acc, cur) => {
+          return acc + cur.count;
+        }, 0);
+      });
+    }, [태그그룹]);
 
     return (
       <Dialog {...props}>
@@ -213,18 +221,19 @@ const LectureDialog = React.forwardRef<React.ElementRef<typeof DialogPrimitive.R
                         <Bookmark2 /> 강의 내용은 이러해요
                       </div>
                       <div className="flex flex-col gap-[4px]">
-                        <Progress variant="primary_1" label="커리큘럼과 똑같아요" count={9} value={80}>
-                          Progress
-                        </Progress>
-                        <Progress variant="primary_2" label="구성이 알차요" count={9} value={60}>
-                          Progress
-                        </Progress>
-                        <Progress variant="primary_3" label="내용이 자세해요" count={9} value={50}>
-                          Progress
-                        </Progress>
-                        <Progress variant="primary_4" label="이해가 잘돼요" count={9} value={30}>
-                          Progress
-                        </Progress>
+                        {태그그룹[0].tags.map((tag, index) => {
+                          return (
+                            <Progress
+                              key={tag.name}
+                              variant={
+                                `primary_${index + 1}` as `${'primary_1' | 'primary_2' | 'primary_3' | 'primary_4'}`
+                              }
+                              label={tag.name}
+                              count={tag.count}
+                              value={(tag.count / totalTagsCount[0]) * 100}
+                            />
+                          );
+                        })}
                       </div>
                     </div>
                     <div className="flex w-full flex-col">
@@ -232,18 +241,23 @@ const LectureDialog = React.forwardRef<React.ElementRef<typeof DialogPrimitive.R
                         <Career /> 강사님은 이러해요
                       </div>
                       <div className="flex flex-col gap-[4px]">
-                        <Progress variant="secondary_1" label="커리큘럼과 똑같아요" count={9} value={80}>
-                          Progress
-                        </Progress>
-                        <Progress variant="secondary_2" label="구성이 알차요" count={9} value={60}>
-                          Progress
-                        </Progress>
-                        <Progress variant="secondary_3" label="내용이 자세해요" count={9} value={50}>
-                          Progress
-                        </Progress>
-                        <Progress variant="secondary_4" label="이해가 잘돼요" count={9} value={30}>
-                          Progress
-                        </Progress>
+                        {태그그룹[1].tags.map((tag, index) => {
+                          return (
+                            <Progress
+                              key={tag.name}
+                              variant={
+                                `secondary_${index + 1}` as `${
+                                  | 'secondary_1'
+                                  | 'secondary_2'
+                                  | 'secondary_3'
+                                  | 'secondary_4'}`
+                              }
+                              label={tag.name}
+                              count={tag.count}
+                              value={(tag.count / totalTagsCount[1]) * 100}
+                            />
+                          );
+                        })}
                       </div>
                     </div>
                   </div>
@@ -252,15 +266,17 @@ const LectureDialog = React.forwardRef<React.ElementRef<typeof DialogPrimitive.R
                       <Career /> 강의 후, 나의 변화는?
                     </div>
                     <div className="flex flex-col gap-[4px]">
-                      <Progress variant="blue_1" label="커리큘럼과 똑같아요" count={9} value={80}>
-                        Progress
-                      </Progress>
-                      <Progress variant="blue_2" label="구성이 알차요" count={9} value={60}>
-                        Progress
-                      </Progress>
-                      <Progress variant="blue_3" label="내용이 자세해요" count={9} value={50}>
-                        Progress
-                      </Progress>
+                      {태그그룹[1].tags.map((tag, index) => {
+                        return (
+                          <Progress
+                            key={tag.name}
+                            variant={`blue_${index + 1}` as `${'blue_1' | 'blue_2' | 'blue_3'}`}
+                            label={tag.name}
+                            count={tag.count}
+                            value={(tag.count / totalTagsCount[2]) * 100}
+                          />
+                        );
+                      })}
                     </div>
                   </div>
                 </div>
