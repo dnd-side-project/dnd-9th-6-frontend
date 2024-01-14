@@ -196,7 +196,7 @@ function Home() {
                               별점: review.score,
                               작성일: review.createdDate,
                               내용: review.content,
-                              태그: review.tags.join(''),
+                              태그: review.tags.join(','),
                               플랫폼: item.source,
                             };
                           }) ?? []
