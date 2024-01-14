@@ -3,7 +3,7 @@ import { RefreshToken } from 'store/types/token';
 
 import instance from '..';
 
-import { SignInResponse } from './types';
+import { PostInterestsRequest, SignInResponse, UpdateUserInfoRequest } from './types';
 
 interface LoginRequestParams {
   code: string;
@@ -37,6 +37,25 @@ const authApi = {
    */
   signOut: async () => {
     return instance.delete(`${AUTH_API.SIGN_OUT}`);
+  },
+
+  /**
+   * @description 회원 정보 조회
+   */
+  getUserInfo: async () => {
+    return instance.get<SignInResponse>(`${AUTH_API.PROFILE}`);
+  },
+  /**
+   * @description 회원 정보 수정
+   */
+  updateUserInfo: async (data: UpdateUserInfoRequest) => {
+    return instance.patch<UpdateUserInfoRequest>(`${AUTH_API.PROFILE}`, data);
+  },
+  /**
+   * @description 관심분야 등록
+   */
+  postInterests: async (data: PostInterestsRequest) => {
+    return instance.post<PostInterestsRequest>(`${AUTH_API.PROFILE}`, data);
   },
 };
 
