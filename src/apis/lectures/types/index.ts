@@ -1,3 +1,5 @@
+import { Review } from 'apis/review/types';
+
 export interface Lecture {
   id: number;
   title: string;
@@ -61,25 +63,5 @@ export interface DetailLectureResponse extends GlobalResponse {
         count: number;
       }[];
     }[];
-  };
-}
-
-export interface Review {
-  id: number;
-  nickname: string;
-  tags: string[];
-  content: string;
-  createdDate: string;
-  score: number;
-  likeCount: number;
-}
-
-export interface ReviewsResponse extends GlobalResponse {
-  data: {
-    totalPages: number;
-    pageNumber: number;
-    pageSize: number;
-    totalElements: number;
-    reviews: Review[];
   };
 }

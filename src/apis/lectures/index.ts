@@ -1,6 +1,8 @@
+import { ReviewsResponse } from 'apis/review/types';
+
 import instance from '..';
 
-import { DetailLectureResponse, LecturesParams, LecturesResponse, ReviewsResponse } from './types';
+import { DetailLectureResponse, LecturesParams, LecturesResponse } from './types';
 
 const LECTURES_API_URL = '/lectures';
 

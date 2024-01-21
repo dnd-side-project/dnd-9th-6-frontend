@@ -1,12 +1,6 @@
 import LECTURES_API from 'apis/lectures';
-import {
-  DetailLectureResponse,
-  Lecture,
-  LecturesParams,
-  LecturesResponse,
-  Review,
-  ReviewsResponse,
-} from 'apis/lectures/types';
+import { DetailLectureResponse, Lecture, LecturesParams, LecturesResponse } from 'apis/lectures/types';
+import { Review, ReviewsResponse } from 'apis/review/types';
 import { AxiosError, AxiosResponse } from 'axios';
 import { LECTURES_KEY } from 'constants/querykeys';
 
