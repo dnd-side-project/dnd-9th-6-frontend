@@ -1,6 +1,10 @@
+'use client';
+
 import React, { useMemo, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import REVIEW_API from 'apis/review';
+import { ReviewRequest } from 'apis/review/types';
 import Bookmark2 from 'assets/icons/glass/bookmark.svg';
 import Career from 'assets/icons/glass/career.svg';
 import Like from 'assets/icons/glass/like.svg';
@@ -15,15 +19,17 @@ import { RadioGroup, RadioGroupItem } from 'components/ui/radio-group';
 import { ScrollArea } from 'components/ui/scroll-area';
 import { Textarea } from 'components/ui/textarea';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from 'components/ui/tooltip';
-import { Bookmark, MoveDownRightIcon, PencilIcon } from 'lucide-react';
+import { Bookmark, Loader2, MoveDownRightIcon, PencilIcon } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { Rating } from 'react-simple-star-rating';
 import * as z from 'zod';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
+import { useMutation } from '@tanstack/react-query';
 
 interface LectureDialogProps extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Root> {
+  강의ID: number;
   강사명: string;
   강의명: string;
   가격: string;
@@ -55,6 +61,7 @@ type LectureDialogStep = 'Lecture' | 'Review' | 'DetailReview';
 const LectureDialog = React.forwardRef<React.ElementRef<typeof DialogPrimitive.Root>, LectureDialogProps>(
   (
     {
+      강의ID,
       강사명 = '둡',
       강의명 = '연필 하나만으로 모든 분위기를 담아내요, 둡의 연필 드로잉',
       가격 = '100,000원',
@@ -72,7 +79,9 @@ const LectureDialog = React.forwardRef<React.ElementRef<typeof DialogPrimitive.R
     ref
   ) => {
     const [step, setStep] = useState<LectureDialogStep>('Lecture');
-    const [reviewData, setReviewData] = useState({});
+    const [reviewData, setReviewData] = useState<ReviewRequest>();
+
+    const { mutate: postReview, isLoading: isPostReviewLoading } = useMutation(REVIEW_API.post);
 
     const ReviewFormSchema = z.object({
       score: z.number().min(0.5, { message: '별점을 선택해주세요' }),
@@ -100,12 +109,6 @@ const LectureDialog = React.forwardRef<React.ElementRef<typeof DialogPrimitive.R
 
     const reviewform = useForm<z.infer<typeof ReviewFormSchema>>({
       resolver: zodResolver(ReviewFormSchema),
-      defaultValues: {
-        score: 0,
-        tags1: undefined,
-        tags2: undefined,
-        tags3: undefined,
-      },
     });
 
     const detailReviewForm = useForm<z.infer<typeof DetailReviewFormSchema>>({
@@ -117,17 +120,22 @@ const LectureDialog = React.forwardRef<React.ElementRef<typeof DialogPrimitive.R
 
     function onReviewSubmit(data: z.infer<typeof ReviewFormSchema>) {
       const { score, tags1, tags2, tags3 } = data;
-      setReviewData({
-        lectureId: 1,
-        score,
-        tags: [tags1, tags2, tags3],
-      });
+      const tags = [tags1, tags2, tags3].filter((tag) => tag !== undefined) as string[];
+      const submitData = {
+        강의ID,
+        별점: score,
+        태그: tags,
+      } as Partial<ReviewRequest>;
+      setReviewData(submitData as ReviewRequest);
       setStep('DetailReview');
     }
 
     function onSubmit(data: z.infer<typeof DetailReviewFormSchema>) {
-      const submitData = { ...reviewData, content: data.content };
-      console.log(submitData);
+      const submitData = {
+        ...reviewData,
+        내용: data.content,
+      } as ReviewRequest;
+      postReview(submitData);
     }
 
     const totalTagsCount = useMemo(() => {
@@ -206,6 +214,7 @@ const LectureDialog = React.forwardRef<React.ElementRef<typeof DialogPrimitive.R
               </div>
             </div>
           </DialogHeader>
+
           {step === 'Lecture' && (
             <div className="flex h-full flex-col gap-16 overflow-hidden px-20 py-20">
               <div className="flex w-full justify-center">
@@ -423,53 +432,66 @@ const LectureDialog = React.forwardRef<React.ElementRef<typeof DialogPrimitive.R
               </div>
             </div>
           )}
-          {step === 'DetailReview' && (
-            <div className="relative flex h-full flex-col justify-center gap-16 overflow-hidden px-20 py-20">
-              <div className="absolute left-32 top-32">
-                <div className="H5-bold">강의의 어떤 점이 좋으셨나요?</div>
-                <div className="detail1-semibold">여러분의 수강 후기를 자유롭게 남겨주세요.</div>
+          {step === 'DetailReview' &&
+            (isPostReviewLoading ? (
+              <div className="flex h-full w-full flex-col items-center justify-center">
+                <div className="text-grayscale-800 body1-semibold">후기가 올라가고 있어요!</div>
+                <Loader2 className="h-32 w-32 animate-spin text-blue-500" />
               </div>
-              <div className="flex flex-col items-center pt-32">
-                <Form {...detailReviewForm}>
-                  <form onSubmit={detailReviewForm.handleSubmit(onSubmit)} className="space-y-6 w-2/3">
-                    <FormField
-                      control={detailReviewForm.control}
-                      name="content"
-                      render={({ field }) => (
-                        <FormItem className="flex flex-col items-center">
-                          <FormControl>
-                            <Textarea
-                              className="flex h-[200px] w-[400px] resize-none"
-                              placeholder="간단한 후기를 작성해 주시면 클래스 코프가 더욱 풍부해질 거예요!"
-                              {...field}
-                            />
-                          </FormControl>
-                          <div className="flex w-[400px] flex-col items-end">
-                            {field.value.length} / 300
-                            <FormMessage />
-                          </div>
-                        </FormItem>
-                      )}
-                    />
-                    <div className="flex gap-8 pt-32">
-                      <Button
-                        size="lg"
-                        variant="secondary"
-                        onClick={() => {
-                          setStep('Review');
-                        }}
-                      >
-                        이전으로
-                      </Button>
-                      <Button type="submit" size="lg" variant="primary" disabled={!detailReviewForm.formState.isDirty}>
-                        후기 작성 완료
-                      </Button>
-                    </div>
-                  </form>
-                </Form>
+            ) : (
+              <div className="relative flex h-full flex-col justify-center gap-16 overflow-hidden px-20 py-20">
+                <div className="absolute left-32 top-32">
+                  <div className="H5-bold">강의의 어떤 점이 좋으셨나요?</div>
+                  <div className="detail1-semibold">여러분의 수강 후기를 자유롭게 남겨주세요.</div>
+                </div>
+                <div className="flex flex-col items-center pt-32">
+                  <Form {...detailReviewForm}>
+                    <form onSubmit={detailReviewForm.handleSubmit(onSubmit)} className="space-y-6 w-2/3">
+                      <FormField
+                        control={detailReviewForm.control}
+                        name="content"
+                        render={({ field }) => (
+                          <FormItem className="flex flex-col items-center">
+                            <FormControl>
+                              <Textarea
+                                className="flex h-[200px] w-[400px] resize-none"
+                                placeholder="간단한 후기를 작성해 주시면 클래스 코프가 더욱 풍부해질 거예요!"
+                                {...field}
+                              />
+                            </FormControl>
+                            <div className="flex w-[400px] flex-col items-end">
+                              <span className={`${field.value.length > 300 ? 'text-red' : 'text-grayscale-600'}`}>
+                                {field.value.length} / 300
+                              </span>
+                              <FormMessage />
+                            </div>
+                          </FormItem>
+                        )}
+                      />
+                      <div className="flex gap-8 pt-32">
+                        <Button
+                          size="lg"
+                          variant="secondary"
+                          onClick={() => {
+                            setStep('Review');
+                          }}
+                        >
+                          이전으로
+                        </Button>
+                        <Button
+                          type="submit"
+                          size="lg"
+                          variant="primary"
+                          disabled={!detailReviewForm.formState.isDirty}
+                        >
+                          후기 작성 완료
+                        </Button>
+                      </div>
+                    </form>
+                  </Form>
+                </div>
               </div>
-            </div>
-          )}
+            ))}
         </DialogContent>
       </Dialog>
     );

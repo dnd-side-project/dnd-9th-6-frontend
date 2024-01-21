@@ -180,6 +180,7 @@ function Home() {
                   interestData.map((item) => (
                     <SwiperSlide key={item.id}>
                       <LectureDialog
+                        강의ID={item.id}
                         강사명={item.name}
                         강의명={item.title}
                         가격={item.price}
