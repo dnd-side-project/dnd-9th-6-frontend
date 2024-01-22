@@ -7,6 +7,7 @@ import REVIEW_API from 'apis/review';
 import { ReviewRequest } from 'apis/review/types';
 import Bookmark2 from 'assets/icons/glass/bookmark.svg';
 import Career from 'assets/icons/glass/career.svg';
+import Completed from 'assets/icons/glass/completed.svg';
 import Like from 'assets/icons/glass/like.svg';
 import Notification from 'assets/icons/glass/notification.svg';
 import { HorizontalCard } from 'components/Card';
@@ -26,7 +27,7 @@ import * as z from 'zod';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 interface LectureDialogProps extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Root> {
   강의ID: number;
@@ -56,7 +57,7 @@ interface LectureDialogProps extends React.ComponentPropsWithoutRef<typeof Dialo
   contentProps?: React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>;
 }
 
-type LectureDialogStep = 'Lecture' | 'Review' | 'DetailReview';
+type LectureDialogStep = 'Lecture' | 'Review' | 'DetailReview' | 'Completed';
 
 const LectureDialog = React.forwardRef<React.ElementRef<typeof DialogPrimitive.Root>, LectureDialogProps>(
   (
@@ -78,21 +79,27 @@ const LectureDialog = React.forwardRef<React.ElementRef<typeof DialogPrimitive.R
     },
     ref
   ) => {
+    const queryClient = useQueryClient();
+
     const [step, setStep] = useState<LectureDialogStep>('Lecture');
     const [reviewData, setReviewData] = useState<ReviewRequest>();
 
-    const { mutate: postReview, isLoading: isPostReviewLoading } = useMutation(REVIEW_API.post);
+    const { mutate: postReview, isLoading: isPostReviewLoading } = useMutation(REVIEW_API.post, {
+      onSuccess: () => {
+        setStep('Completed');
+      },
+    });
 
     const ReviewFormSchema = z.object({
-      score: z.number().min(0.5, { message: '별점을 선택해주세요' }),
+      score: z.number({ required_error: '별점을 선택해주세요' }),
       tags1: z.enum([...tagsItems[0].items], {
-        required_error: '태그를 선택해주세요',
+        required_error: '강사에 대해 태그를 선택해주세요',
       }),
       tags2: z.enum([...tagsItems[1].items], {
-        required_error: '태그를 선택해주세요',
+        required_error: '강의 내용에 대해 태그를 선택해주세요',
       }),
       tags3: z.enum([...tagsItems[2].items], {
-        required_error: '태그를 선택해주세요',
+        required_error: '강의 후 느끼는 변화 태그를 선택해주세요',
       }),
     });
 
@@ -122,9 +129,9 @@ const LectureDialog = React.forwardRef<React.ElementRef<typeof DialogPrimitive.R
       const { score, tags1, tags2, tags3 } = data;
       const tags = [tags1, tags2, tags3].filter((tag) => tag !== undefined) as string[];
       const submitData = {
-        강의ID,
-        별점: score,
-        태그: tags,
+        lectureId: 강의ID,
+        score,
+        tags,
       } as Partial<ReviewRequest>;
       setReviewData(submitData as ReviewRequest);
       setStep('DetailReview');
@@ -133,7 +140,7 @@ const LectureDialog = React.forwardRef<React.ElementRef<typeof DialogPrimitive.R
     function onSubmit(data: z.infer<typeof DetailReviewFormSchema>) {
       const submitData = {
         ...reviewData,
-        내용: data.content,
+        content: data.content,
       } as ReviewRequest;
       postReview(submitData);
     }
@@ -149,7 +156,15 @@ const LectureDialog = React.forwardRef<React.ElementRef<typeof DialogPrimitive.R
     return (
       <Dialog {...props}>
         <DialogTrigger asChild>{children}</DialogTrigger>
-        <DialogContent className="z-10 flex h-[534px] w-[837px] flex-col bg-gray-100" ref={ref} {...contentProps}>
+        <DialogContent
+          onInteractOutside={() => {
+            setStep('Lecture');
+            queryClient.invalidateQueries({ queryKey: ['lectures'] });
+          }}
+          className="z-10 flex h-[534px] w-[837px] flex-col bg-gray-100"
+          ref={ref}
+          {...contentProps}
+        >
           <DialogHeader className="flex h-[91px] w-full bg-white">
             <div className="relative w-[148px]">
               <Image
@@ -359,12 +374,13 @@ const LectureDialog = React.forwardRef<React.ElementRef<typeof DialogPrimitive.R
                                           <Rating
                                             emptyStyle={{ display: 'flex' }}
                                             fillStyle={{ display: '-webkit-inline-box' }}
-                                            initialValue={0}
+                                            initialValue={field.value}
                                             size={24}
                                             allowFraction
                                             onClick={(value) => {
                                               field.onChange(value);
                                             }}
+                                            {...field}
                                             showTooltip
                                             tooltipClassName="detail2-semibold absolute"
                                             tooltipStyle={{
@@ -383,7 +399,7 @@ const LectureDialog = React.forwardRef<React.ElementRef<typeof DialogPrimitive.R
                             </FormItem>
                           )}
                         />
-                        <div>
+                        <div className="flex justify-between">
                           {tagsItems.map((item, index) => (
                             <FormField
                               key={item.label}
@@ -393,7 +409,7 @@ const LectureDialog = React.forwardRef<React.ElementRef<typeof DialogPrimitive.R
                                 <FormItem className="flex justify-center gap-[64px] pt-32">
                                   <FormControl>
                                     <RadioGroup onValueChange={field.field.onChange} defaultValue={field.field.value}>
-                                      <div className="flex items-center justify-start gap-8">
+                                      <div className="flex flex-col items-center justify-start gap-8">
                                         <div className="text-blue-500 body2-semibold">{item.label}</div>
                                         {item.items.map((tag) => {
                                           return (
@@ -405,7 +421,12 @@ const LectureDialog = React.forwardRef<React.ElementRef<typeof DialogPrimitive.R
                                       </div>
                                     </RadioGroup>
                                   </FormControl>
-                                  <FormMessage className="absolute bottom-[120px] right-[100px]" />
+                                  <FormMessage
+                                    className="absolute right-[100px]"
+                                    style={{
+                                      bottom: `${100 + index * 16}px`,
+                                    }}
+                                  />
                                 </FormItem>
                               )}
                             />
@@ -492,6 +513,14 @@ const LectureDialog = React.forwardRef<React.ElementRef<typeof DialogPrimitive.R
                 </div>
               </div>
             ))}
+          {step === 'Completed' && (
+            <div className="flex h-full w-full flex-col items-center justify-center">
+              <Completed />
+              <div className="text-center text-grayscale-800 body1-semibold">
+                클래스코프의 소중한 후기가 되었어요! <br />✨ 이제, 강의를 탐색하러 가보실까요?! ✨
+              </div>
+            </div>
+          )}
         </DialogContent>
       </Dialog>
     );
