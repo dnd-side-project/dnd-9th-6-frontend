@@ -19,7 +19,7 @@ import {
   DropdownMenuTrigger,
 } from 'components/ui/dropdown-menu';
 import { USER_ACCESS_TOKEN, USER_INFO, USER_REFRESH_TOKEN } from 'constants/account';
-import { removeFromLocalStorage, removeFromSessionStorage } from 'hooks/storage';
+import { removeFromLocalStorage } from 'hooks/storage';
 import { Loader2 } from 'lucide-react';
 import { useAuthActions, useIsRequesting, useIsSignedIn } from 'store/auth';
 import { useUserEmail, useUserImageUrl, useUserName } from 'store/user';
@@ -57,7 +57,7 @@ function TopBar() {
   const handleSignOut = () => {
     removeFromLocalStorage(USER_INFO);
     removeFromLocalStorage(USER_ACCESS_TOKEN);
-    removeFromSessionStorage(USER_REFRESH_TOKEN);
+    removeFromLocalStorage(USER_REFRESH_TOKEN);
     setIsTokenRequired(false);
     setIsSignedIn(false);
     setIsRequesting(false);

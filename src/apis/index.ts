@@ -2,7 +2,7 @@ import axios, { AxiosError, AxiosResponse } from 'axios';
 import { USER_ACCESS_TOKEN, USER_REFRESH_TOKEN } from 'constants/account';
 import { HTTP_BASE_URL } from 'constants/http';
 import { ROUTES } from 'constants/routes';
-import { getLocalStorage, getSessionStorage } from 'hooks/storage';
+import { getLocalStorage } from 'hooks/storage';
 import { useAuthActions } from 'store/auth';
 import { isAccessTokenExpired, isRefreshTokenExpired, isTokenNotExist } from 'utils/http';
 
@@ -29,6 +29,14 @@ instance.interceptors.request.use(
   (config) => {
     logOnDev(`🚀 [API] ${config.method?.toUpperCase()} ${config.url} | Request`);
 
+    if (!config.headers.Authorization) {
+      const accessToken = getLocalStorage(USER_ACCESS_TOKEN);
+      if (accessToken) {
+        // eslint-disable-next-line no-param-reassign
+        config.headers.Authorization = `Bearer ${accessToken}`;
+      }
+    }
+
     return config;
   },
   (error) => {
@@ -54,7 +62,7 @@ instance.interceptors.response.use(
      */
 
     if (isAccessTokenExpired() && !isRefreshTokenExpired()) {
-      const refreshToken = getSessionStorage(USER_REFRESH_TOKEN);
+      const refreshToken = getLocalStorage(USER_REFRESH_TOKEN);
       await authApi.reIssue(refreshToken as string);
       if (response?.config) return axios(response?.config);
     }
