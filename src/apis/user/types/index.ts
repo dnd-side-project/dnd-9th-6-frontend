@@ -4,16 +4,14 @@ import { UserInfo } from 'store/types/user';
  * 유저 정보 조회 결과
  */
 export interface GetUserInfo extends GlobalResponse {
-  data: Omit<UserInfo, 'name'> & {
-    nickName: string;
-  };
+  data: UserInfo;
 }
 
 /**
  * 유저 정보 업데이트 시 전달할 데이터
  */
 export interface UpdateUserInfo {
-  nickName: string;
+  name: string;
   interests: string[];
 }
 

@@ -147,7 +147,13 @@ function Home() {
               )}
               <div className="flex items-center justify-between">
                 <div className="text-grayscale-400 body3-semibold">관심분야 기반으로 맞춤 추천을 받으세요!</div>
-                <Button variant="outlined" size="sm">
+                <Button
+                  variant="outlined"
+                  size="sm"
+                  onClick={() => {
+                    router.push('/onboarding');
+                  }}
+                >
                   관심분야 등록
                 </Button>
               </div>

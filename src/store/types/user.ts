@@ -5,7 +5,7 @@ export interface UserInfo {
   id: number;
   imageUrl: string;
   email: string;
-  nickName: string;
+  name: string;
   interests: string;
 }
 

@@ -27,7 +27,7 @@ function Lectures() {
   const userProfileImg = useUserImageUrl();
 
   const FormSchema = z.object({
-    nickname: z.string().min(2, {
+    name: z.string().min(2, {
       message: 'Username must be at least 2 characters.',
     }),
     account: z.string(),
@@ -104,7 +104,7 @@ function Lectures() {
             <form onSubmit={form.handleSubmit(onSubmit)} className="mt-20 flex flex-col gap-32">
               <FormField
                 control={form.control}
-                name="nickname"
+                name="name"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="body2-bold">닉네임</FormLabel>

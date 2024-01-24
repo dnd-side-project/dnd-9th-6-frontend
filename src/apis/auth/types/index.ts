@@ -9,7 +9,7 @@ export interface SignInResponse extends GlobalResponse {
 }
 
 export interface UpdateUserInfoRequest {
-  nickname: string;
+  name: string;
   interests: string[];
 }
 
