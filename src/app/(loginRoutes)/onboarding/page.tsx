@@ -9,9 +9,12 @@ import { LoginCarousel } from 'components/Carousel';
 import { Button } from 'components/ui/button';
 import { CheckboxButton } from 'components/ui/checkbox-button';
 import { Form, FormControl, FormField, FormItem, FormMessage } from 'components/ui/form';
+import { USER_INFO } from 'constants/account';
 import { CategoryData } from 'constants/category';
 import { ROUTES } from 'constants/routes';
+import { getLocalStorage, setLocalStorage } from 'hooks/storage';
 import { useForm } from 'react-hook-form';
+import { useUserActions } from 'store/user';
 import * as z from 'zod';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -19,6 +22,8 @@ import { useMutation } from '@tanstack/react-query';
 
 const page = () => {
   const router = useRouter();
+  const { setUserInfo } = useUserActions();
+  const userInfo = getLocalStorage(USER_INFO);
 
   const category = CategoryData.filter((v) => {
     return v.main !== '전체강의';
@@ -45,10 +50,20 @@ const page = () => {
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(JSON.stringify(data, null, 2));
-    mutate({
-      interests: data.interests,
-    });
+    mutate(
+      {
+        interests: data.interests,
+      },
+      {
+        onSuccess: () => {
+          setLocalStorage(
+            USER_INFO,
+            JSON.stringify({ ...JSON.parse(userInfo ?? ''), interests: data.interests.join(',') })
+          );
+          router.push(ROUTES.HOME);
+        },
+      }
+    );
   }
 
   return (

@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import Fire from 'assets/icons/glass/fire/purple.svg';
 import Like from 'assets/icons/glass/like.svg';
 import Medal from 'assets/icons/glass/medals.svg';
@@ -8,6 +9,7 @@ import { HorizontalCard, OutlinedCard, SquareCard } from 'components/Card';
 import { Button } from 'components/ui/button';
 import { Separator } from 'components/ui/separator';
 import { useGetScopeLectures, useGetScopeRecent, useGetScopeReviews } from 'hooks/reactQuery/scope/query';
+import { useUserInfo } from 'store/user';
 import { Autoplay, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -15,6 +17,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 
 function Scope() {
+  const router = useRouter();
   const { data: scopeReviews, isSuccess: scopeSuccess } = useGetScopeReviews({
     select(data) {
       return data.data;
@@ -30,6 +33,10 @@ function Scope() {
       return data.data;
     },
   });
+
+  const userInfo = useUserInfo();
+
+  const hasInterests = userInfo?.interests.length > 0;
 
   return (
     <div className="bg-gradient-main">
@@ -62,7 +69,9 @@ function Scope() {
             backgroundImage: `url(${process.env.NEXT_PUBLIC_IMAGE_URL}/Group+48096027.png)`,
           }}
         >
-          <div className="H4-bold">나의 관심분야 등록하고 맞춤 큐레이션을 받아보세요!</div>
+          <div className="H4-bold">
+            {hasInterests ? `${userInfo.name}님의 관심분야` : '나의 관심분야 등록하고 맞춤 큐레이션을 받아보세요!'}
+          </div>
           <div className="mt-16 flex w-full justify-between">
             <div className="flex gap-8">
               <div className="flex h-[34px] w-[126px] items-center justify-center gap-[2px] rounded-[4px] border border-dashed border-white p-8">
@@ -72,7 +81,13 @@ function Scope() {
                 <div className="H4-bold">?</div>
               </div>
             </div>
-            <Button size="md" variant="outlined">
+            <Button
+              size="md"
+              variant="outlined"
+              onClick={() => {
+                router.push('/onboarding');
+              }}
+            >
               관심분야 등록
             </Button>
           </div>

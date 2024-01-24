@@ -21,9 +21,6 @@ export default function Template({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (user && accessToken) {
       setUserInfo({ ...JSON.parse(user) });
-      // if (interests.length === 0) {
-      //   router.push('/onboarding');
-      // }
       setIsRequesting(false);
       setIsSignedIn(true);
       return;
