@@ -3,6 +3,7 @@
 import React, { useMemo, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import REVIEW_API from 'apis/review';
 import { ReviewRequest } from 'apis/review/types';
 import Bookmark2 from 'assets/icons/glass/bookmark.svg';
@@ -23,6 +24,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from 'compon
 import { Bookmark, Loader2, MoveDownRightIcon, PencilIcon } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { Rating } from 'react-simple-star-rating';
+import { useIsSignedIn } from 'store/auth';
 import * as z from 'zod';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -80,13 +82,30 @@ const LectureDialog = React.forwardRef<React.ElementRef<typeof DialogPrimitive.R
     ref
   ) => {
     const queryClient = useQueryClient();
-
+    const router = useRouter();
     const [step, setStep] = useState<LectureDialogStep>('Lecture');
     const [reviewData, setReviewData] = useState<ReviewRequest>();
+
+    const isSingnedIn = useIsSignedIn();
 
     const { mutate: postReview, isLoading: isPostReviewLoading } = useMutation(REVIEW_API.post, {
       onSuccess: () => {
         setStep('Completed');
+      },
+      onError: (error: {
+        response: {
+          data: {
+            code: number;
+            message: string;
+          };
+        };
+      }) => {
+        // 이미 리뷰를 작성한 경우
+        if (error.response.data.code === -3000) {
+          // eslint-disable-next-line no-alert
+          alert(error.response.data.message);
+          setStep('Lecture');
+        }
       },
     });
 
@@ -205,6 +224,11 @@ const LectureDialog = React.forwardRef<React.ElementRef<typeof DialogPrimitive.R
                     size="sm"
                     variant="outlined"
                     onClick={() => {
+                      if (!isSingnedIn) {
+                        alert('로그인 후 이용해주세요');
+                        router.push('/login');
+                        return;
+                      }
                       setStep('Review');
                     }}
                   >
