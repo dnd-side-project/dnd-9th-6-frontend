@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation';
 import Book from 'assets/icons/glass/bookmark.svg';
 import SectionIcon from 'assets/icons/glass/bookmark2.svg';
 import Chat from 'assets/icons/glass/chat/purple.svg';
-import ProgrammingSmallIcon from 'assets/icons/glass/programming.svg';
 import Search from 'assets/icons/search.svg';
 import Banner from 'assets/images/banner.svg';
 import SectionBG from 'assets/images/section_bg.svg';
@@ -18,7 +17,7 @@ import { Separator } from 'components/ui/separator';
 import { CategoryData } from 'constants/category';
 import { useGetLectures } from 'hooks/reactQuery/lectures/query';
 import { useIsSignedIn } from 'store/auth';
-import { useUserName } from 'store/user';
+import { useUserInterests, useUserName } from 'store/user';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -32,11 +31,14 @@ function Home() {
 
   const userName = useUserName();
   const isSignedIn = useIsSignedIn();
+  const interests = useUserInterests();
+
+  const myInterest = CategoryData.filter((item) => item.main === interests.split(',')[0])[0];
 
   // 나의 관심분야
   const { data: interestData } = useGetLectures(
     {
-      mainCategoryId: 11,
+      mainCategoryId: myInterest?.id || 11,
     },
     {
       select(data) {
@@ -136,8 +138,7 @@ function Home() {
                   <div className="H3-bold">{userName}님을 위한</div>
                   <div className="flex items-center gap-8">
                     <div className="inline-flex items-center justify-center gap-8 rounded-[4px] border border-grayscale-100 bg-white p-8">
-                      <ProgrammingSmallIcon />
-                      <div className="text-blue-400 H5-bold">프로그래밍</div>
+                      <div className="text-blue-400 H5-bold">{interests.split(',')[0]}</div>
                     </div>
                     <div className="H3-bold">강의들을 모아놨어요!</div>
                   </div>
