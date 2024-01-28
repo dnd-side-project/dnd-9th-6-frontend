@@ -2,9 +2,8 @@ import axios, { AxiosError, AxiosResponse } from 'axios';
 import { USER_ACCESS_TOKEN, USER_REFRESH_TOKEN } from 'constants/account';
 import { HTTP_BASE_URL } from 'constants/http';
 import { ROUTES } from 'constants/routes';
-import { getLocalStorage } from 'hooks/storage';
-import { useAuthActions } from 'store/auth';
-import { isAccessTokenExpired, isRefreshTokenExpired, isTokenNotExist } from 'utils/http';
+import { clearLocalStorage, getLocalStorage } from 'hooks/storage';
+import { isAccessTokenExpired, isRefreshTokenExpired } from 'utils/http';
 
 import authApi from './auth';
 
@@ -22,6 +21,17 @@ const instance = axios.create({
 export const logOnDev = (message: string) => {
   if (process.env.NODE_ENV === 'development') {
     console.log(message);
+  }
+};
+
+let tryCount = 0;
+const accessTokenExpired = async () => {
+  try {
+    await authApi.getUserInfo();
+  } catch (e) {
+    window.location.replace(`${ROUTES.LOGIN}`);
+    clearLocalStorage();
+    alert('로그인이 필요합니다.');
   }
 };
 
@@ -60,20 +70,19 @@ instance.interceptors.response.use(
     /**
      * @description Access Token이 만료될 경우 Refresh Token으로 재발급하여 api 요청을 그대로 진행
      */
+    if (response?.data.code === -1) {
+      tryCount += 1;
+      if (tryCount > 1) {
+        tryCount = 0;
+        return Promise.reject(error);
+      }
+      accessTokenExpired();
+    }
 
     if (isAccessTokenExpired() && !isRefreshTokenExpired()) {
       const refreshToken = getLocalStorage(USER_REFRESH_TOKEN);
       await authApi.reIssue(refreshToken as string);
       if (response?.config) return axios(response?.config);
-    }
-
-    /**
-     * @description  토큰이 존재하지 않을 경우
-     */
-    if (isTokenNotExist()) {
-      const { setIsTokenRequired, setIsSignedIn } = useAuthActions();
-      setIsTokenRequired(true);
-      setIsSignedIn(false);
     }
 
     // 강의 id가 없는 경우, 존재하지 않는 강의, (메인, 서브)카테고리,
