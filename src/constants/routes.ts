@@ -3,4 +3,5 @@ export const ROUTES = {
   LOGIN: '/login',
   LECTURES: '/lectures',
   SCOPE: '/scope',
+  ONBOARDING: '/onboarding',
 } as const;

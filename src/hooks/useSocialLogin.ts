@@ -31,7 +31,8 @@ const useSocialLogin = () => {
       setIsSignedIn(true);
       setIsTokenRequired(false);
       setIsRequesting(false);
-      router.push(ROUTES.HOME);
+      if (userInfoData.interests === '') router.push(ROUTES.ONBOARDING);
+      else router.push(ROUTES.HOME);
     },
     onError: () => {
       alert('로그인에 실패하였습니다.');
