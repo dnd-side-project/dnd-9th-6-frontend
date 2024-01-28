@@ -39,7 +39,7 @@ function Scope() {
   const hasInterests = userInfo?.interests.length > 0;
 
   return (
-    <div className="bg-gradient-main">
+    <div className="h-full bg-gradient-main">
       {/* Scope 메인 배너 */}
       <div
         className="bg-blue-400 bg-cover py-[80px]"
@@ -74,13 +74,27 @@ function Scope() {
           </div>
           <div className="mt-16 flex w-full justify-between">
             <div className="flex gap-8">
-              <div className="flex h-[34px] w-[126px] items-center justify-center gap-[2px] rounded-[4px] border border-dashed border-white p-8">
-                <div className="H4-bold">?</div>
-              </div>
-              <div className="flex h-[34px] w-[126px] items-center justify-center gap-[2px] rounded-[4px] border border-dashed border-white p-8">
-                <div className="H4-bold">?</div>
-              </div>
+              {!hasInterests && (
+                <>
+                  <div className="flex h-[34px] w-[126px] items-center justify-center gap-[2px] rounded-[4px] border border-dashed border-white p-8">
+                    <div className="H4-bold">?</div>
+                  </div>
+                  <div className="flex h-[34px] w-[126px] items-center justify-center gap-[2px] rounded-[4px] border border-dashed border-white p-8">
+                    <div className="H4-bold">?</div>
+                  </div>
+                </>
+              )}
+              {hasInterests &&
+                userInfo.interests.split(',').map((item) => (
+                  <div
+                    key={item}
+                    className="flex h-[34px] items-center justify-center gap-[2px] rounded-[4px] border border-white bg-blue-500 p-8"
+                  >
+                    <div className="H4-bold">{item}</div>
+                  </div>
+                ))}
             </div>
+            {/* 관심분야 등록 버튼 */}
             <Button
               size="md"
               variant="outlined"
@@ -88,7 +102,7 @@ function Scope() {
                 router.push('/onboarding');
               }}
             >
-              관심분야 등록
+              {hasInterests ? '관심분야 수정' : '관심분야 등록'}
             </Button>
           </div>
         </div>
