@@ -155,20 +155,46 @@ function Home() {
                     router.push('/onboarding');
                   }}
                 >
-                  관심분야 등록
+                  {isSignedIn ? '관심분야 수정' : '관심분야 등록'}
                 </Button>
               </div>
             </div>
             {/* 배너 + 캐러셀 */}
             <div className="flex items-center justify-between gap-16">
               {interestData && (
-                <CoverCard
-                  강사={interestData[0].name}
-                  타이틀={interestData[0].title}
+                <LectureDialog
+                  강의ID={interestData[0].id}
+                  강사명={interestData[0].name}
+                  강의명={interestData[0].title}
                   가격={interestData[0].price}
+                  리뷰수={interestData[0].reviewCount}
+                  별점={interestData[0].averageScore ?? 0}
                   플랫폼={interestData[0].source}
+                  URL={interestData[0].url}
                   이미지={interestData[0].imageUrl}
-                />
+                  추천후기={
+                    interestData[0].reviews?.map((review) => {
+                      return {
+                        타이틀: interestData[0].title,
+                        작성자: review.nickname,
+                        별점: review.score,
+                        작성일: review.createdDate,
+                        내용: review.content,
+                        태그: review.tags.join(','),
+                        플랫폼: interestData[0].source,
+                      };
+                    }) ?? []
+                  }
+                  태그그룹={interestData[0].tagGroups ?? []}
+                >
+                  <CoverCard
+                    강사={interestData[0].name}
+                    타이틀={interestData[0].title}
+                    가격={interestData[0].price}
+                    플랫폼={interestData[0].source}
+                    이미지={interestData[0].imageUrl}
+                  />
+                </LectureDialog>
               )}
               <Swiper
                 className="main-vertical-carousel-bullet h-[272px] w-full"
@@ -262,14 +288,40 @@ function Home() {
               >
                 {reviewData?.map((item) => (
                   <SwiperSlide key={item.id}>
-                    <LandScapeCard
-                      강사={item.name}
-                      타이틀={item.title}
+                    <LectureDialog
+                      강의ID={item.id}
+                      강사명={item.name}
+                      강의명={item.title}
                       가격={item.price}
+                      리뷰수={item.reviewCount}
+                      별점={item.averageScore ?? 0}
                       플랫폼={item.source}
+                      URL={item.url}
                       이미지={item.imageUrl}
-                      후기수={item.reviewCount}
-                    />
+                      추천후기={
+                        item.reviews?.map((review) => {
+                          return {
+                            타이틀: item.title,
+                            작성자: review.nickname,
+                            별점: review.score,
+                            작성일: review.createdDate,
+                            내용: review.content,
+                            태그: review.tags.join(','),
+                            플랫폼: item.source,
+                          };
+                        }) ?? []
+                      }
+                      태그그룹={item.tagGroups ?? []}
+                    >
+                      <LandScapeCard
+                        강사={item.name}
+                        타이틀={item.title}
+                        가격={item.price}
+                        플랫폼={item.source}
+                        이미지={item.imageUrl}
+                        후기수={item.reviewCount}
+                      />
+                    </LectureDialog>
                   </SwiperSlide>
                 ))}
               </Swiper>
@@ -306,23 +358,53 @@ function Home() {
               >
                 {bookmarkData?.map((item) => (
                   <SwiperSlide key={item.id}>
-                    <LandScapeCard
-                      강사={item.name}
-                      타이틀={item.title}
+                    <LectureDialog
+                      강의ID={item.id}
+                      강사명={item.name}
+                      강의명={item.title}
                       가격={item.price}
+                      리뷰수={item.reviewCount}
+                      별점={item.averageScore ?? 0}
                       플랫폼={item.source}
+                      URL={item.url}
                       이미지={item.imageUrl}
-                      후기수={item.reviewCount}
-                    />
+                      추천후기={
+                        item.reviews?.map((review) => {
+                          return {
+                            타이틀: item.title,
+                            작성자: review.nickname,
+                            별점: review.score,
+                            작성일: review.createdDate,
+                            내용: review.content,
+                            태그: review.tags.join(','),
+                            플랫폼: item.source,
+                          };
+                        }) ?? []
+                      }
+                      태그그룹={item.tagGroups ?? []}
+                    >
+                      <LandScapeCard
+                        강사={item.name}
+                        타이틀={item.title}
+                        가격={item.price}
+                        플랫폼={item.source}
+                        이미지={item.imageUrl}
+                        후기수={item.reviewCount}
+                      />
+                    </LectureDialog>
                   </SwiperSlide>
                 ))}
               </Swiper>
             </div>
           </div>
           {/* 로그인하고 찜하러 가기 버튼 */}
-          <Button variant="outlined" size="md" className="mb-[140px] mt-[48px]">
-            로그인하고 찜하러 가기
-          </Button>
+          {isSignedIn ? (
+            <div className="mt-[48px]" />
+          ) : (
+            <Button asChild variant="outlined" size="md" className="mb-[140px] mt-[48px]">
+              <Link href="/login">로그인하고 찜하러 가기</Link>
+            </Button>
+          )}
         </div>
         <div className="absolute bottom-0 left-0" />
       </div>
