@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import CardShape from 'assets/icons/card/whitebg-large.svg';
 import Heart from 'assets/icons/heart-16.svg';
-import BigHeart from 'assets/icons/heart-24.svg';
 import Class101 from 'assets/icons/platform/class101-32.svg';
 import Coloso from 'assets/icons/platform/coloso-32.svg';
 import FastCampus from 'assets/icons/platform/fastcampus-32.svg';
@@ -9,7 +8,6 @@ import Inflearn from 'assets/icons/platform/inflearn-32.svg';
 import Star from 'assets/icons/rating/star.svg';
 import { Button } from 'components/ui/button';
 import { Card, CardProps } from 'components/ui/card';
-import { Toggle } from 'components/ui/toggle';
 
 interface SquareCardProps extends CardProps {
   작성자: string;
@@ -108,14 +106,9 @@ function SquareCard({
           <Heart className="fill-grayscale-300" /> {찜수}
         </div>
         {/* 좋아요 버튼 (임시) */}
-        <Toggle asChild pressed={좋아요} className="group/button relative bottom-0 left-0 w-full gap-[4px]">
-          <Button size="lg" variant="red" className="w-[305px]">
-            <BigHeart
-              className={`${좋아요 ? 'fill-red' : 'fill-grayscale-300'} transition-colors group-hover/button:fill-red`}
-            />
-            {좋아요 ? '좋아요 취소' : '좋아요'}
-          </Button>
-        </Toggle>
+        <Button variant="primary" size="lg" className="relative bottom-0 left-0 w-[305px] gap-[4px]">
+          강의 확인하러 가기
+        </Button>
       </div>
     </Card>
   );

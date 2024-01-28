@@ -1,10 +1,8 @@
 import Image from 'next/image';
-import Bookmark from 'assets/icons/bookmark.svg';
 import CardShape from 'assets/icons/card/whitebg.svg';
 import { TooltipIcon } from 'components/TooltipIcon';
 import { Badge } from 'components/ui/badge';
 import { Card, CardProps } from 'components/ui/card';
-import { Toggle } from 'components/ui/toggle';
 
 interface LandScapeCardProps extends CardProps {
   강사: string;
@@ -12,7 +10,7 @@ interface LandScapeCardProps extends CardProps {
   가격: string;
   플랫폼: string;
   이미지: string;
-  후기수: number;
+  후기수: number | undefined;
 }
 
 function LandScapeCard({
@@ -21,11 +19,14 @@ function LandScapeCard({
   가격 = '가격',
   플랫폼 = 'fastcampus',
   이미지 = '',
-  후기수 = 0,
+  후기수,
   ...props
 }: LandScapeCardProps) {
   return (
-    <Card className="group relative z-1 h-[264px] w-[275px] border border-grayscale-100 bg-cover p-16" {...props}>
+    <Card
+      className="group relative z-1 h-[264px] w-[275px] cursor-pointer border border-grayscale-100 bg-cover p-16"
+      {...props}
+    >
       {/* 배경 이미지 */}
       <div className="absolute left-0 top-0 z-[-1] h-full w-full transition-opacity">
         {이미지 ? (
@@ -40,12 +41,12 @@ function LandScapeCard({
         ) : null}
       </div>
       {/* 북마크 버튼 */}
-      <Toggle
+      {/* <Toggle
         asChild
         className="absolute right-[10px] top-[10px] z-1 hidden h-[24px] w-[24px] group-hover:block data-[state=on]:block"
       >
         <Bookmark className="fill-grayscale-500 hover:fill-blue-400 data-[state=on]:fill-blue-400" />
-      </Toggle>
+      </Toggle> */}
       {/* CardBody Shape */}
       <div className="absolute bottom-[-1px] left-[-2px] w-full">
         <CardShape />
@@ -77,14 +78,16 @@ function LandScapeCard({
         </div>
       </div>
       {/* 후기수 뱃지 */}
-      <div className="absolute bottom-[16px] right-[16px] cursor-pointer">
-        <div className="block group-hover:hidden">
-          <Badge variant="white">후기 {후기수}</Badge>
+      {후기수 ? (
+        <div className="absolute bottom-[16px] right-[16px] cursor-pointer">
+          <div className="block group-hover:hidden">
+            <Badge variant="white">후기 {후기수}</Badge>
+          </div>
+          <div className="hidden group-hover:block">
+            <Badge variant="blue">후기 작성하기</Badge>
+          </div>
         </div>
-        <div className="hidden group-hover:block">
-          <Badge variant="blue">후기 작성하기</Badge>
-        </div>
-      </div>
+      ) : null}
     </Card>
   );
 }
