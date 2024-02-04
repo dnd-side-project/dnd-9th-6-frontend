@@ -1,19 +1,20 @@
 'use client';
 
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import Cog from 'assets/icons/cog.svg';
 import Headset from 'assets/icons/headset.svg';
 import Logout from 'assets/icons/logout.svg';
-import Pencil from 'assets/icons/pencil.svg';
 import Symbol from 'assets/icons/symbol-transparant.svg';
-import { Button } from 'components/ui/button';
+import ChannelService from 'components/AppProvider/ChannelTalk';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from 'components/ui/form';
 import { Input } from 'components/ui/input';
 import { Separator } from 'components/ui/separator';
 import { Tabs, TabsList, TabsTrigger } from 'components/ui/tabs';
-import { ArrowRightIcon } from 'lucide-react';
+import { USER_ACCESS_TOKEN, USER_INFO, USER_REFRESH_TOKEN } from 'constants/account';
+import { removeFromLocalStorage } from 'hooks/storage';
 import { useForm } from 'react-hook-form';
+import { useAuthActions, useIsSignedIn } from 'store/auth';
 import { useUserEmail, useUserImageUrl, useUserName } from 'store/user';
 import { z } from 'zod';
 
@@ -21,6 +22,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 function Lectures() {
   const router = useRouter();
+  const pathname = usePathname();
+
+  const currentTabId = pathname?.split('/')[1];
 
   const userName = useUserName();
   const userEmail = useUserEmail();
@@ -39,6 +43,26 @@ function Lectures() {
 
   function onSubmit(data: z.infer<typeof FormSchema>) {}
 
+  const ChannelIO = ChannelService;
+
+  const isSignedIn = useIsSignedIn();
+
+  const { setIsTokenRequired, setIsSignedIn, setIsRequesting } = useAuthActions();
+
+  const handleSignOut = () => {
+    removeFromLocalStorage(USER_INFO);
+    removeFromLocalStorage(USER_ACCESS_TOKEN);
+    removeFromLocalStorage(USER_REFRESH_TOKEN);
+    setIsTokenRequired(false);
+    setIsSignedIn(false);
+    setIsRequesting(false);
+    router.refresh();
+  };
+
+  if (!isSignedIn) {
+    router.push('/');
+  }
+
   return (
     <div className="bg-gradient-main">
       <div className="container flex gap-[84px] py-[54px]">
@@ -48,7 +72,7 @@ function Lectures() {
           <div className="mb-24 H5-bold">
             안녕하세요, <span className="text-blue-500">{userName}</span>님!
           </div>
-          <Tabs className="bg-white shadow-card">
+          <Tabs className="bg-white shadow-card" value={currentTabId === 'my-profile' ? '내 프로필' : ''}>
             <TabsList className="flex w-[174px] flex-col gap-0">
               <TabsTrigger
                 value="내 프로필"
@@ -60,7 +84,7 @@ function Lectures() {
                   <p className="body3-bold">내 프로필</p>
                 </div>
               </TabsTrigger>
-              <TabsTrigger
+              {/* <TabsTrigger
                 value="내 후기"
                 asChild
                 className="justify-start text-grayscale-500 data-[state=active]:border-b-0 data-[state=active]:border-l-2 data-[state=active]:border-blue-500 data-[state=active]:bg-grayscale-50 data-[state=active]:text-blue-500"
@@ -69,10 +93,13 @@ function Lectures() {
                   <Pencil />
                   <p className="body3-bold">내 후기</p>
                 </div>
-              </TabsTrigger>
+              </TabsTrigger> */}
               <TabsTrigger
                 value="문의하기"
                 asChild
+                onClick={() => {
+                  ChannelIO.openChat();
+                }}
                 className="justify-start text-grayscale-500 data-[state=active]:border-b-0 data-[state=active]:border-l-2 data-[state=active]:border-blue-500 data-[state=active]:bg-grayscale-50 data-[state=active]:text-blue-500"
               >
                 <div className="flex cursor-pointer gap-8 px-16 py-12">
@@ -83,6 +110,7 @@ function Lectures() {
               <TabsTrigger
                 value="로그아웃"
                 asChild
+                onClick={handleSignOut}
                 className="justify-start text-grayscale-500 data-[state=active]:border-b-0 data-[state=active]:border-l-2 data-[state=active]:border-blue-500 data-[state=active]:bg-grayscale-50 data-[state=active]:text-blue-500"
               >
                 <div className="flex cursor-pointer gap-8 px-16 py-12">
@@ -109,7 +137,7 @@ function Lectures() {
                   <FormItem>
                     <FormLabel className="body2-bold">닉네임</FormLabel>
                     <FormControl>
-                      <Input placeholder="변경하실 닉네임을 입력하세요." defaultValue={userName} {...field} />
+                      <Input placeholder="변경하실 닉네임을 입력하세요." defaultValue={userName} disabled {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -120,7 +148,7 @@ function Lectures() {
                 name="account"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="body2-bold">닉네임</FormLabel>
+                    <FormLabel className="body2-bold">이메일</FormLabel>
                     <FormControl>
                       <Input className="bg-grayscale-50" defaultValue={userEmail} disabled {...field} />
                     </FormControl>
@@ -128,12 +156,12 @@ function Lectures() {
                   </FormItem>
                 )}
               />
-              <div className="mt-16 flex justify-end">
+              {/* <div className="mt-16 flex justify-end">
                 <Button className="px-16 py-8 body3-bold" variant="primary" size="md" type="submit">
                   변경하기
                   <ArrowRightIcon className="w-20" />
                 </Button>
-              </div>
+              </div> */}
             </form>
           </Form>
         </div>

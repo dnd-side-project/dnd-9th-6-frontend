@@ -59,7 +59,7 @@ function Scope() {
                     <br />
                     지금 탐색하러 가보실래요?
                   </span>
-                  <Link href="/lectures">
+                  <Link href="/lectures" scroll>
                     <Button variant="primary" size="lg">
                       강의 찜하러 가기
                     </Button>
