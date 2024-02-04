@@ -8,7 +8,7 @@ import Headset from 'assets/icons/headset.svg';
 import Logo from 'assets/icons/logo-black.svg';
 import LogoTextWhite from 'assets/icons/logo-text-white.svg';
 import Logout from 'assets/icons/logout.svg';
-import ChannelService from 'components/AppProvider/ChannelTalk';
+import ChannelTalk from 'components/AppProvider/ChannelTalk';
 import { Avatar, AvatarFallback, AvatarImage } from 'components/ui/avatar';
 import {
   DropdownMenu,
@@ -63,8 +63,6 @@ function TopBar() {
     setIsRequesting(false);
     router.refresh();
   };
-
-  const ChannelIO = ChannelService;
 
   return (
     <div
@@ -145,7 +143,7 @@ function TopBar() {
                 </DropdownMenuItem> */}
                 <DropdownMenuItem
                   onClick={() => {
-                    ChannelIO.openChat();
+                    ChannelTalk.openChat();
                   }}
                 >
                   <div className="flex gap-8 px-16 py-8">

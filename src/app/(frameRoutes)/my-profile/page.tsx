@@ -6,7 +6,7 @@ import Cog from 'assets/icons/cog.svg';
 import Headset from 'assets/icons/headset.svg';
 import Logout from 'assets/icons/logout.svg';
 import Symbol from 'assets/icons/symbol-transparant.svg';
-import ChannelService from 'components/AppProvider/ChannelTalk';
+import ChannelTalk from 'components/AppProvider/ChannelTalk';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from 'components/ui/form';
 import { Input } from 'components/ui/input';
 import { Separator } from 'components/ui/separator';
@@ -14,7 +14,7 @@ import { Tabs, TabsList, TabsTrigger } from 'components/ui/tabs';
 import { USER_ACCESS_TOKEN, USER_INFO, USER_REFRESH_TOKEN } from 'constants/account';
 import { removeFromLocalStorage } from 'hooks/storage';
 import { useForm } from 'react-hook-form';
-import { useAuthActions, useIsSignedIn } from 'store/auth';
+import { useAuthActions } from 'store/auth';
 import { useUserEmail, useUserImageUrl, useUserName } from 'store/user';
 import { z } from 'zod';
 
@@ -43,10 +43,6 @@ function Lectures() {
 
   function onSubmit(data: z.infer<typeof FormSchema>) {}
 
-  const ChannelIO = ChannelService;
-
-  const isSignedIn = useIsSignedIn();
-
   const { setIsTokenRequired, setIsSignedIn, setIsRequesting } = useAuthActions();
 
   const handleSignOut = () => {
@@ -58,10 +54,6 @@ function Lectures() {
     setIsRequesting(false);
     router.refresh();
   };
-
-  if (!isSignedIn) {
-    router.push('/');
-  }
 
   return (
     <div className="bg-gradient-main">
@@ -98,7 +90,7 @@ function Lectures() {
                 value="문의하기"
                 asChild
                 onClick={() => {
-                  ChannelIO.openChat();
+                  ChannelTalk.openChat();
                 }}
                 className="justify-start text-grayscale-500 data-[state=active]:border-b-0 data-[state=active]:border-l-2 data-[state=active]:border-blue-500 data-[state=active]:bg-grayscale-50 data-[state=active]:text-blue-500"
               >
