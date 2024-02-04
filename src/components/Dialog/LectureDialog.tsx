@@ -4,6 +4,7 @@ import React, { useMemo, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import BOOKMARK_API from 'apis/bookmark';
 import REVIEW_API from 'apis/review';
 import { ReviewRequest } from 'apis/review/types';
 import Bookmark2 from 'assets/icons/glass/bookmark.svg';
@@ -108,6 +109,8 @@ const LectureDialog = React.forwardRef<React.ElementRef<typeof DialogPrimitive.R
         }
       },
     });
+
+    const { mutate: postLike } = useMutation(BOOKMARK_API.post);
 
     const ReviewFormSchema = z.object({
       score: z.number({ required_error: '별점을 선택해주세요' }),
@@ -245,7 +248,16 @@ const LectureDialog = React.forwardRef<React.ElementRef<typeof DialogPrimitive.R
                   </Button>
                 </div>
                 <div>
-                  <Button className="flex items-center gap-[4px]" size="sm" variant="outlined">
+                  <Button
+                    className="flex items-center gap-[4px]"
+                    size="sm"
+                    variant="outlined"
+                    onClick={() => {
+                      const formData = new FormData();
+                      formData.append('lectureId', 강의ID.toString());
+                      postLike(formData);
+                    }}
+                  >
                     강의 찜하기
                     <Bookmark className="h-16 w-16" />
                   </Button>
