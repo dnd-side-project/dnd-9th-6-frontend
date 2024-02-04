@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Pentip from 'assets/icons/designlarge.svg';
 import Search from 'assets/icons/search.svg';
 import { LandScapeCard } from 'components/Card';
+import LectureDialog from 'components/Dialog/LectureDialog';
 import SideBar from 'components/SideBar';
 import { Input } from 'components/ui/input';
 import { RadioGroup, RadioGroupItem } from 'components/ui/radio-group';
@@ -85,6 +86,7 @@ function Lectures() {
                   {options?.sub.map((item) => {
                     return (
                       <RadioGroupItem
+                        variant="lecture"
                         key={item[0]}
                         value={item[0] as string}
                         id={item[0] as string}
@@ -157,15 +159,41 @@ function Lectures() {
           ) : (
             <div className="mt-12 grid grid-cols-3 gap-16">
               {lectures?.map((lecture) => (
-                <LandScapeCard
+                <LectureDialog
                   key={lecture.id}
-                  강사={lecture.name}
-                  타이틀={lecture.title}
+                  강의ID={lecture.id}
+                  강사명={lecture.name}
+                  강의명={lecture.title}
                   가격={lecture.price}
+                  리뷰수={lecture.reviewCount}
+                  별점={lecture.averageScore ?? 0}
                   플랫폼={lecture.source}
+                  URL={lecture.url}
                   이미지={lecture.imageUrl}
-                  후기수={lecture.reviewCount}
-                />
+                  추천후기={
+                    lecture.reviews?.map((review) => {
+                      return {
+                        타이틀: lecture.title,
+                        작성자: review.nickname,
+                        별점: review.score,
+                        작성일: review.createdDate,
+                        내용: review.content,
+                        태그: review.tags.join(','),
+                        플랫폼: lecture.source,
+                      };
+                    }) ?? []
+                  }
+                  태그그룹={lecture.tagGroups ?? []}
+                >
+                  <LandScapeCard
+                    강사={lecture.name}
+                    타이틀={lecture.title}
+                    가격={lecture.price}
+                    플랫폼={lecture.source}
+                    이미지={lecture.imageUrl}
+                    후기수={lecture.reviewCount}
+                  />
+                </LectureDialog>
               ))}
               <div ref={ref} />
             </div>

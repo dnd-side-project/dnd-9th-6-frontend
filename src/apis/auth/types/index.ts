@@ -7,3 +7,12 @@ import { UserInfo } from 'store/types/user';
 export interface SignInResponse extends GlobalResponse {
   data: UserInfo & Token;
 }
+
+export interface UpdateUserInfoRequest {
+  name: string;
+  interests: string[];
+}
+
+export interface PostInterestsRequest {
+  interests: string[];
+}

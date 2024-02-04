@@ -9,7 +9,7 @@ import { useUserActions } from 'store/user';
 
 import { useMutation } from '@tanstack/react-query';
 
-import { setLocalStorage, setSessionStorage } from './storage';
+import { setLocalStorage } from './storage';
 
 type SocialLoginProps = {
   platform: string;
@@ -27,11 +27,12 @@ const useSocialLogin = () => {
       setUserInfo(userInfoData);
       setLocalStorage(USER_INFO, JSON.stringify(userInfoData));
       setLocalStorage(USER_ACCESS_TOKEN, accessToken);
-      setSessionStorage(USER_REFRESH_TOKEN, refreshToken);
+      setLocalStorage(USER_REFRESH_TOKEN, refreshToken);
       setIsSignedIn(true);
       setIsTokenRequired(false);
       setIsRequesting(false);
-      router.push(ROUTES.HOME);
+      if (userInfoData.interests === '') router.push(ROUTES.ONBOARDING);
+      else router.push(ROUTES.HOME);
     },
     onError: () => {
       alert('로그인에 실패하였습니다.');

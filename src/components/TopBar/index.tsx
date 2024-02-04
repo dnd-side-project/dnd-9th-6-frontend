@@ -8,7 +8,7 @@ import Headset from 'assets/icons/headset.svg';
 import Logo from 'assets/icons/logo-black.svg';
 import LogoTextWhite from 'assets/icons/logo-text-white.svg';
 import Logout from 'assets/icons/logout.svg';
-import Pencil from 'assets/icons/pencil.svg';
+import ChannelService from 'components/AppProvider/ChannelTalk';
 import { Avatar, AvatarFallback, AvatarImage } from 'components/ui/avatar';
 import {
   DropdownMenu,
@@ -19,7 +19,7 @@ import {
   DropdownMenuTrigger,
 } from 'components/ui/dropdown-menu';
 import { USER_ACCESS_TOKEN, USER_INFO, USER_REFRESH_TOKEN } from 'constants/account';
-import { removeFromLocalStorage, removeFromSessionStorage } from 'hooks/storage';
+import { removeFromLocalStorage } from 'hooks/storage';
 import { Loader2 } from 'lucide-react';
 import { useAuthActions, useIsRequesting, useIsSignedIn } from 'store/auth';
 import { useUserEmail, useUserImageUrl, useUserName } from 'store/user';
@@ -57,12 +57,14 @@ function TopBar() {
   const handleSignOut = () => {
     removeFromLocalStorage(USER_INFO);
     removeFromLocalStorage(USER_ACCESS_TOKEN);
-    removeFromSessionStorage(USER_REFRESH_TOKEN);
+    removeFromLocalStorage(USER_REFRESH_TOKEN);
     setIsTokenRequired(false);
     setIsSignedIn(false);
     setIsRequesting(false);
     router.refresh();
   };
+
+  const ChannelIO = ChannelService;
 
   return (
     <div
@@ -131,7 +133,7 @@ function TopBar() {
                     <p className="text-grayscale-500 detail1-semibold">내 프로필</p>
                   </div>
                 </DropdownMenuItem>
-                <DropdownMenuItem
+                {/* <DropdownMenuItem
                   onClick={() => {
                     router.push('/my-profile');
                   }}
@@ -140,10 +142,10 @@ function TopBar() {
                     <Pencil />
                     <p className="text-grayscale-500 detail1-semibold">내 후기</p>
                   </div>
-                </DropdownMenuItem>
+                </DropdownMenuItem> */}
                 <DropdownMenuItem
                   onClick={() => {
-                    router.push('/my-profile');
+                    ChannelIO.openChat();
                   }}
                 >
                   <div className="flex gap-8 px-16 py-8">

@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation';
 import Book from 'assets/icons/glass/bookmark.svg';
 import SectionIcon from 'assets/icons/glass/bookmark2.svg';
 import Chat from 'assets/icons/glass/chat/purple.svg';
-import ProgrammingSmallIcon from 'assets/icons/glass/programming.svg';
 import Search from 'assets/icons/search.svg';
 import Banner from 'assets/images/banner.svg';
 import SectionBG from 'assets/images/section_bg.svg';
@@ -16,7 +15,9 @@ import { Button } from 'components/ui/button';
 import { Input } from 'components/ui/input';
 import { Separator } from 'components/ui/separator';
 import { CategoryData } from 'constants/category';
-import { useGetLecture, useGetLectureReviews, useGetLectures } from 'hooks/reactQuery/lectures/query';
+import { useGetLectures } from 'hooks/reactQuery/lectures/query';
+import { useIsSignedIn } from 'store/auth';
+import { useUserInterests, useUserName } from 'store/user';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -27,13 +28,17 @@ import 'swiper/css/navigation';
 function Home() {
   const router = useRouter();
   const [value, setValue] = useState('');
-  const [clickId, setClickId] = useState(0);
-  const [isOpen, setIsOpen] = useState(false);
+
+  const userName = useUserName();
+  const isSignedIn = useIsSignedIn();
+  const interests = useUserInterests();
+
+  const myInterest = CategoryData.filter((item) => item.main === interests.split(',')[0])[0];
 
   // 나의 관심분야
   const { data: interestData } = useGetLectures(
     {
-      mainCategoryId: 11,
+      mainCategoryId: myInterest?.id || 11,
     },
     {
       select(data) {
@@ -64,19 +69,6 @@ function Home() {
     }
   );
 
-  const { data: detailLectureData } = useGetLecture(clickId, {
-    enabled: isOpen,
-    select(data) {
-      return data?.data.data;
-    },
-  });
-
-  const { data: LectureReviewData } = useGetLectureReviews(clickId, {
-    enabled: isOpen,
-    select(data) {
-      return data?.data.data.reviews;
-    },
-  });
   return (
     <>
       {/* Top Section */}
@@ -141,31 +133,68 @@ function Home() {
             {/* 나의 관심분야 Description */}
             <div className="flex flex-col gap-[6px]">
               <div className=" text-blue-400 body2-bold">나의 관심분야</div>
-              <div className="H3-bold">000님을 위한</div>
-              <div className="flex items-center gap-8">
-                <div className="inline-flex items-center justify-center gap-8 rounded-[4px] border border-grayscale-100 bg-white p-8">
-                  <ProgrammingSmallIcon />
-                  <div className="text-blue-400 H5-bold">프로그래밍</div>
-                </div>
-                <div className="H3-bold">강의들을 모아놨어요!</div>
-              </div>
+              {isSignedIn ? (
+                <>
+                  <div className="H3-bold">{userName}님을 위한</div>
+                  <div className="flex items-center gap-8">
+                    <div className="inline-flex items-center justify-center gap-8 rounded-[4px] border border-grayscale-100 bg-white p-8">
+                      <div className="text-blue-400 H5-bold">{interests.split(',')[0]}</div>
+                    </div>
+                    <div className="H3-bold">강의들을 모아놨어요!</div>
+                  </div>
+                </>
+              ) : (
+                <div className="H3-bold">로그인하고 관심분야를 등록해보세요!</div>
+              )}
               <div className="flex items-center justify-between">
-                <div className="text-grayscale-400 body3-semibold">관심분야 기반으로 맞춤 추전을 받으세요!</div>
-                <Button variant="outlined" size="sm">
-                  관심분야 등록
+                <div className="text-grayscale-400 body3-semibold">관심분야 기반으로 맞춤 추천을 받으세요!</div>
+                <Button
+                  variant="outlined"
+                  size="sm"
+                  onClick={() => {
+                    router.push('/onboarding');
+                  }}
+                >
+                  {isSignedIn ? '관심분야 수정' : '관심분야 등록'}
                 </Button>
               </div>
             </div>
             {/* 배너 + 캐러셀 */}
             <div className="flex items-center justify-between gap-16">
               {interestData && (
-                <CoverCard
-                  강사={interestData[0].name}
-                  타이틀={interestData[0].title}
+                <LectureDialog
+                  강의ID={interestData[0].id}
+                  강사명={interestData[0].name}
+                  강의명={interestData[0].title}
                   가격={interestData[0].price}
+                  리뷰수={interestData[0].reviewCount}
+                  별점={interestData[0].averageScore ?? 0}
                   플랫폼={interestData[0].source}
+                  URL={interestData[0].url}
                   이미지={interestData[0].imageUrl}
-                />
+                  추천후기={
+                    interestData[0].reviews?.map((review) => {
+                      return {
+                        타이틀: interestData[0].title,
+                        작성자: review.nickname,
+                        별점: review.score,
+                        작성일: review.createdDate,
+                        내용: review.content,
+                        태그: review.tags.join(','),
+                        플랫폼: interestData[0].source,
+                      };
+                    }) ?? []
+                  }
+                  태그그룹={interestData[0].tagGroups ?? []}
+                >
+                  <CoverCard
+                    강사={interestData[0].name}
+                    타이틀={interestData[0].title}
+                    가격={interestData[0].price}
+                    플랫폼={interestData[0].source}
+                    이미지={interestData[0].imageUrl}
+                  />
+                </LectureDialog>
               )}
               <Swiper
                 className="main-vertical-carousel-bullet h-[272px] w-full"
@@ -184,41 +213,29 @@ function Home() {
                   interestData.map((item) => (
                     <SwiperSlide key={item.id}>
                       <LectureDialog
+                        강의ID={item.id}
                         강사명={item.name}
                         강의명={item.title}
                         가격={item.price}
                         리뷰수={item.reviewCount}
-                        별점={detailLectureData?.averageScore ?? 0}
+                        별점={item.averageScore ?? 0}
                         플랫폼={item.source}
+                        URL={item.url}
                         이미지={item.imageUrl}
                         추천후기={
-                          LectureReviewData?.map((review) => {
+                          item.reviews?.map((review) => {
                             return {
                               타이틀: item.title,
                               작성자: review.nickname,
                               별점: review.score,
                               작성일: review.createdDate,
                               내용: review.content,
-                              태그: review.tags.join(''),
+                              태그: review.tags.join(','),
                               플랫폼: item.source,
                             };
                           }) ?? []
                         }
-                        태그그룹={
-                          detailLectureData?.tagGroups.map((items) => {
-                            return items.tags.map((tag) => {
-                              return {
-                                태그이름: tag.name,
-                                태그수: tag.count,
-                              };
-                            });
-                          }) ?? []
-                        }
-                        contentProps={{
-                          onInteractOutside: () => {
-                            setIsOpen(false);
-                          },
-                        }}
+                        태그그룹={item.tagGroups ?? []}
                       >
                         <OutlinedCard
                           강사={item.name}
@@ -226,10 +243,6 @@ function Home() {
                           플랫폼={item.source}
                           이미지={item.imageUrl}
                           fixed
-                          onClick={() => {
-                            setClickId(item.id);
-                            setIsOpen(true);
-                          }}
                         />
                       </LectureDialog>
                       <Separator className="w-[458px]" />
@@ -275,14 +288,40 @@ function Home() {
               >
                 {reviewData?.map((item) => (
                   <SwiperSlide key={item.id}>
-                    <LandScapeCard
-                      강사={item.name}
-                      타이틀={item.title}
+                    <LectureDialog
+                      강의ID={item.id}
+                      강사명={item.name}
+                      강의명={item.title}
                       가격={item.price}
+                      리뷰수={item.reviewCount}
+                      별점={item.averageScore ?? 0}
                       플랫폼={item.source}
+                      URL={item.url}
                       이미지={item.imageUrl}
-                      후기수={item.reviewCount}
-                    />
+                      추천후기={
+                        item.reviews?.map((review) => {
+                          return {
+                            타이틀: item.title,
+                            작성자: review.nickname,
+                            별점: review.score,
+                            작성일: review.createdDate,
+                            내용: review.content,
+                            태그: review.tags.join(','),
+                            플랫폼: item.source,
+                          };
+                        }) ?? []
+                      }
+                      태그그룹={item.tagGroups ?? []}
+                    >
+                      <LandScapeCard
+                        강사={item.name}
+                        타이틀={item.title}
+                        가격={item.price}
+                        플랫폼={item.source}
+                        이미지={item.imageUrl}
+                        후기수={item.reviewCount}
+                      />
+                    </LectureDialog>
                   </SwiperSlide>
                 ))}
               </Swiper>
@@ -319,23 +358,53 @@ function Home() {
               >
                 {bookmarkData?.map((item) => (
                   <SwiperSlide key={item.id}>
-                    <LandScapeCard
-                      강사={item.name}
-                      타이틀={item.title}
+                    <LectureDialog
+                      강의ID={item.id}
+                      강사명={item.name}
+                      강의명={item.title}
                       가격={item.price}
+                      리뷰수={item.reviewCount}
+                      별점={item.averageScore ?? 0}
                       플랫폼={item.source}
+                      URL={item.url}
                       이미지={item.imageUrl}
-                      후기수={item.reviewCount}
-                    />
+                      추천후기={
+                        item.reviews?.map((review) => {
+                          return {
+                            타이틀: item.title,
+                            작성자: review.nickname,
+                            별점: review.score,
+                            작성일: review.createdDate,
+                            내용: review.content,
+                            태그: review.tags.join(','),
+                            플랫폼: item.source,
+                          };
+                        }) ?? []
+                      }
+                      태그그룹={item.tagGroups ?? []}
+                    >
+                      <LandScapeCard
+                        강사={item.name}
+                        타이틀={item.title}
+                        가격={item.price}
+                        플랫폼={item.source}
+                        이미지={item.imageUrl}
+                        후기수={item.reviewCount}
+                      />
+                    </LectureDialog>
                   </SwiperSlide>
                 ))}
               </Swiper>
             </div>
           </div>
           {/* 로그인하고 찜하러 가기 버튼 */}
-          <Button variant="outlined" size="md" className="mb-[140px] mt-[48px]">
-            로그인하고 찜하러 가기
-          </Button>
+          {isSignedIn ? (
+            <div className="mt-[48px]" />
+          ) : (
+            <Button asChild variant="outlined" size="md" className="mb-[140px] mt-[48px]">
+              <Link href="/login">로그인하고 찜하러 가기</Link>
+            </Button>
+          )}
         </div>
         <div className="absolute bottom-0 left-0" />
       </div>

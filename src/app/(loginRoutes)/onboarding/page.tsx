@@ -1,25 +1,34 @@
 'use client';
 
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import authApi from 'apis/auth';
 import Logo from 'assets/icons/logo-text-black.svg';
 import Symbol from 'assets/icons/symbol.svg';
 import { LoginCarousel } from 'components/Carousel';
 import { Button } from 'components/ui/button';
 import { CheckboxButton } from 'components/ui/checkbox-button';
 import { Form, FormControl, FormField, FormItem, FormMessage } from 'components/ui/form';
+import { USER_INFO } from 'constants/account';
 import { CategoryData } from 'constants/category';
+import { ROUTES } from 'constants/routes';
+import { getLocalStorage, setLocalStorage } from 'hooks/storage';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
 
 const page = () => {
+  const router = useRouter();
+  const userInfo = getLocalStorage(USER_INFO);
+
   const category = CategoryData.filter((v) => {
     return v.main !== '전체강의';
   });
 
   const FormSchema = z.object({
-    category: z
+    interests: z
       .array(z.string())
       .min(1, { message: '최소 한개 이상 선택해주세요 :)' })
       .max(2, { message: '최대 두개 이하로 선택해주세요 :)' }),
@@ -28,12 +37,31 @@ const page = () => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      category: [],
+      interests: [],
+    },
+  });
+
+  const { mutate } = useMutation(authApi.postInterests, {
+    onSuccess: () => {
+      router.push(ROUTES.HOME);
     },
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(JSON.stringify(data, null, 2));
+    mutate(
+      {
+        interests: data.interests,
+      },
+      {
+        onSuccess: () => {
+          setLocalStorage(
+            USER_INFO,
+            JSON.stringify({ ...JSON.parse(userInfo ?? ''), interests: data.interests.join(',') })
+          );
+          router.push(ROUTES.HOME);
+        },
+      }
+    );
   }
 
   return (
@@ -69,14 +97,14 @@ const page = () => {
               <form onSubmit={form.handleSubmit(onSubmit)}>
                 <FormField
                   control={form.control}
-                  name="category"
+                  name="interests"
                   render={() => (
                     <FormItem className="inline-flex flex-wrap gap-8">
                       {category.map((item) => (
                         <FormField
                           key={item.id}
                           control={form.control}
-                          name="category"
+                          name="interests"
                           render={({ field }) => {
                             return (
                               <FormItem key={item.id}>

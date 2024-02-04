@@ -1,5 +1,5 @@
 import { USER_ACCESS_TOKEN, USER_REFRESH_TOKEN } from 'constants/account';
-import { getLocalStorage, getSessionStorage } from 'hooks/storage';
+import { getLocalStorage } from 'hooks/storage';
 
 /**
  * Access Token이 만료되었는지 여부를 판단
@@ -13,7 +13,7 @@ export const isAccessTokenExpired = () => {
  * Refresh Token이 만료되었는지 여부를 판단
  */
 export const isRefreshTokenExpired = () => {
-  const refreshToken = getSessionStorage(USER_REFRESH_TOKEN);
+  const refreshToken = getLocalStorage(USER_REFRESH_TOKEN);
   return !refreshToken;
 };
 
@@ -22,6 +22,6 @@ export const isRefreshTokenExpired = () => {
  */
 export const isTokenNotExist = () => {
   const accessToken = getLocalStorage(USER_ACCESS_TOKEN);
-  const refreshToken = getSessionStorage(USER_REFRESH_TOKEN);
+  const refreshToken = getLocalStorage(USER_REFRESH_TOKEN);
   return !accessToken && !refreshToken;
 };

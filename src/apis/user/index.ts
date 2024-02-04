@@ -14,7 +14,7 @@ const userApi = {
    */
   patch: async (param: Partial<UpdateUserInfo>) => {
     return instance.patch<UpdateUserInfo>(USER_API.UPDATE_USER_INFO, {
-      nickName: param.nickName,
+      name: param.name,
       interests: param.interests,
     });
   },

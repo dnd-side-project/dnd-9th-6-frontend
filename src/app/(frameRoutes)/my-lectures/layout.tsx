@@ -1,6 +1,6 @@
 export async function generateMetadata() {
   return {
-    title: '스코프',
+    title: '찜한 강의',
   };
 }
 

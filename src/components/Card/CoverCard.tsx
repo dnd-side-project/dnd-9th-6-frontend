@@ -25,7 +25,7 @@ function CoverCard({
 }: CoverCardProps) {
   return (
     <Card
-      className="group relative z-1 h-[263px] w-[557px] gap-[4px] rounded-[4px] bg-grayscale-800 bg-cover px-16 py-24"
+      className="group relative z-1 h-[263px] w-[557px] cursor-pointer gap-[4px] rounded-[4px] bg-grayscale-800 bg-cover px-16 py-24"
       {...props}
     >
       {/* 배경 이미지 */}
