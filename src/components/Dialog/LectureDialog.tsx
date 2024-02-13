@@ -110,7 +110,23 @@ const LectureDialog = React.forwardRef<React.ElementRef<typeof DialogPrimitive.R
       },
     });
 
-    const { mutate: postLike } = useMutation(BOOKMARK_API.post);
+    const { mutate: postLike } = useMutation(BOOKMARK_API.post, {
+      onSuccess: () => {
+        alert('강의 찜 완료 :D');
+        queryClient.invalidateQueries({ queryKey: ['lectures'] });
+      },
+      onError: () => {
+        const formData = new FormData();
+        formData.append('lectureId', 강의ID.toString());
+        deleteLike(formData);
+      },
+    });
+    const { mutate: deleteLike } = useMutation(BOOKMARK_API.delete, {
+      onSuccess: () => {
+        alert('강의 찜 취소 :(');
+        queryClient.invalidateQueries({ queryKey: ['lectures'] });
+      },
+    });
 
     const ReviewFormSchema = z.object({
       score: z.number({ required_error: '별점을 선택해주세요' }),

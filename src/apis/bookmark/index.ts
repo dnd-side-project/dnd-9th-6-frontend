@@ -1,8 +1,6 @@
-import { ReviewsResponse } from 'apis/review/types';
-
 import instance from '..';
 
-import { BookmarkParams, BookmarkResponse } from './types';
+import { BookmarkResponse } from './types';
 
 const BOOKMARK_API_URL = '/auth/bookmark';
 
@@ -17,8 +15,8 @@ const BOOKMARK_API = {
       },
     });
   },
-  delete: async (params: BookmarkParams) => {
-    return instance.delete<ReviewsResponse>(BOOKMARK_API_URL, { data: params });
+  delete: async (params: FormData) => {
+    return instance.delete(BOOKMARK_API_URL, { data: params });
   },
 };
 

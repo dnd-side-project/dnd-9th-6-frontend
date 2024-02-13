@@ -27,7 +27,7 @@ const REVIEW_API = {
    * @header Authorization: JWT Token
    * @param reviewId 후기 ID
    */
-  delete: async (reviewId: string) => instance.delete(REVIEW_API_URL, { data: { reviewId } }),
+  delete: async (data: ReviewRequest) => instance.delete(REVIEW_API_URL, { data }),
 
   /**
    * 후기 좋아요 토글
