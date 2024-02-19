@@ -116,11 +116,10 @@ const LectureDialog = React.forwardRef<React.ElementRef<typeof DialogPrimitive.R
         queryClient.invalidateQueries({ queryKey: ['lectures'] });
       },
       onError: () => {
-        const formData = new FormData();
-        formData.append('lectureId', 강의ID.toString());
-        deleteLike(formData);
+        deleteLike(강의ID.toString());
       },
     });
+
     const { mutate: deleteLike } = useMutation(BOOKMARK_API.delete, {
       onSuccess: () => {
         alert('강의 찜 취소 :(');

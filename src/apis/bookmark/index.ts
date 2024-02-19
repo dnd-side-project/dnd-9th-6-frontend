@@ -15,8 +15,8 @@ const BOOKMARK_API = {
       },
     });
   },
-  delete: async (params: FormData) => {
-    return instance.delete(BOOKMARK_API_URL, { data: params });
+  delete: async (params: string) => {
+    return instance.delete(`${BOOKMARK_API_URL}?lectureId=${params}`);
   },
 };
 
