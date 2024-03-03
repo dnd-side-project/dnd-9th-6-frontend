@@ -67,7 +67,7 @@ export const SquareCardExample: StoryObj<typeof SquareCard> = {
     이미지: 'https://storage.googleapis.com/static.fastcampus.co.kr/prod/uploads/202308/132817-865/thumb--1-.jpg',
     플랫폼: 'fastcampus',
     찜수: 100,
-    좋아요: true,
+    강의명: '김코딩의 자바스크립트 강의',
   },
   render: (args) => <SquareCard {...args} />,
 };
