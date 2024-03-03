@@ -6,7 +6,6 @@ import Coloso from 'assets/icons/platform/coloso-32.svg';
 import FastCampus from 'assets/icons/platform/fastcampus-32.svg';
 import Inflearn from 'assets/icons/platform/inflearn-32.svg';
 import Star from 'assets/icons/rating/star.svg';
-import { Button } from 'components/ui/button';
 import { Card, CardProps } from 'components/ui/card';
 
 interface SquareCardProps extends CardProps {
@@ -18,7 +17,7 @@ interface SquareCardProps extends CardProps {
   이미지: string;
   플랫폼: string;
   찜수: number;
-  좋아요: boolean;
+  강의명: string;
 }
 
 function SquareCard({
@@ -30,11 +29,14 @@ function SquareCard({
   이미지 = '',
   플랫폼 = '',
   찜수 = 0,
-  좋아요 = false,
+  강의명 = '',
   ...props
 }: SquareCardProps) {
   return (
-    <Card className="group relative h-[364px] w-[305px] border border-grayscale-100 bg-grayscale-50" {...props}>
+    <Card
+      className="group relative h-[364px] w-[305px] overflow-hidden border border-grayscale-100 bg-grayscale-50"
+      {...props}
+    >
       {/* 배경 이미지 */}
       <div className="absolute left-0 top-0 h-full w-full">
         {이미지 ? (
@@ -49,7 +51,7 @@ function SquareCard({
         ) : null}
       </div>
       {/* 플랫폼 아이콘 */}
-      <div className="absolute left-[16px] top-[72px] z-1">
+      <div className="absolute left-[16px] top-[112px] z-1">
         {(() => {
           switch (플랫폼) {
             case 'fastcampus':
@@ -66,7 +68,7 @@ function SquareCard({
         })()}
       </div>
       {/* CardBody Shape */}
-      <div className="absolute bottom-0 left-[-1px] w-full">
+      <div className="absolute bottom-[-40px] left-[-1px] w-full">
         <CardShape />
       </div>
       {/* CardBody */}
@@ -103,12 +105,9 @@ function SquareCard({
         </div>
         {/* 찜수 Text */}
         <div className="flex h-[35px] w-full items-center justify-end gap-[2px] p-8 text-grayscale-300 detail1-semibold">
-          <Heart className="fill-grayscale-300" /> {찜수}
+          <span>{강의명}</span>
+          <Heart className="shrink-0 fill-grayscale-300" /> {찜수}
         </div>
-        {/* 좋아요 버튼 (임시) */}
-        <Button variant="primary" size="lg" className="relative bottom-0 left-0 w-[305px] gap-[4px]">
-          강의 확인하러 가기
-        </Button>
       </div>
     </Card>
   );

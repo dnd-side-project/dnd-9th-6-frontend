@@ -5,7 +5,6 @@ import BookMark from 'assets/icons/glass/bookmark.svg';
 import Logo from 'assets/icons/logo-gray.svg';
 import { LandScapeCard } from 'components/Card';
 import { Button } from 'components/ui/button';
-import { Separator } from 'components/ui/separator';
 import { useGetBookmark } from 'hooks/reactQuery/bookmark/query';
 import { useUserInfo } from 'store/user';
 
@@ -25,7 +24,6 @@ function Scope() {
     <div className="h-full bg-gradient-main">
       <div className="container px-[54px]">
         <div className="mt-[40px] flex w-full justify-between">
-          {/* 별점 높은 수강 후기들 섹션 */}
           <div className="inline-flex w-full flex-col text-grayscale-800">
             <div className="mb-16 inline-flex">
               <BookMark />
@@ -35,7 +33,7 @@ function Scope() {
               </div>
             </div>
             {bookmark ? (
-              <div className="flex flex-col gap-[14px]">
+              <div className="mt-12 grid grid-cols-3 gap-16">
                 {bookmark?.map((item) => (
                   <>
                     <LandScapeCard
@@ -46,7 +44,6 @@ function Scope() {
                       이미지={item.lectureImageUrl}
                       후기수={undefined}
                     />
-                    <Separator />
                   </>
                 ))}
               </div>
@@ -66,7 +63,7 @@ function Scope() {
                   </Link>
                 </div>
               </div>
-            )}{' '}
+            )}
           </div>
         </div>
       </div>

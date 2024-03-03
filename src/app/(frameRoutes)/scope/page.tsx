@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Fire from 'assets/icons/glass/fire/purple.svg';
 import Like from 'assets/icons/glass/like.svg';
@@ -113,20 +114,20 @@ function Scope() {
               <Medal />
               <div className="ml-8 H5-bold">별점 높은 수강 후기들</div>
             </div>
-            <Swiper
-              className="h-[678px] [--swiper-pagination-bottom:0px] [--swiper-pagination-color:bg-blue-500] [--swiper-pagination-left:auto] [--swiper-pagination-right:0px] [--swiper-pagination-top:auto]"
-              direction="vertical"
-              slidesPerView={3}
-              spaceBetween={16}
-              autoplay={{
-                delay: 3000,
-                disableOnInteraction: false,
-              }}
-              modules={[Autoplay]}
-              allowTouchMove={false}
-            >
-              {scopeSuccess &&
-                scopeReviews?.data?.map((item) => (
+            {scopeSuccess && scopeReviews?.data.length > 0 ? (
+              <Swiper
+                className="h-[678px] [--swiper-pagination-bottom:0px] [--swiper-pagination-color:bg-blue-500] [--swiper-pagination-left:auto] [--swiper-pagination-right:0px] [--swiper-pagination-top:auto]"
+                direction="vertical"
+                slidesPerView={3}
+                spaceBetween={16}
+                autoplay={{
+                  delay: 3000,
+                  disableOnInteraction: false,
+                }}
+                modules={[Autoplay]}
+                allowTouchMove={false}
+              >
+                {scopeReviews?.data?.map((item) => (
                   <SwiperSlide key={item.id}>
                     <HorizontalCard
                       타이틀={item.lectureTitle}
@@ -139,7 +140,23 @@ function Scope() {
                     />
                   </SwiperSlide>
                 ))}
-            </Swiper>
+              </Swiper>
+            ) : (
+              <div className="flex w-full flex-col items-center justify-center">
+                <div className="flex flex-col items-center justify-center">
+                  <span className="my-[72px] text-center text-grayscale-800 body2-medium">
+                    아직 해당 관심분야에 별점 높은 강의가 없어요,
+                    <br />
+                    지금 별점 주러 가보실래요?
+                  </span>
+                  <Link href="/lectures" scroll>
+                    <Button variant="primary" size="lg">
+                      강의 별점주러 가기
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            )}
           </div>
           {/* 강의력 좋은 섹션 */}
           <div className="flex w-[389px] flex-col">
@@ -147,20 +164,37 @@ function Scope() {
               <Like />
               <div className="ml-8 H5-bold">강의력 좋은</div>
             </div>
-            <div className="flex flex-col gap-[14px]">
-              {scopeLectures?.data?.map((item) => (
-                <>
-                  <OutlinedCard
-                    key={item.id}
-                    강사={item.name === '' ? item.source : item.name}
-                    타이틀={item.title}
-                    플랫폼={item.source}
-                    이미지={item.imageUrl}
-                  />
-                  <Separator />
-                </>
-              ))}
-            </div>
+            {scopeLectures?.data?.length ?? -1 > 0 ? (
+              <div className="flex flex-col gap-[14px]">
+                {scopeLectures?.data?.map((item) => (
+                  <>
+                    <OutlinedCard
+                      key={item.id}
+                      강사={item.name === '' ? item.source : item.name}
+                      타이틀={item.title}
+                      플랫폼={item.source}
+                      이미지={item.imageUrl}
+                    />
+                    <Separator />
+                  </>
+                ))}
+              </div>
+            ) : (
+              <div className="flex w-full flex-col items-center justify-center">
+                <div className="flex flex-col items-center justify-center">
+                  <span className="my-[72px] text-center text-grayscale-800 body2-medium">
+                    아직 해당 관심분야에 강의력 좋은 강의가 없어요,
+                    <br />
+                    지금 평가 해보러가실래요?
+                  </span>
+                  <Link href="/lectures" scroll>
+                    <Button variant="primary" size="lg">
+                      강의 평가하러러가기
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            )}
           </div>
         </div>
         {/* Class Review 섹션 */}
@@ -197,7 +231,7 @@ function Scope() {
                 이미지={item.lecture.imageUrl}
                 플랫폼={item.lecture.source}
                 찜수={item.review.likes}
-                좋아요={item.isAddLike}
+                강의명={item.lecture.title}
               />
             </SwiperSlide>
           ))}

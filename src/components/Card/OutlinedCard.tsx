@@ -21,12 +21,7 @@ function OutlinedCard({
   ...props
 }: OutlinedCardProps) {
   return (
-    <div
-      className={`flex h-[88px] ${
-        fixed ? 'w-[458px]' : 'w-full'
-      } cursor-pointer items-start gap-8 bg-transparent p-8 hover:bg-white`}
-      {...props}
-    >
+    <div className={`flex h-[88px] ${fixed ? 'w-[458px]' : 'w-full'} items-start gap-8 bg-transparent p-8`} {...props}>
       {/* 이미지 */}
       <div className="h-[72px] w-[103px] bg-cover bg-no-repeat" style={{ backgroundImage: `url(${이미지})` }} />
 
