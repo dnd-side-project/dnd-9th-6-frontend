@@ -32,7 +32,7 @@ function Scope() {
                 님이 찜한 강의
               </div>
             </div>
-            {bookmark ? (
+            {bookmark?.length !== 0 ? (
               <div className="mt-12 grid grid-cols-3 gap-16">
                 {bookmark?.map((item) => (
                   <>
